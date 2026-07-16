@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Uday Infra - Hospital Infrastructure Experts</title>
+    <title>Uday Infra - Architecture | Interior Design | Construction</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
@@ -191,6 +191,14 @@
         .logo-text span {
             color: var(--secondary);
         }
+        .logo-tagline {
+            font-size: 11px;
+            color: var(--gray-500);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: -2px;
+        }
 
         .nav {
             display: flex;
@@ -273,6 +281,16 @@
             color: var(--secondary);
             position: relative;
         }
+        .hero-content .hero-tagline {
+            display: inline-block;
+            background: var(--secondary-light);
+            color: var(--secondary);
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
         .hero-content p {
             font-size: 18px;
             color: var(--gray-500);
@@ -325,7 +343,7 @@
             box-shadow: var(--shadow-xl);
         }
         .hero-image .image-placeholder::after {
-            content: '🏥';
+            content: '🏗️';
             font-size: 80px;
             opacity: 0.1;
             position: absolute;
@@ -354,7 +372,7 @@
             left: -20px;
         }
 
-        /* ===== CLIENTS / TRUST BAR ===== */
+        /* ===== TRUST BAR ===== */
         .trust-bar {
             padding: 40px 0;
             background: #fff;
@@ -507,7 +525,7 @@
             box-shadow: var(--shadow-lg);
         }
         .about-image::after {
-            content: '🏗️';
+            content: '🏛️';
             font-size: 120px;
             opacity: 0.1;
             position: absolute;
@@ -527,6 +545,48 @@
         .about-content .feature-item i {
             color: var(--secondary);
             font-size: 20px;
+        }
+
+        /* ===== CONTACT INFO BAR ===== */
+        .contact-info-bar {
+            padding: 30px 0;
+            background: var(--primary);
+            color: #fff;
+        }
+        .contact-info-bar .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .contact-info-bar .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .contact-info-bar .info-item .icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .contact-info-bar .info-item .text {
+            font-size: 14px;
+        }
+        .contact-info-bar .info-item .text strong {
+            display: block;
+            font-size: 16px;
+        }
+        .contact-info-bar .info-item .text a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .contact-info-bar .info-item .text a:hover {
+            color: var(--secondary);
         }
 
         /* ===== TESTIMONIALS ===== */
@@ -683,6 +743,15 @@
             background: var(--secondary);
             color: #fff;
         }
+        .footer .contact-details a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer .contact-details a i {
+            width: 20px;
+            color: var(--secondary);
+        }
         .footer-bottom {
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 24px;
@@ -697,6 +766,9 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .contact-info-bar .container {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -763,6 +835,14 @@
             .hero-image .floating-card {
                 display: none;
             }
+
+            .contact-info-bar .container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .contact-info-bar .info-item {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -773,7 +853,10 @@
     <div class="container header-inner">
         <a href="#" class="logo">
             <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-            <div class="logo-text" style="display:none;">UDAY <span>INFRA</span></div>
+            <div style="display:none;">
+                <div class="logo-text">UDAY <span>INFRA</span></div>
+                <span class="logo-tagline">Architecture | Interior | Construction</span>
+            </div>
         </a>
         <nav class="nav" id="mainNav">
             <a href="#home">Home</a>
@@ -793,9 +876,9 @@
 <section class="hero" id="home">
     <div class="container hero-grid">
         <div class="hero-content">
-            <span class="section-badge">Leading Infrastructure Partner</span>
-            <h1>Building the Future of <span class="highlight">Healthcare</span> Infrastructure</h1>
-            <p>Uday Infra is a premier hospital construction company offering end-to-end design, MEP, turnkey, and PMC services across India.</p>
+            <div class="hero-tagline">🏗️ Architecture | Interior Design | Construction</div>
+            <h1>Building the Future of <span class="highlight">Infrastructure</span> with Excellence</h1>
+            <p>Uday Infra is a premier architecture, interior design, and construction company delivering end-to-end solutions for residential, commercial, and healthcare projects.</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn-primary">
                     <i class="fas fa-arrow-right"></i> Get a Quote
@@ -819,11 +902,11 @@
         </div>
         <div class="hero-image">
             <div class="image-placeholder">
-                <span>Healthcare Infrastructure Experts</span>
+                <span>Architecture & Construction Experts</span>
             </div>
             <div class="floating-card">
                 <i class="fas fa-award" style="color: var(--secondary);"></i>
-                NABH Compliant
+                Quality Assured
             </div>
             <div class="floating-card">
                 <i class="fas fa-clock" style="color: var(--secondary);"></i>
@@ -833,16 +916,43 @@
     </div>
 </section>
 
+<!-- ===== CONTACT INFO BAR ===== -->
+<section class="contact-info-bar" id="contact">
+    <div class="container">
+        <div class="info-item">
+            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="text">
+                <strong>Visit Us</strong>
+                Plot no 9, Road no 1, Bank colony,<br />Suchitra circle, Hyderabad - 55
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="icon"><i class="fas fa-phone"></i></div>
+            <div class="text">
+                <strong>Call Us</strong>
+                <a href="tel:+918185853338">+91 8185853338</a> / <a href="tel:+918074355594">+91 8074355594</a>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="icon"><i class="fas fa-envelope"></i></div>
+            <div class="text">
+                <strong>Email Us</strong>
+                <a href="mailto:info@udayinfra.com">info@udayinfra.com</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ===== TRUST BAR ===== -->
 <section class="trust-bar">
     <div class="container">
-        <span class="trust-label">Trusted by leading healthcare providers</span>
+        <span class="trust-label">Trusted by leading clients</span>
         <div class="logos">
-            <span>🏥 Apollo</span>
-            <span>🏥 Fortis</span>
-            <span>🏥 AIIMS</span>
-            <span>🏥 Max</span>
-            <span>🏥 Manipal</span>
+            <span>🏢 Residential</span>
+            <span>🏥 Healthcare</span>
+            <span>🏬 Commercial</span>
+            <span>🏛️ Institutional</span>
+            <span>🏗️ Industrial</span>
         </div>
     </div>
 </section>
@@ -853,43 +963,43 @@
         <div class="section-header">
             <span class="section-badge">What We Offer</span>
             <h2 class="section-title">Our <span>Core Services</span></h2>
-            <p class="section-subtitle">Comprehensive solutions for modern healthcare facilities, from concept to commissioning.</p>
+            <p class="section-subtitle">Comprehensive architecture, interior design, and construction solutions for all your infrastructure needs.</p>
         </div>
         <div class="services-grid">
             <div class="service-card">
+                <div class="icon">🏛️</div>
+                <h4>Architecture Design</h4>
+                <p>Innovative architectural designs, 3D visualizations, and planning for residential, commercial, and healthcare projects.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">🪑</div>
+                <h4>Interior Design</h4>
+                <p>Modern interior design solutions including modular furniture, false ceiling, flooring, lighting, and complete fit-outs.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
                 <div class="icon">🏗️</div>
-                <h4>Architecture & Design</h4>
-                <p>Innovative 3D designs, NABH compliant planning, and patient-centric layouts for optimal healthcare delivery.</p>
-                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="service-card">
-                <div class="icon">⚡</div>
-                <h4>MEP Engineering</h4>
-                <p>HVAC, electrical (LT/HT), plumbing, medical gasses, and fire safety systems for healthcare facilities.</p>
-                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="service-card">
-                <div class="icon">🔧</div>
-                <h4>Turnkey Construction</h4>
-                <p>End-to-end execution from concept to commissioning with comprehensive project management services.</p>
+                <h4>Construction</h4>
+                <p>End-to-end construction services with quality materials, skilled labor, and strict adherence to safety standards.</p>
                 <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="service-card">
                 <div class="icon">📋</div>
-                <h4>PMC Services</h4>
+                <h4>Project Management</h4>
                 <p>Professional project management consultancy for cost-effective, timely delivery with quality assurance.</p>
                 <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="service-card">
                 <div class="icon">🖥️</div>
-                <h4>Interior & Fit-outs</h4>
-                <p>Modular OT, ICU setup, medical furniture, and all interior services for complete healthcare facilities.</p>
+                <h4>3D Visualization</h4>
+                <p>Stunning 3D renderings, walkthroughs, and virtual tours to help you visualize your project before construction.</p>
                 <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="service-card">
                 <div class="icon">✅</div>
-                <h4>NABH & Compliance</h4>
-                <p>Ensure your facility meets all national healthcare standards and regulatory requirements.</p>
+                <h4>Turnkey Solutions</h4>
+                <p>Complete turnkey solutions from concept to completion, handling every aspect of your project seamlessly.</p>
                 <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -904,14 +1014,14 @@
         </div>
         <div class="about-content">
             <span class="section-badge">About Us</span>
-            <h2 class="section-title">Building Excellence in <span>Healthcare</span></h2>
+            <h2 class="section-title">Building Excellence in <span>Architecture & Construction</span></h2>
             <p style="color: var(--gray-500); line-height: 1.8; font-size: 16px;">
-                Uday Infra is a pioneering construction company dedicated to healthcare infrastructure development. 
-                With a focus on quality, innovation, and patient-centric planning, we deliver comprehensive solutions 
-                for hospitals, clinics, and medical facilities across India.
+                Uday Infra is a pioneering architecture, interior design, and construction company dedicated to delivering 
+                exceptional infrastructure solutions. With a focus on quality, innovation, and client satisfaction, we provide 
+                comprehensive services for residential, commercial, healthcare, and institutional projects across Hyderabad and beyond.
             </p>
             <div class="about-features">
-                <div class="feature-item"><i class="fas fa-check-circle"></i> NABH Compliant Designs</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> Innovative Designs</div>
                 <div class="feature-item"><i class="fas fa-check-circle"></i> Experienced Team</div>
                 <div class="feature-item"><i class="fas fa-check-circle"></i> Quality Assurance</div>
                 <div class="feature-item"><i class="fas fa-check-circle"></i> On-Time Delivery</div>
@@ -931,39 +1041,39 @@
         <div class="section-header">
             <span class="section-badge">Testimonials</span>
             <h2 class="section-title">What Our <span>Clients Say</span></h2>
-            <p class="section-subtitle">Real feedback from healthcare partners who trusted us with their projects.</p>
+            <p class="section-subtitle">Real feedback from clients who trusted us with their projects.</p>
         </div>
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <blockquote>"Uday Infra transformed our vision into a state-of-the-art hospital. Their expertise in medical infrastructure is unmatched."</blockquote>
+                <blockquote>"Uday Infra delivered our dream home with exceptional quality and attention to detail. Their design sense and execution are top-notch."</blockquote>
                 <div class="author">
-                    <div class="avatar">AS</div>
+                    <div class="avatar">RK</div>
                     <div class="info">
-                        <h5>Dr. A. Sharma</h5>
-                        <p>Director, City Hospital</p>
+                        <h5>Mr. R. Kumar</h5>
+                        <p>Homeowner, Hyderabad</p>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <blockquote>"Professional, punctual, and highly skilled team. They delivered our project ahead of schedule with top-notch quality."</blockquote>
+                <blockquote>"Professional and highly skilled team. They completed our commercial project ahead of schedule with outstanding quality."</blockquote>
                 <div class="author">
-                    <div class="avatar">RR</div>
+                    <div class="avatar">SR</div>
                     <div class="info">
-                        <h5>Mr. R. Reddy</h5>
-                        <p>Managing Partner, HealthCare Plus</p>
+                        <h5>Ms. S. Reddy</h5>
+                        <p>Business Owner, Hyderabad</p>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <blockquote>"The NABH compliance guidance and turnkey execution made Uday Infra our go-to partner for all future projects."</blockquote>
+                <blockquote>"Uday Infra's expertise in architecture and interior design transformed our office space. Highly recommended for any construction project."</blockquote>
                 <div class="author">
-                    <div class="avatar">SI</div>
+                    <div class="avatar">PV</div>
                     <div class="info">
-                        <h5>Ms. S. Iyer</h5>
-                        <p>CEO, MediNova Group</p>
+                        <h5>Dr. P. Verma</h5>
+                        <p>Clinic Owner, Hyderabad</p>
                     </div>
                 </div>
             </div>
@@ -972,11 +1082,11 @@
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="cta" id="contact">
+<section class="cta">
     <div class="container">
-        <h2>Ready to Build Your <span style="color: var(--secondary);">Healthcare</span> Project?</h2>
+        <h2>Ready to Build Your <span style="color: var(--secondary);">Dream Project</span>?</h2>
         <p>Let's discuss your requirements and turn your vision into reality. Get a free consultation today.</p>
-        <a href="#" class="btn-primary">
+        <a href="#contact" class="btn-primary">
             <i class="fas fa-phone"></i> Contact Us Now
         </a>
     </div>
@@ -991,7 +1101,7 @@
                     <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none';" />
                     <div class="logo-text" style="color:#fff; display:inline-block;">UDAY <span>INFRA</span></div>
                 </a>
-                <p>Leading hospital construction and infrastructure company in India. We build healthcare with precision and care.</p>
+                <p>Leading architecture, interior design, and construction company in Hyderabad. We build with precision, passion, and perfection.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1010,21 +1120,23 @@
             </div>
             <div>
                 <h4>Services</h4>
-                <a href="#">Architecture & Design</a>
-                <a href="#">MEP Engineering</a>
-                <a href="#">Turnkey Construction</a>
-                <a href="#">PMC Services</a>
-                <a href="#">Interior & Fit-outs</a>
+                <a href="#">Architecture Design</a>
+                <a href="#">Interior Design</a>
+                <a href="#">Construction</a>
+                <a href="#">Project Management</a>
+                <a href="#">3D Visualization</a>
+                <a href="#">Turnkey Solutions</a>
             </div>
-            <div>
-                <h4>Contact</h4>
+            <div class="contact-details">
+                <h4>Contact Us</h4>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Plot no 9, Road no 1, Bank colony, Suchitra circle, Hyderabad - 55</a>
+                <a href="tel:+918185853338"><i class="fas fa-phone"></i> +91 8185853338</a>
+                <a href="tel:+918074355594"><i class="fas fa-phone"></i> +91 8074355594</a>
                 <a href="mailto:info@udayinfra.com"><i class="fas fa-envelope"></i> info@udayinfra.com</a>
-                <a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 Uday Infra. All rights reserved. | Designed for healthcare excellence
+            © 2026 Uday Infra. All rights reserved. | Architecture | Interior Design | Construction
         </div>
     </div>
 </footer>

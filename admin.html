@@ -95,6 +95,12 @@
         .sidebar-brand .brand-text span {
             color: var(--secondary);
         }
+        .sidebar-brand .brand-tagline {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: -2px;
+        }
 
         .sidebar-nav {
             padding: 20px 12px;
@@ -622,7 +628,10 @@
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
         <img src="images/logo.JPG" alt="Uday Infra" onerror="this.style.display='none';" />
-        <div class="brand-text">UDAY <span>INFRA</span></div>
+        <div>
+            <div class="brand-text">UDAY <span>INFRA</span></div>
+            <span class="brand-tagline">Architecture | Interior | Construction</span>
+        </div>
     </div>
     <nav class="sidebar-nav">
         <div class="nav-label">Main Menu</div>
@@ -763,7 +772,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Trends in Hospital Design 2026</strong></td>
+                            <td><strong>Trends in Architecture Design 2026</strong></td>
                             <td>Design</td>
                             <td>Admin</td>
                             <td>10 Jul 2026</td>
@@ -774,8 +783,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>NABH Compliance Checklist</strong></td>
-                            <td>Compliance</td>
+                            <td><strong>Modern Interior Design Ideas</strong></td>
+                            <td>Interior</td>
                             <td>Admin</td>
                             <td>02 Jul 2026</td>
                             <td><span class="status-badge draft"><i class="fas fa-circle"></i> Draft</span></td>
@@ -785,8 +794,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Modular OT – Best Practices</strong></td>
-                            <td>Infrastructure</td>
+                            <td><strong>Sustainable Construction Practices</strong></td>
+                            <td>Construction</td>
                             <td>Admin</td>
                             <td>28 Jun 2026</td>
                             <td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td>
@@ -796,8 +805,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>ICU Design & Setup Guide</strong></td>
-                            <td>Healthcare</td>
+                            <td><strong>Residential Project Planning Guide</strong></td>
+                            <td>Residential</td>
                             <td>Admin</td>
                             <td>15 Jun 2026</td>
                             <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
@@ -833,9 +842,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Dr. A. Sharma</strong></td>
-                            <td>City Hospital</td>
-                            <td>"Expert and timely delivery."</td>
+                            <td><strong>Mr. R. Kumar</strong></td>
+                            <td>Homeowner</td>
+                            <td>"Exceptional quality and attention to detail."</td>
                             <td><span class="rating-stars">★★★★★</span></td>
                             <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
                             <td style="text-align:right;">
@@ -844,21 +853,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Mr. R. Reddy</strong></td>
-                            <td>HealthCare Plus</td>
-                            <td>"Top-notch quality and support."</td>
+                            <td><strong>Ms. S. Reddy</strong></td>
+                            <td>Business Owner</td>
+                            <td>"Outstanding quality and professional team."</td>
+                            <td><span class="rating-stars">★★★★★</span></td>
+                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dr. P. Verma</strong></td>
+                            <td>Clinic Owner</td>
+                            <td>"Expertise in architecture and interior design."</td>
                             <td><span class="rating-stars">★★★★☆</span></td>
-                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ms. S. Iyer</strong></td>
-                            <td>MediNova Group</td>
-                            <td>"Excellent NABH compliance support."</td>
-                            <td><span class="rating-stars">★★★★★</span></td>
                             <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
                             <td style="text-align:right;">
                                 <button class="btn-sm success"><i class="fas fa-edit"></i></button>
@@ -875,11 +884,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Client Name *</label>
-                        <input type="text" placeholder="Dr. S. Gupta" />
+                        <input type="text" placeholder="Mr. S. Gupta" />
                     </div>
                     <div class="form-group">
-                        <label>Company / Hospital</label>
-                        <input type="text" placeholder="Apex Medical" />
+                        <label>Company / Organization</label>
+                        <input type="text" placeholder="ABC Constructions" />
                     </div>
                     <div class="form-group">
                         <label>Rating *</label>
