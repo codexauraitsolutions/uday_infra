@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uday Infra - Hospital Infrastructure Experts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #0a2b4e;
+            --primary-light: #1a4068;
+            --primary-dark: #061a30;
+            --secondary: #e85d3a;
+            --secondary-hover: #d14a2a;
+            --secondary-light: #fde8e2;
+            --accent: #2d9cdb;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f4f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.10);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography */
+        .section-badge {
+            display: inline-block;
+            background: var(--secondary-light);
+            color: var(--secondary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .section-title span {
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--gray-500);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--secondary);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background: var(--secondary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(232, 93, 58, 0.35);
+        }
+
+        .btn-secondary {
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(10, 43, 78, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            padding: 13px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav a:hover {
+            color: var(--secondary);
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+        .nav .btn-primary {
+            padding: 10px 28px;
+            font-size: 14px;
+        }
+        .nav .btn-primary::after {
+            display: none;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232, 93, 58, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content h1 {
+            font-size: 54px;
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .hero-content h1 .highlight {
+            color: var(--secondary);
+            position: relative;
+        }
+        .hero-content p {
+            font-size: 18px;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+            max-width: 520px;
+            line-height: 1.8;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-200);
+        }
+        .hero-stats .stat-item h3 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .hero-stats .stat-item p {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+        .hero-image .image-placeholder::after {
+            content: '🏥';
+            font-size: 80px;
+            opacity: 0.1;
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+        }
+        .hero-image .floating-card {
+            position: absolute;
+            background: #fff;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+        .hero-image .floating-card:nth-child(2) {
+            top: -20px;
+            right: -20px;
+        }
+        .hero-image .floating-card:nth-child(3) {
+            bottom: -10px;
+            left: -20px;
+        }
+
+        /* ===== CLIENTS / TRUST BAR ===== */
+        .trust-bar {
+            padding: 40px 0;
+            background: #fff;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .trust-bar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .trust-bar .trust-label {
+            font-weight: 600;
+            color: var(--gray-500);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .trust-bar .logos {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .trust-bar .logos span {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--gray-400);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+        .trust-bar .logos span:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            padding: 100px 0;
+            background: #fff;
+        }
+        .services .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .services .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .service-card {
+            background: #fff;
+            padding: 36px 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .service-card .icon {
+            width: 64px;
+            height: 64px;
+            background: var(--secondary-light);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+        .service-card:hover .icon {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .service-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .service-card p {
+            color: var(--gray-500);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .service-card .learn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: var(--transition);
+        }
+        .service-card .learn-more:hover {
+            gap: 12px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 100px 0;
+            background: var(--gray-50);
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-image {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius-lg);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .about-image::after {
+            content: '🏗️';
+            font-size: 120px;
+            opacity: 0.1;
+            position: absolute;
+        }
+        .about-content .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .about-content .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .about-content .feature-item i {
+            color: var(--secondary);
+            font-size: 20px;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 100px 0;
+            background: #fff;
+        }
+        .testimonials .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .testimonials .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: var(--gray-50);
+            padding: 32px 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .testimonial-card .stars {
+            color: #f39c12;
+            margin-bottom: 12px;
+        }
+        .testimonial-card blockquote {
+            font-size: 16px;
+            color: var(--gray-700);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testimonial-card .author .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--secondary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        .testimonial-card .author .info h5 {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 15px;
+        }
+        .testimonial-card .author .info p {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            text-align: center;
+        }
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .cta p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .cta .btn-primary {
+            background: #fff;
+            color: var(--primary);
+        }
+        .cta .btn-primary:hover {
+            background: var(--gray-100);
+            color: var(--primary);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-400);
+            padding: 60px 0 30px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .logo img {
+            height: 40px;
+        }
+        .footer-brand .logo-text {
+            color: #fff;
+        }
+        .footer-brand p {
+            margin-top: 16px;
+            max-width: 300px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .footer h4 {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .footer a {
+            color: var(--gray-400);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+        .footer .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .footer .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        .footer .social-links a:hover {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 24px;
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: var(--shadow-md);
+                gap: 16px;
+            }
+            .nav.active {
+                display: flex;
+            }
+            .nav a::after {
+                display: none;
+            }
+
+            .hero-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 60px 0 40px;
+            }
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            .hero-stats {
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+            .hero-stats .stat-item h3 {
+                font-size: 28px;
+            }
+
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-content .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image .floating-card {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+    <div class="container header-inner">
+        <a href="#" class="logo">
+            <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="logo-text" style="display:none;">UDAY <span>INFRA</span></div>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact" class="btn-primary">Get a Quote</a>
+        </nav>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <span class="section-badge">Leading Infrastructure Partner</span>
+            <h1>Building the Future of <span class="highlight">Healthcare</span> Infrastructure</h1>
+            <p>Uday Infra is a premier hospital construction company offering end-to-end design, MEP, turnkey, and PMC services across India.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i> Get a Quote
+                </a>
+                <a href="#services" class="btn-outline">Explore Services</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Expert Team</p>
+                </div>
+                <div class="stat-item">
+                    <h3>8+</h3>
+                    <p>Years Experience</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="image-placeholder">
+                <span>Healthcare Infrastructure Experts</span>
+            </div>
+            <div class="floating-card">
+                <i class="fas fa-award" style="color: var(--secondary);"></i>
+                NABH Compliant
+            </div>
+            <div class="floating-card">
+                <i class="fas fa-clock" style="color: var(--secondary);"></i>
+                On-Time Delivery
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<section class="trust-bar">
+    <div class="container">
+        <span class="trust-label">Trusted by leading healthcare providers</span>
+        <div class="logos">
+            <span>🏥 Apollo</span>
+            <span>🏥 Fortis</span>
+            <span>🏥 AIIMS</span>
+            <span>🏥 Max</span>
+            <span>🏥 Manipal</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">What We Offer</span>
+            <h2 class="section-title">Our <span>Core Services</span></h2>
+            <p class="section-subtitle">Comprehensive solutions for modern healthcare facilities, from concept to commissioning.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">🏗️</div>
+                <h4>Architecture & Design</h4>
+                <p>Innovative 3D designs, NABH compliant planning, and patient-centric layouts for optimal healthcare delivery.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">⚡</div>
+                <h4>MEP Engineering</h4>
+                <p>HVAC, electrical (LT/HT), plumbing, medical gasses, and fire safety systems for healthcare facilities.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">🔧</div>
+                <h4>Turnkey Construction</h4>
+                <p>End-to-end execution from concept to commissioning with comprehensive project management services.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">📋</div>
+                <h4>PMC Services</h4>
+                <p>Professional project management consultancy for cost-effective, timely delivery with quality assurance.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">🖥️</div>
+                <h4>Interior & Fit-outs</h4>
+                <p>Modular OT, ICU setup, medical furniture, and all interior services for complete healthcare facilities.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <div class="icon">✅</div>
+                <h4>NABH & Compliance</h4>
+                <p>Ensure your facility meets all national healthcare standards and regulatory requirements.</p>
+                <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+    <div class="container about-grid">
+        <div class="about-image">
+            <span>About Uday Infra</span>
+        </div>
+        <div class="about-content">
+            <span class="section-badge">About Us</span>
+            <h2 class="section-title">Building Excellence in <span>Healthcare</span></h2>
+            <p style="color: var(--gray-500); line-height: 1.8; font-size: 16px;">
+                Uday Infra is a pioneering construction company dedicated to healthcare infrastructure development. 
+                With a focus on quality, innovation, and patient-centric planning, we deliver comprehensive solutions 
+                for hospitals, clinics, and medical facilities across India.
+            </p>
+            <div class="about-features">
+                <div class="feature-item"><i class="fas fa-check-circle"></i> NABH Compliant Designs</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> Experienced Team</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> Quality Assurance</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> On-Time Delivery</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> Cost-Effective Solutions</div>
+                <div class="feature-item"><i class="fas fa-check-circle"></i> Turnkey Execution</div>
+            </div>
+            <a href="#contact" class="btn-secondary" style="margin-top: 30px;">
+                <i class="fas fa-arrow-right"></i> Learn More About Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Testimonials</span>
+            <h2 class="section-title">What Our <span>Clients Say</span></h2>
+            <p class="section-subtitle">Real feedback from healthcare partners who trusted us with their projects.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <blockquote>"Uday Infra transformed our vision into a state-of-the-art hospital. Their expertise in medical infrastructure is unmatched."</blockquote>
+                <div class="author">
+                    <div class="avatar">AS</div>
+                    <div class="info">
+                        <h5>Dr. A. Sharma</h5>
+                        <p>Director, City Hospital</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <blockquote>"Professional, punctual, and highly skilled team. They delivered our project ahead of schedule with top-notch quality."</blockquote>
+                <div class="author">
+                    <div class="avatar">RR</div>
+                    <div class="info">
+                        <h5>Mr. R. Reddy</h5>
+                        <p>Managing Partner, HealthCare Plus</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <blockquote>"The NABH compliance guidance and turnkey execution made Uday Infra our go-to partner for all future projects."</blockquote>
+                <div class="author">
+                    <div class="avatar">SI</div>
+                    <div class="info">
+                        <h5>Ms. S. Iyer</h5>
+                        <p>CEO, MediNova Group</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="contact">
+    <div class="container">
+        <h2>Ready to Build Your <span style="color: var(--secondary);">Healthcare</span> Project?</h2>
+        <p>Let's discuss your requirements and turn your vision into reality. Get a free consultation today.</p>
+        <a href="#" class="btn-primary">
+            <i class="fas fa-phone"></i> Contact Us Now
+        </a>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none';" />
+                    <div class="logo-text" style="color:#fff; display:inline-block;">UDAY <span>INFRA</span></div>
+                </a>
+                <p>Leading hospital construction and infrastructure company in India. We build healthcare with precision and care.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#testimonials">Testimonials</a>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <a href="#">Architecture & Design</a>
+                <a href="#">MEP Engineering</a>
+                <a href="#">Turnkey Construction</a>
+                <a href="#">PMC Services</a>
+                <a href="#">Interior & Fit-outs</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="mailto:info@udayinfra.com"><i class="fas fa-envelope"></i> info@udayinfra.com</a>
+                <a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Hyderabad, India</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Uday Infra. All rights reserved. | Designed for healthcare excellence
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav = document.getElementById('mainNav');
+    mobileToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Close mobile nav
+                mainNav.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uday Infra - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #0a2b4e;
+            --primary-light: #1a4068;
+            --primary-dark: #061a30;
+            --secondary: #e85d3a;
+            --secondary-hover: #d14a2a;
+            --secondary-light: #fde8e2;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f4f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.10);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 280px;
+            --header-height: 72px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .sidebar-brand {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar-brand img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+        .sidebar-brand .brand-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .sidebar-brand .brand-text span {
+            color: var(--secondary);
+        }
+
+        .sidebar-nav {
+            padding: 20px 12px;
+            flex: 1;
+        }
+        .sidebar-nav .nav-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.35);
+            padding: 8px 12px;
+            margin-top: 8px;
+        }
+        .sidebar-nav .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+        .sidebar-nav .nav-item:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .sidebar-nav .nav-item.active {
+            background: var(--secondary);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(232, 93, 58, 0.3);
+        }
+        .sidebar-nav .nav-item i {
+            width: 22px;
+            font-size: 18px;
+        }
+        .sidebar-nav .nav-item .badge {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .sidebar-nav .nav-item.active .badge {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== TOP HEADER ===== */
+        .top-header {
+            height: var(--header-height);
+            background: #fff;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        .top-header .left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .top-header .left .toggle-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+        .top-header .left h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .top-header .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .top-header .right .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--gray-50);
+            border-radius: 50px;
+            padding: 8px 16px;
+            gap: 10px;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+        .top-header .right .search-box:focus-within {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(232, 93, 58, 0.1);
+        }
+        .top-header .right .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+            color: var(--gray-700);
+            width: 200px;
+        }
+        .top-header .right .search-box input::placeholder {
+            color: var(--gray-400);
+        }
+        .top-header .right .search-box i {
+            color: var(--gray-400);
+        }
+        .top-header .right .notif-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray-600);
+            cursor: pointer;
+            padding: 8px;
+        }
+        .top-header .right .notif-btn .dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+        .top-header .right .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 4px 12px 4px 4px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .top-header .right .admin-profile:hover {
+            background: var(--gray-50);
+        }
+        .top-header .right .admin-profile .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .top-header .right .admin-profile .info {
+            line-height: 1.3;
+        }
+        .top-header .right .admin-profile .info .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--gray-800);
+        }
+        .top-header .right .admin-profile .info .role {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        /* ===== PAGE CONTENT ===== */
+        .page-content {
+            padding: 32px;
+            flex: 1;
+        }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 24px 28px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        .stat-card.blue::before { background: var(--primary); }
+        .stat-card.orange::before { background: var(--secondary); }
+        .stat-card.green::before { background: var(--success); }
+        .stat-card.purple::before { background: #8b5cf6; }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .stat-card .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .stat-card .top .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .stat-card .top .stat-icon.blue { background: #e8edf5; color: var(--primary); }
+        .stat-card .top .stat-icon.orange { background: var(--secondary-light); color: var(--secondary); }
+        .stat-card .top .stat-icon.green { background: #eaf6f0; color: var(--success); }
+        .stat-card .top .stat-icon.purple { background: #f0ebff; color: #8b5cf6; }
+
+        .stat-card .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-top: 8px;
+        }
+        .stat-card .stat-label {
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+        .stat-card .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+            padding: 2px 10px;
+            border-radius: 30px;
+        }
+        .stat-card .stat-change.up { color: var(--success); background: #eaf6f0; }
+        .stat-card .stat-change.down { color: var(--danger); background: #fde8e8; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            transition: var(--transition);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .card-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .card-header .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-sm.primary {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .btn-sm.primary:hover {
+            background: var(--secondary-hover);
+        }
+        .btn-sm.secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+        .btn-sm.secondary:hover {
+            background: var(--gray-200);
+        }
+        .btn-sm.success {
+            background: #eaf6f0;
+            color: var(--success);
+        }
+        .btn-sm.success:hover {
+            background: #d5ede4;
+        }
+        .btn-sm.danger {
+            background: #fde8e8;
+            color: var(--danger);
+        }
+        .btn-sm.danger:hover {
+            background: #fcd5d5;
+        }
+        .btn-sm.outline {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-600);
+        }
+        .btn-sm.outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ===== TABLES ===== */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        thead {
+            background: var(--gray-50);
+        }
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: var(--gray-600);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background: var(--gray-50);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-badge.published { background: #eaf6f0; color: var(--success); }
+        .status-badge.draft { background: var(--gray-100); color: var(--gray-500); }
+        .status-badge.pending { background: #fef3e2; color: var(--warning); }
+        .status-badge.archived { background: #fde8e8; color: var(--danger); }
+
+        .rating-stars {
+            color: #f39c12;
+            letter-spacing: 2px;
+        }
+
+        /* ===== FORM PROTOTYPE ===== */
+        .form-prototype {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 20px;
+            border: 1px dashed var(--gray-300);
+        }
+        .form-prototype .form-title {
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+        .form-prototype .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-prototype .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 4px;
+        }
+        .form-prototype .form-group input,
+        .form-prototype .form-group select,
+        .form-prototype .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-300);
+            font-size: 14px;
+            font-family: inherit;
+            transition: var(--transition);
+            background: #fff;
+        }
+        .form-prototype .form-group input:focus,
+        .form-prototype .form-group select:focus,
+        .form-prototype .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(232, 93, 58, 0.1);
+        }
+        .form-prototype .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .top-header .left .toggle-sidebar {
+                display: block;
+            }
+            .top-header .right .search-box {
+                display: none;
+            }
+            .top-header .right .admin-profile .info {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .page-content {
+                padding: 16px;
+            }
+            .card {
+                padding: 16px;
+            }
+            .top-header {
+                padding: 0 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-prototype .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR OVERLAY ===== -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <img src="images/logo.JPG" alt="Uday Infra" onerror="this.style.display='none';" />
+        <div class="brand-text">UDAY <span>INFRA</span></div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-label">Main Menu</div>
+        <a href="#" class="nav-item active">
+            <i class="fas fa-th-large"></i> Dashboard
+            <span class="badge">12</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-file-alt"></i> Blogs
+            <span class="badge">24</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-comment"></i> Testimonials
+            <span class="badge">18</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-project-diagram"></i> Projects
+            <span class="badge">32</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-users"></i> Team Members
+            <span class="badge">15</span>
+        </a>
+
+        <div class="nav-label" style="margin-top:16px;">Management</div>
+        <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user-cog"></i> Users
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-chart-line"></i> Analytics
+        </a>
+    </nav>
+    <div class="sidebar-footer">
+        <i class="fas fa-circle" style="color: var(--success); font-size: 10px;"></i> Admin v2.0
+    </div>
+</aside>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="left">
+            <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h2>Dashboard</h2>
+        </div>
+        <div class="right">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search..." />
+            </div>
+            <button class="notif-btn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="dot"></span>
+            </button>
+            <div class="admin-profile">
+                <div class="avatar">A</div>
+                <div class="info">
+                    <div class="name">Admin User</div>
+                    <div class="role">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="top">
+                    <div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Total Blogs</div>
+                    </div>
+                    <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+                </div>
+                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 12% this month</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="top">
+                    <div>
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Testimonials</div>
+                    </div>
+                    <div class="stat-icon orange"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 8% this month</div>
+            </div>
+            <div class="stat-card green">
+                <div class="top">
+                    <div>
+                        <div class="stat-number">32</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-icon green"><i class="fas fa-project-diagram"></i></div>
+                </div>
+                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5% this month</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="top">
+                    <div>
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Avg. Rating</div>
+                    </div>
+                    <div class="stat-icon purple"><i class="fas fa-thumbs-up"></i></div>
+                </div>
+                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 0.3 increase</div>
+            </div>
+        </div>
+
+        <!-- Blog Management -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-file-alt" style="color: var(--secondary);"></i> Blog Management</h3>
+                <div class="actions">
+                    <button class="btn-sm primary"><i class="fas fa-plus"></i> Add New Blog</button>
+                    <button class="btn-sm secondary"><i class="fas fa-filter"></i> Filter</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th style="text-align:right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trends in Hospital Design 2026</strong></td>
+                            <td>Design</td>
+                            <td>Admin</td>
+                            <td>10 Jul 2026</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>NABH Compliance Checklist</strong></td>
+                            <td>Compliance</td>
+                            <td>Admin</td>
+                            <td>02 Jul 2026</td>
+                            <td><span class="status-badge draft"><i class="fas fa-circle"></i> Draft</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modular OT – Best Practices</strong></td>
+                            <td>Infrastructure</td>
+                            <td>Admin</td>
+                            <td>28 Jun 2026</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>ICU Design & Setup Guide</strong></td>
+                            <td>Healthcare</td>
+                            <td>Admin</td>
+                            <td>15 Jun 2026</td>
+                            <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Testimonial Management + Add Form -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-star" style="color: var(--secondary);"></i> Testimonial Management</h3>
+                <div class="actions">
+                    <button class="btn-sm primary" id="toggleFormBtn"><i class="fas fa-plus"></i> Add New Testimonial</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Company</th>
+                            <th>Review</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                            <th style="text-align:right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dr. A. Sharma</strong></td>
+                            <td>City Hospital</td>
+                            <td>"Expert and timely delivery."</td>
+                            <td><span class="rating-stars">★★★★★</span></td>
+                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mr. R. Reddy</strong></td>
+                            <td>HealthCare Plus</td>
+                            <td>"Top-notch quality and support."</td>
+                            <td><span class="rating-stars">★★★★☆</span></td>
+                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ms. S. Iyer</strong></td>
+                            <td>MediNova Group</td>
+                            <td>"Excellent NABH compliance support."</td>
+                            <td><span class="rating-stars">★★★★★</span></td>
+                            <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
+                            <td style="text-align:right;">
+                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
+                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add Testimonial Form Prototype -->
+            <div class="form-prototype" id="testimonialForm" style="display:none;">
+                <div class="form-title"><i class="fas fa-plus-circle" style="color: var(--secondary);"></i> Add New Testimonial</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Client Name *</label>
+                        <input type="text" placeholder="Dr. S. Gupta" />
+                    </div>
+                    <div class="form-group">
+                        <label>Company / Hospital</label>
+                        <input type="text" placeholder="Apex Medical" />
+                    </div>
+                    <div class="form-group">
+                        <label>Rating *</label>
+                        <select>
+                            <option>⭐⭐⭐⭐⭐ (5)</option>
+                            <option>⭐⭐⭐⭐ (4)</option>
+                            <option>⭐⭐⭐ (3)</option>
+                            <option>⭐⭐ (2)</option>
+                            <option>⭐ (1)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Review / Testimonial *</label>
+                        <textarea placeholder="Write the client's feedback here..."></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn-sm primary"><i class="fas fa-check"></i> Publish Testimonial</button>
+                    <button class="btn-sm secondary"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px;">
+            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
+                <div style="font-size:32px; margin-bottom:8px;">📝</div>
+                <div style="font-weight:600; color: var(--gray-700);">Quick Blog</div>
+                <div style="font-size:13px; color: var(--gray-500);">Create a new post</div>
+            </div>
+            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
+                <div style="font-size:32px; margin-bottom:8px;">💬</div>
+                <div style="font-weight:600; color: var(--gray-700);">Add Testimonial</div>
+                <div style="font-size:13px; color: var(--gray-500);">Collect client feedback</div>
+            </div>
+            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
+                <div style="font-size:32px; margin-bottom:8px;">🏗️</div>
+                <div style="font-weight:600; color: var(--gray-700);">New Project</div>
+                <div style="font-size:13px; color: var(--gray-500);">Start a new project</div>
+            </div>
+            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
+                <div style="font-size:32px; margin-bottom:8px;">📊</div>
+                <div style="font-weight:600; color: var(--gray-700);">View Reports</div>
+                <div style="font-size:13px; color: var(--gray-500);">Analytics & insights</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Mobile sidebar toggle
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+    }
+
+    toggleBtn.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+
+    // Close sidebar on nav item click (mobile)
+    document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        });
+    });
+
+    // Toggle testimonial form
+    const toggleFormBtn = document.getElementById('toggleFormBtn');
+    const testimonialForm = document.getElementById('testimonialForm');
+
+    toggleFormBtn.addEventListener('click', () => {
+        const isHidden = testimonialForm.style.display === 'none';
+        testimonialForm.style.display = isHidden ? 'block' : 'none';
+        toggleFormBtn.innerHTML = isHidden ? '<i class="fas fa-times"></i> Close Form' : '<i class="fas fa-plus"></i> Add New Testimonial';
+    });
+
+    // Active nav state
+    document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            document.querySelectorAll('.sidebar-nav .nav-item').forEach(n => n.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Close dropdowns on outside click (basic)
+    document.addEventListener('click', function(e) {
+        // Close mobile sidebar if clicking outside
+        if (window.innerWidth <= 768) {
+            const isSidebar = sidebar.contains(e.target);
+            const isToggle = toggleBtn.contains(e.target);
+            if (!isSidebar && !isToggle && sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
