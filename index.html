@@ -870,8 +870,8 @@
 <header class="header" id="header">
     <div class="container header-inner">
         <a href="#" class="logo">
-            <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none';" />
-            <div class="logo-text">
+            <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.parentElement.querySelector('.logo-text').style.display='flex'; this.style.display='none';" />
+            <div class="logo-text" style="display:none;">
                 <span class="brand-name">UDAY <span>INFRA</span></span>
                 <span class="brand-tagline">Architecture | Interior | Construction</span>
             </div>
@@ -1116,8 +1116,8 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo">
-                    <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.style.display='none';" />
-                    <div class="logo-text">
+                    <img src="images/full_logo.JPG" alt="Uday Infra Logo" onerror="this.parentElement.querySelector('.logo-text').style.display='flex'; this.style.display='none';" />
+                    <div class="logo-text" style="display:none;">
                         <span class="brand-name">UDAY <span>INFRA</span></span>
                         <span class="brand-tagline">Architecture | Interior | Construction</span>
                     </div>
@@ -1195,6 +1195,22 @@
                 const icon = mobileToggle.querySelector('i');
                 icon.classList.add('fa-bars');
                 icon.classList.remove('fa-times');
+            }
+        });
+    });
+
+    // Force logo visibility check
+    document.querySelectorAll('.logo img').forEach(img => {
+        img.addEventListener('load', function() {
+            this.style.display = 'block';
+            if (this.parentElement.querySelector('.logo-text')) {
+                this.parentElement.querySelector('.logo-text').style.display = 'none';
+            }
+        });
+        img.addEventListener('error', function() {
+            this.style.display = 'none';
+            if (this.parentElement.querySelector('.logo-text')) {
+                this.parentElement.querySelector('.logo-text').style.display = 'flex';
             }
         });
     });
