@@ -1,1020 +1,1070 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Uday Infra - Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        :root {
-            --primary: #0a2b4e;
-            --primary-light: #1a4068;
-            --primary-dark: #061a30;
-            --secondary: #e85d3a;
-            --secondary-hover: #d14a2a;
-            --secondary-light: #fde8e2;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --gray-50: #f8fafc;
-            --gray-100: #f1f4f9;
-            --gray-200: #e2e8f0;
-            --gray-300: #cbd5e1;
-            --gray-400: #94a3b8;
-            --gray-500: #64748b;
-            --gray-600: #475569;
-            --gray-700: #334155;
-            --gray-800: #1e293b;
-            --gray-900: #0f172a;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.10);
-            --radius: 12px;
-            --radius-lg: 20px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --sidebar-width: 280px;
-            --header-height: 72px;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Uday Infra — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  :root{
+    --navy-950:#060f1f;
+    --navy-900:#0a1f3d;
+    --navy-800:#0f2d52;
+    --navy-700:#164070;
+    --navy-600:#20548c;
+    --sky-400:#6fa3d6;
+    --dawn-300:#f6cd83;
+    --dawn-400:#eeae52;
+    --dawn-500:#e39a34;
+    --dawn-600:#c17d1f;
+    --cream:#faf6ef;
+    --paper:#f2ede2;
+    --ink:#0e2038;
+    --slate:#4c5d75;
+    --slate-light:#8695ab;
+    --line:#e7e1d3;
+    --success:#1f9d68;
+    --success-bg:#e7f7ef;
+    --warning:#c17d1f;
+    --warning-bg:#fbf1de;
+    --danger:#d34848;
+    --danger-bg:#fbe9e9;
+    --shadow-sm:0 1px 3px rgba(9,25,48,0.06);
+    --shadow-md:0 8px 26px rgba(9,25,48,0.09);
+    --shadow-lg:0 20px 50px rgba(9,25,48,0.16);
+    --radius:10px;
+    --radius-lg:16px;
+    --transition:all 0.25s cubic-bezier(.4,0,.2,1);
+    --sidebar-width:272px;
+    --header-height:72px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;}
+  ::selection{background:var(--dawn-300); color:var(--navy-950);}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-            display: flex;
-            min-height: 100vh;
-        }
+  /* ============ LOGIN SCREEN ============ */
+  #loginScreen{
+    position:fixed; inset:0; z-index:1000;
+    display:grid; grid-template-columns:1fr 1fr;
+    background:var(--cream);
+  }
+  .login-visual{
+    position:relative;
+    background:linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 38%, var(--navy-700) 74%, var(--dawn-500) 140%);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:56px;
+    overflow:hidden;
+  }
+  .login-visual::before{
+    content:"";
+    position:absolute; right:-8%; bottom:-6%;
+    width:380px; height:380px; border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, rgba(246,205,131,0.95), rgba(227,154,52,0.3) 55%, transparent 72%);
+    filter:blur(2px);
+  }
+  .login-visual svg{position:absolute; left:0; right:0; bottom:-2px; width:100%; opacity:0.9;}
+  .login-brand{position:relative; z-index:2; display:flex; align-items:center; gap:12px;}
+  .login-brand img{height:44px;}
+  .login-brand span{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.55);}
+  .login-quote{position:relative; z-index:2; max-width:26ch;}
+  .login-quote .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--dawn-300); margin-bottom:16px; display:flex; align-items:center; gap:10px;
+  }
+  .login-quote .eyebrow::before{content:""; width:26px; height:1px; background:var(--dawn-300);}
+  .login-quote h1{
+    font-family:'Fraunces',serif; font-weight:600; font-size:clamp(28px,3vw,38px);
+    color:#fff; line-height:1.2;
+  }
+  .login-quote h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg,var(--dawn-300),var(--dawn-500));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .login-quote p{margin-top:16px; color:rgba(255,255,255,0.6); font-size:14.5px; line-height:1.7;}
 
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: var(--primary);
-            color: #fff;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
-        }
+  .login-panel{
+    display:flex; align-items:center; justify-content:center;
+    padding:40px;
+  }
+  .login-box{width:100%; max-width:380px;}
+  .login-box .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--dawn-600); margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .login-box .eyebrow::before{content:""; width:26px; height:1px; background:var(--dawn-500);}
+  .login-box h2{font-family:'Fraunces',serif; font-weight:600; font-size:30px; color:var(--navy-900);}
+  .login-box > p{color:var(--slate); font-size:14.5px; margin-top:10px; margin-bottom:32px;}
 
-        .sidebar-brand {
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .sidebar-brand img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-        }
-        .sidebar-brand .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar-brand .brand-text .brand-name {
-            font-size: 20px;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: -0.5px;
-            line-height: 1;
-        }
-        .sidebar-brand .brand-text .brand-name span {
-            color: var(--secondary);
-        }
-        .sidebar-brand .brand-text .brand-tagline {
-            font-size: 10px;
-            color: rgba(255,255,255,0.5);
-            margin-top: 2px;
-        }
+  .field{margin-bottom:20px;}
+  .field label{
+    display:block; font-size:12px; font-family:'JetBrains Mono',monospace; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--slate); margin-bottom:8px;
+  }
+  .input-wrap{position:relative;}
+  .input-wrap i{position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--slate-light); font-size:14px;}
+  .field input{
+    width:100%; padding:13px 16px 13px 42px; border:1.5px solid var(--line); border-radius:8px;
+    background:#fff; font-size:14.5px; color:var(--ink); transition:border .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .field input:focus{outline:none; border-color:var(--dawn-500); box-shadow:0 0 0 4px rgba(227,154,52,0.13);}
+  .toggle-pw{position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--slate-light); font-size:13.5px; background:none; border:none;}
 
-        .sidebar-nav {
-            padding: 20px 12px;
-            flex: 1;
-        }
-        .sidebar-nav .nav-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.35);
-            padding: 8px 12px;
-            margin-top: 8px;
-        }
-        .sidebar-nav .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: var(--transition);
-            cursor: pointer;
-            margin-bottom: 2px;
-        }
-        .sidebar-nav .nav-item:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-        }
-        .sidebar-nav .nav-item.active {
-            background: var(--secondary);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(232, 93, 58, 0.3);
-        }
-        .sidebar-nav .nav-item i {
-            width: 22px;
-            font-size: 18px;
-        }
-        .sidebar-nav .nav-item .badge {
-            margin-left: auto;
-            background: rgba(255,255,255,0.15);
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .sidebar-nav .nav-item.active .badge {
-            background: rgba(255,255,255,0.25);
-        }
+  .login-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:26px; font-size:13.5px;}
+  .remember{display:flex; align-items:center; gap:8px; color:var(--slate);}
+  .remember input{accent-color:var(--dawn-500);}
+  .forgot{color:var(--dawn-600); font-weight:600;}
+  .forgot:hover{text-decoration:underline;}
 
-        .sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            font-size: 13px;
-            color: rgba(255,255,255,0.4);
-        }
+  .btn-login{
+    width:100%; padding:15px; border-radius:8px; font-weight:700; font-size:15px;
+    background:linear-gradient(135deg,var(--dawn-400),var(--dawn-600));
+    color:var(--navy-950); box-shadow:0 14px 30px -10px rgba(227,154,52,0.55);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .btn-login:hover{transform:translateY(-2px); box-shadow:0 18px 36px -8px rgba(227,154,52,0.65);}
+  .btn-login:active{transform:translateY(0);}
 
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+  .login-error{
+    display:none; align-items:center; gap:10px; background:var(--danger-bg); color:var(--danger);
+    padding:12px 14px; border-radius:8px; font-size:13.5px; margin-bottom:20px; font-weight:600;
+  }
+  .login-error.show{display:flex;}
 
-        /* ===== TOP HEADER ===== */
-        .top-header {
-            height: var(--header-height);
-            background: #fff;
-            border-bottom: 1px solid var(--gray-200);
-            padding: 0 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-        }
-        .top-header .left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .top-header .left .toggle-sidebar {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--gray-700);
-            cursor: pointer;
-        }
-        .top-header .left h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .top-header .right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .top-header .right .search-box {
-            display: flex;
-            align-items: center;
-            background: var(--gray-50);
-            border-radius: 50px;
-            padding: 8px 16px;
-            gap: 10px;
-            border: 1px solid var(--gray-200);
-            transition: var(--transition);
-        }
-        .top-header .right .search-box:focus-within {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(232, 93, 58, 0.1);
-        }
-        .top-header .right .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: 14px;
-            color: var(--gray-700);
-            width: 200px;
-        }
-        .top-header .right .search-box input::placeholder {
-            color: var(--gray-400);
-        }
-        .top-header .right .search-box i {
-            color: var(--gray-400);
-        }
-        .top-header .right .notif-btn {
-            position: relative;
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--gray-600);
-            cursor: pointer;
-            padding: 8px;
-        }
-        .top-header .right .notif-btn .dot {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 8px;
-            height: 8px;
-            background: var(--danger);
-            border-radius: 50%;
-            border: 2px solid #fff;
-        }
-        .top-header .right .admin-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 4px 12px 4px 4px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-        .top-header .right .admin-profile:hover {
-            background: var(--gray-50);
-        }
-        .top-header .right .admin-profile .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: var(--secondary);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-        }
-        .top-header .right .admin-profile .info {
-            line-height: 1.3;
-        }
-        .top-header .right .admin-profile .info .name {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--gray-800);
-        }
-        .top-header .right .admin-profile .info .role {
-            font-size: 12px;
-            color: var(--gray-500);
-        }
+  .login-demo{
+    margin-top:28px; padding:14px 16px; background:var(--paper); border:1px dashed var(--line);
+    border-radius:8px; font-size:12.5px; color:var(--slate); line-height:1.7;
+  }
+  .login-demo b{color:var(--navy-900); font-family:'JetBrains Mono',monospace; font-weight:600;}
 
-        /* ===== PAGE CONTENT ===== */
-        .page-content {
-            padding: 32px;
-            flex: 1;
-        }
+  @media (max-width:860px){
+    #loginScreen{grid-template-columns:1fr;}
+    .login-visual{display:none;}
+  }
 
-        /* ===== STATS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        .stat-card {
-            background: #fff;
-            padding: 24px 28px;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--gray-200);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-        .stat-card.blue::before { background: var(--primary); }
-        .stat-card.orange::before { background: var(--secondary); }
-        .stat-card.green::before { background: var(--success); }
-        .stat-card.purple::before { background: #8b5cf6; }
+  /* ============ ADMIN APP (hidden until login) ============ */
+  #adminApp{display:none; min-height:100vh;}
+  #adminApp.show{display:flex;}
 
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        .stat-card .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .stat-card .top .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-        .stat-card .top .stat-icon.blue { background: #e8edf5; color: var(--primary); }
-        .stat-card .top .stat-icon.orange { background: var(--secondary-light); color: var(--secondary); }
-        .stat-card .top .stat-icon.green { background: #eaf6f0; color: var(--success); }
-        .stat-card .top .stat-icon.purple { background: #f0ebff; color: #8b5cf6; }
+  .sidebar{
+    width:var(--sidebar-width);
+    background:var(--navy-950);
+    color:#fff;
+    position:fixed; top:0; left:0; bottom:0;
+    display:flex; flex-direction:column;
+    transition:var(--transition);
+    z-index:400;
+    overflow-y:auto;
+  }
+  .sidebar::-webkit-scrollbar{width:4px;}
+  .sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15); border-radius:4px;}
 
-        .stat-card .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--gray-900);
-            margin-top: 8px;
-        }
-        .stat-card .stat-label {
-            font-size: 14px;
-            color: var(--gray-500);
-        }
-        .stat-card .stat-change {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 8px;
-            padding: 2px 10px;
-            border-radius: 30px;
-        }
-        .stat-card .stat-change.up { color: var(--success); background: #eaf6f0; }
-        .stat-card .stat-change.down { color: var(--danger); background: #fde8e8; }
+  .sidebar-brand{
+    padding:24px; border-bottom:1px solid rgba(255,255,255,0.08);
+    display:flex; align-items:center; gap:12px;
+  }
+  .sidebar-brand img{height:40px; width:auto;}
+  .sidebar-brand .brand-tag{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:4px;}
 
-        /* ===== CARDS ===== */
-        .card {
-            background: #fff;
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--gray-200);
-            padding: 24px 28px;
-            margin-bottom: 32px;
-            transition: var(--transition);
-        }
-        .card:hover {
-            box-shadow: var(--shadow-sm);
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .card-header h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--gray-800);
-        }
-        .card-header .actions {
-            display: flex;
-            gap: 10px;
-        }
+  .sidebar-nav{padding:20px 14px; flex:1;}
+  .sidebar-nav .nav-label{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.12em;
+    color:rgba(255,255,255,0.3); padding:8px 12px; margin-top:10px;
+  }
+  .sidebar-nav .nav-item{
+    display:flex; align-items:center; gap:14px; padding:12px 16px; border-radius:8px;
+    color:rgba(255,255,255,0.68); text-decoration:none; font-weight:600; font-size:14px;
+    transition:var(--transition); cursor:pointer; margin-bottom:2px;
+  }
+  .sidebar-nav .nav-item:hover{background:rgba(255,255,255,0.06); color:#fff;}
+  .sidebar-nav .nav-item.active{
+    background:linear-gradient(135deg,var(--dawn-400),var(--dawn-600)); color:var(--navy-950);
+    box-shadow:0 6px 18px rgba(227,154,52,0.3);
+  }
+  .sidebar-nav .nav-item i{width:20px; font-size:16px; text-align:center;}
+  .sidebar-nav .nav-item .badge{
+    margin-left:auto; background:rgba(255,255,255,0.12); padding:2px 10px; border-radius:30px; font-size:11.5px; font-weight:700;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .sidebar-nav .nav-item.active .badge{background:rgba(9,25,48,0.2); color:var(--navy-950);}
 
-        .btn-sm {
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-sm.primary {
-            background: var(--secondary);
-            color: #fff;
-        }
-        .btn-sm.primary:hover {
-            background: var(--secondary-hover);
-        }
-        .btn-sm.secondary {
-            background: var(--gray-100);
-            color: var(--gray-700);
-        }
-        .btn-sm.secondary:hover {
-            background: var(--gray-200);
-        }
-        .btn-sm.success {
-            background: #eaf6f0;
-            color: var(--success);
-        }
-        .btn-sm.success:hover {
-            background: #d5ede4;
-        }
-        .btn-sm.danger {
-            background: #fde8e8;
-            color: var(--danger);
-        }
-        .btn-sm.danger:hover {
-            background: #fcd5d5;
-        }
-        .btn-sm.outline {
-            background: transparent;
-            border: 1px solid var(--gray-300);
-            color: var(--gray-600);
-        }
-        .btn-sm.outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
+  .sidebar-footer{
+    padding:18px 24px; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between;
+  }
+  .sidebar-footer .status{font-size:12.5px; color:rgba(255,255,255,0.4); display:flex; align-items:center; gap:8px;}
+  .logout-btn{
+    color:rgba(255,255,255,0.5); font-size:16px; transition:color .25s var(--ease); background:none; border:none;
+  }
+  .logout-btn:hover{color:var(--dawn-400);}
 
-        /* ===== TABLES ===== */
-        .table-wrapper {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        thead {
-            background: var(--gray-50);
-        }
-        th {
-            text-align: left;
-            padding: 12px 16px;
-            font-weight: 600;
-            color: var(--gray-600);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--gray-200);
-        }
-        td {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--gray-100);
-            color: var(--gray-700);
-            vertical-align: middle;
-        }
-        tr:hover td {
-            background: var(--gray-50);
-        }
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .status-badge.published { background: #eaf6f0; color: var(--success); }
-        .status-badge.draft { background: var(--gray-100); color: var(--gray-500); }
-        .status-badge.pending { background: #fef3e2; color: var(--warning); }
-        .status-badge.archived { background: #fde8e8; color: var(--danger); }
+  .main-content{margin-left:var(--sidebar-width); flex:1; min-height:100vh; display:flex; flex-direction:column;}
 
-        .rating-stars {
-            color: #f39c12;
-            letter-spacing: 2px;
-        }
+  .top-header{
+    height:var(--header-height); background:#fff; border-bottom:1px solid var(--line);
+    padding:0 32px; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100; box-shadow:var(--shadow-sm);
+  }
+  .top-header .left{display:flex; align-items:center; gap:16px;}
+  .top-header .left .toggle-sidebar{display:none; background:none; border:none; font-size:22px; color:var(--slate);}
+  .top-header .left h2{font-family:'Fraunces',serif; font-size:21px; font-weight:600; color:var(--navy-900);}
+  .top-header .right{display:flex; align-items:center; gap:20px;}
+  .search-box{
+    display:flex; align-items:center; background:var(--paper); border-radius:50px; padding:9px 16px; gap:10px;
+    border:1px solid var(--line); transition:var(--transition);
+  }
+  .search-box:focus-within{border-color:var(--dawn-500); box-shadow:0 0 0 3px rgba(227,154,52,0.12);}
+  .search-box input{border:none; background:transparent; outline:none; font-size:13.5px; color:var(--ink); width:180px;}
+  .search-box i{color:var(--slate-light);}
+  .notif-btn{position:relative; background:none; border:none; font-size:19px; color:var(--slate); padding:8px;}
+  .notif-btn .dot{position:absolute; top:5px; right:5px; width:8px; height:8px; background:var(--dawn-500); border-radius:50%; border:2px solid #fff;}
+  .admin-profile{display:flex; align-items:center; gap:12px; cursor:pointer; padding:4px 12px 4px 4px; border-radius:50px; transition:var(--transition);}
+  .admin-profile:hover{background:var(--paper);}
+  .admin-profile .avatar{
+    width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--dawn-400),var(--dawn-600));
+    color:var(--navy-950); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px;
+  }
+  .admin-profile .info{line-height:1.3;}
+  .admin-profile .info .name{font-weight:700; font-size:13.5px; color:var(--navy-900);}
+  .admin-profile .info .role{font-size:11.5px; color:var(--slate-light); font-family:'JetBrains Mono',monospace;}
 
-        /* ===== FORM PROTOTYPE ===== */
-        .form-prototype {
-            background: var(--gray-50);
-            border-radius: var(--radius);
-            padding: 24px;
-            margin-top: 20px;
-            border: 1px dashed var(--gray-300);
-        }
-        .form-prototype .form-title {
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 16px;
-            font-size: 15px;
-        }
-        .form-prototype .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .form-prototype .form-group label {
-            display: block;
-            font-weight: 500;
-            font-size: 13px;
-            color: var(--gray-600);
-            margin-bottom: 4px;
-        }
-        .form-prototype .form-group input,
-        .form-prototype .form-group select,
-        .form-prototype .form-group textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: var(--radius);
-            border: 1px solid var(--gray-300);
-            font-size: 14px;
-            font-family: inherit;
-            transition: var(--transition);
-            background: #fff;
-        }
-        .form-prototype .form-group input:focus,
-        .form-prototype .form-group select:focus,
-        .form-prototype .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(232, 93, 58, 0.1);
-        }
-        .form-prototype .form-group textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
+  .page-content{padding:32px; flex:1;}
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-bottom:32px;}
+  .stat-card{
+    background:#fff; padding:24px 26px; border-radius:var(--radius-lg); border:1px solid var(--line);
+    transition:var(--transition); position:relative; overflow:hidden;
+  }
+  .stat-card::before{content:""; position:absolute; top:0; left:0; right:0; height:4px;}
+  .stat-card.navy::before{background:var(--navy-800);}
+  .stat-card.gold::before{background:linear-gradient(90deg,var(--dawn-400),var(--dawn-600));}
+  .stat-card.sky::before{background:var(--sky-400);}
+  .stat-card.slate::before{background:var(--slate);}
+  .stat-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-md);}
+  .stat-card .top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .stat-icon{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:19px;}
+  .stat-icon.navy{background:#eaf0f8; color:var(--navy-800);}
+  .stat-icon.gold{background:#fbf1de; color:var(--dawn-600);}
+  .stat-icon.sky{background:#eaf3fb; color:var(--sky-400);}
+  .stat-icon.slate{background:#eef1f5; color:var(--slate);}
+  .stat-number{font-family:'Fraunces',serif; font-size:32px; font-weight:600; color:var(--navy-900); margin-top:10px;}
+  .stat-label{font-size:13.5px; color:var(--slate); font-weight:600;}
+  .stat-change{display:inline-flex; align-items:center; gap:4px; font-size:12.5px; font-weight:700; margin-top:10px; padding:3px 10px; border-radius:30px;}
+  .stat-change.up{color:var(--success); background:var(--success-bg);}
 
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                width: 280px;
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .top-header .left .toggle-sidebar {
-                display: block;
-            }
-            .top-header .right .search-box {
-                display: none;
-            }
-            .top-header .right .admin-profile .info {
-                display: none;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-            }
-            .page-content {
-                padding: 16px;
-            }
-            .card {
-                padding: 16px;
-            }
-            .top-header {
-                padding: 0 16px;
-            }
-        }
+  .card{background:#fff; border-radius:var(--radius-lg); border:1px solid var(--line); padding:26px 28px; margin-bottom:28px; transition:var(--transition);}
+  .card:hover{box-shadow:var(--shadow-sm);}
+  .card-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; flex-wrap:wrap; gap:12px;}
+  .card-header h3{font-family:'Fraunces',serif; font-size:19px; font-weight:600; color:var(--navy-900); display:flex; align-items:center; gap:10px;}
+  .card-header .actions{display:flex; gap:10px;}
 
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-prototype .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
+  .btn-sm{padding:9px 18px; border-radius:50px; font-weight:700; font-size:13px; border:none; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:8px;}
+  .btn-sm.primary{background:linear-gradient(135deg,var(--dawn-400),var(--dawn-600)); color:var(--navy-950);}
+  .btn-sm.primary:hover{box-shadow:0 8px 20px -6px rgba(227,154,52,0.55);}
+  .btn-sm.secondary{background:var(--paper); color:var(--slate);}
+  .btn-sm.secondary:hover{background:var(--line);}
+  .btn-sm.success{background:var(--success-bg); color:var(--success);}
+  .btn-sm.success:hover{filter:brightness(0.96);}
+  .btn-sm.danger{background:var(--danger-bg); color:var(--danger);}
+  .btn-sm.danger:hover{filter:brightness(0.96);}
 
-        /* Overlay for mobile sidebar */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 999;
-        }
-        .sidebar-overlay.active {
-            display: block;
-        }
-    </style>
+  .table-wrapper{overflow-x:auto;}
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  thead{background:var(--paper);}
+  th{text-align:left; padding:12px 16px; font-weight:700; color:var(--slate); font-size:11px; text-transform:uppercase; letter-spacing:.06em; border-bottom:2px solid var(--line); font-family:'JetBrains Mono',monospace;}
+  td{padding:14px 16px; border-bottom:1px solid var(--line); color:var(--ink); vertical-align:middle;}
+  tr:hover td{background:var(--paper);}
+  .status-badge{display:inline-flex; align-items:center; gap:6px; padding:4px 14px; border-radius:30px; font-size:12px; font-weight:700;}
+  .status-badge.published{background:var(--success-bg); color:var(--success);}
+  .status-badge.draft{background:#eef1f5; color:var(--slate);}
+  .status-badge.pending{background:var(--warning-bg); color:var(--warning);}
+  .status-badge i{font-size:7px;}
+  .rating-stars{color:var(--dawn-500); letter-spacing:1px;}
+
+  .form-prototype{margin-top:24px; padding-top:24px; border-top:1px dashed var(--line);}
+  .form-title{font-family:'Fraunces',serif; font-weight:600; font-size:16.5px; color:var(--navy-900); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-bottom:16px;}
+  .form-group label{display:block; font-size:11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--slate); margin-bottom:8px;}
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%; padding:11px 14px; border:1.5px solid var(--line); border-radius:8px; font-size:14px; background:var(--paper);
+    transition:border .25s var(--ease);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none; border-color:var(--dawn-500); background:#fff;}
+  .form-group textarea{min-height:90px; resize:vertical;}
+
+  .quick-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:8px;}
+  .quick-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); text-align:center; padding:22px; cursor:pointer; transition:var(--transition);}
+  .quick-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--dawn-400);}
+  .quick-card .icon{font-size:30px; margin-bottom:10px;}
+  .quick-card .title{font-weight:700; color:var(--navy-900); font-size:14.5px;}
+  .quick-card .sub{font-size:12.5px; color:var(--slate-light); margin-top:2px;}
+
+  .sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(6,15,31,0.5); z-index:399;}
+  .sidebar-overlay.active{display:block;}
+
+  /* ---- page switching ---- */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* ---- role badge ---- */
+  .role-badge{
+    display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.06em; text-transform:uppercase; font-weight:700; padding:2px 9px; border-radius:30px; margin-left:8px;
+  }
+  .role-badge.superadmin{background:#fbf1de; color:var(--dawn-600);}
+  .role-badge.admin{background:#eaf0f8; color:var(--navy-800);}
+
+  /* ---- restricted nav items hidden by role.js, but style a locked variant for reference ---- */
+  .nav-item[data-restricted="true"]{display:none;}
+
+  /* ---- page header ---- */
+  .page-header{margin-bottom:24px;}
+  .page-header h1{font-family:'Fraunces',serif; font-size:24px; font-weight:600; color:var(--navy-900);}
+  .page-header p{font-size:13.5px; color:var(--slate-light); margin-top:4px;}
+  .proto-tag{
+    display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:10.5px;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--slate-light); background:var(--paper);
+    border:1px solid var(--line); padding:3px 10px; border-radius:30px; margin-left:10px; vertical-align:middle;
+  }
+
+  /* ---- lead cards ---- */
+  .lead-status-select{
+    padding:6px 10px; border-radius:6px; border:1.5px solid var(--line); font-size:12.5px; font-weight:700;
+    font-family:'JetBrains Mono',monospace; background:#fff; cursor:pointer;
+  }
+  .lead-status-select.new{color:var(--dawn-600); border-color:#f0d9ae;}
+  .lead-status-select.contacted{color:var(--sky-400); border-color:#c9e0f3;}
+  .lead-status-select.closed{color:var(--success); border-color:#bfe6d3;}
+  .empty-state{text-align:center; padding:60px 20px; color:var(--slate-light);}
+  .empty-state i{font-size:34px; margin-bottom:14px; color:var(--line);}
+  .empty-state p{font-size:14px;}
+
+  /* ---- users page ---- */
+  .add-user-card{margin-top:8px;}
+  .role-pill{padding:3px 12px; border-radius:30px; font-size:12px; font-weight:700; font-family:'JetBrains Mono',monospace;}
+  .role-pill.superadmin{background:#fbf1de; color:var(--dawn-600);}
+  .role-pill.admin{background:#eaf0f8; color:var(--navy-800);}
+
+  .banner{
+    display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:10px; font-size:13.5px; font-weight:600; margin-bottom:22px;
+  }
+  .banner.info{background:#eaf3fb; color:var(--navy-800);}
+  .banner.warn{background:var(--warning-bg); color:var(--warning);}
+  .banner.error{background:var(--danger-bg); color:var(--danger);}
+  .banner.success{background:var(--success-bg); color:var(--success);}
+
+  @media (max-width:1080px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main-content{margin-left:0;}
+    .top-header .left .toggle-sidebar{display:block;}
+    .search-box{display:none;}
+    .stats-grid{grid-template-columns:1fr;}
+  }
+</style>
 </head>
 <body>
 
-<!-- ===== SIDEBAR OVERLAY ===== -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- ===== SIDEBAR ===== -->
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-        <img src="images/logo.JPG" alt="Uday Infra" onerror="this.parentElement.querySelector('.brand-text').style.display='flex'; this.style.display='none';" />
-        <div class="brand-text" style="display:none;">
-            <span class="brand-name">UDAY <span>INFRA</span></span>
-            <span class="brand-tagline">Architecture | Interior | Construction</span>
-        </div>
+<!-- ================= LOGIN SCREEN ================= -->
+<div id="loginScreen">
+  <div class="login-visual">
+    <svg viewBox="0 0 700 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#050d1a" opacity="0.85" d="M0,220 L0,140 L40,140 L40,110 L80,110 L80,150 L130,150 L130,90 L170,90 L170,150 L220,150 L220,60 L260,60 L260,150 L310,150 L310,120 L360,120 L360,150 L400,150 L400,40 L450,40 L450,150 L500,150 L500,100 L540,100 L540,150 L600,150 L600,70 L650,70 L650,150 L700,150 L700,220 Z"/>
+    </svg>
+    <div class="login-brand">
+      <img src="data:image/jpeg;base64,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" alt="Uday Infra" />
+      <span>Admin Console</span>
     </div>
-    <nav class="sidebar-nav">
-        <div class="nav-label">Main Menu</div>
-        <a href="#" class="nav-item active">
-            <i class="fas fa-th-large"></i> Dashboard
-            <span class="badge">12</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-file-alt"></i> Blogs
-            <span class="badge">24</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-comment"></i> Testimonials
-            <span class="badge">18</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-project-diagram"></i> Projects
-            <span class="badge">32</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-users"></i> Team Members
-            <span class="badge">15</span>
-        </a>
-
-        <div class="nav-label" style="margin-top:16px;">Management</div>
-        <a href="#" class="nav-item">
-            <i class="fas fa-cog"></i> Settings
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-user-cog"></i> Users
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-chart-line"></i> Analytics
-        </a>
-    </nav>
-    <div class="sidebar-footer">
-        <i class="fas fa-circle" style="color: var(--success); font-size: 10px;"></i> Admin v2.0
+    <div class="login-quote">
+      <div class="eyebrow">Internal access</div>
+      <h1>Every sunrise begins with something <em>you build.</em></h1>
+      <p>Manage leads, content and team access for the Uday Infra website from one place.</p>
     </div>
-</aside>
+  </div>
 
-<!-- ===== MAIN CONTENT ===== -->
-<div class="main-content">
+  <div class="login-panel">
+    <div class="login-box">
+      <div class="eyebrow">Admin console</div>
+      <h2>Welcome back</h2>
+      <p>Sign in with your Uday Infra admin account.</p>
 
-    <!-- Top Header -->
-    <header class="top-header">
-        <div class="left">
-            <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle sidebar">
-                <i class="fas fa-bars"></i>
-            </button>
-            <h2>Dashboard</h2>
+      <div class="login-error" id="loginError"><i class="fa-solid fa-triangle-exclamation"></i> <span id="loginErrorText">Incorrect email or password. Try again.</span></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="loginEmail" placeholder="you@udayinfra.com" required autocomplete="username" />
+          </div>
         </div>
-        <div class="right">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search..." />
-            </div>
-            <button class="notif-btn" title="Notifications">
-                <i class="fas fa-bell"></i>
-                <span class="dot"></span>
-            </button>
-            <div class="admin-profile">
-                <div class="avatar">A</div>
-                <div class="info">
-                    <div class="name">Admin User</div>
-                    <div class="role">Super Admin</div>
-                </div>
-            </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" />
+            <button type="button" class="toggle-pw" id="togglePw"><i class="fa-solid fa-eye"></i></button>
+          </div>
         </div>
-    </header>
-
-    <!-- Page Content -->
-    <div class="page-content">
-
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card blue">
-                <div class="top">
-                    <div>
-                        <div class="stat-number">24</div>
-                        <div class="stat-label">Total Blogs</div>
-                    </div>
-                    <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
-                </div>
-                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 12% this month</div>
-            </div>
-            <div class="stat-card orange">
-                <div class="top">
-                    <div>
-                        <div class="stat-number">18</div>
-                        <div class="stat-label">Testimonials</div>
-                    </div>
-                    <div class="stat-icon orange"><i class="fas fa-star"></i></div>
-                </div>
-                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 8% this month</div>
-            </div>
-            <div class="stat-card green">
-                <div class="top">
-                    <div>
-                        <div class="stat-number">32</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-icon green"><i class="fas fa-project-diagram"></i></div>
-                </div>
-                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5% this month</div>
-            </div>
-            <div class="stat-card purple">
-                <div class="top">
-                    <div>
-                        <div class="stat-number">4.8</div>
-                        <div class="stat-label">Avg. Rating</div>
-                    </div>
-                    <div class="stat-icon purple"><i class="fas fa-thumbs-up"></i></div>
-                </div>
-                <div class="stat-change up"><i class="fas fa-arrow-up"></i> 0.3 increase</div>
-            </div>
+        <div class="login-row">
+          <label class="remember"><input type="checkbox" id="rememberMe" checked /> Keep me signed in</label>
+          <a href="#" class="forgot" id="forgotPwLink">Forgot password?</a>
         </div>
+        <button type="submit" class="btn-login" id="loginSubmitBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</button>
+      </form>
 
-        <!-- Blog Management -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-file-alt" style="color: var(--secondary);"></i> Blog Management</h3>
-                <div class="actions">
-                    <button class="btn-sm primary"><i class="fas fa-plus"></i> Add New Blog</button>
-                    <button class="btn-sm secondary"><i class="fas fa-filter"></i> Filter</button>
-                </div>
-            </div>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Author</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th style="text-align:right;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Trends in Architecture Design 2026</strong></td>
-                            <td>Design</td>
-                            <td>Admin</td>
-                            <td>10 Jul 2026</td>
-                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Modern Interior Design Ideas</strong></td>
-                            <td>Interior</td>
-                            <td>Admin</td>
-                            <td>02 Jul 2026</td>
-                            <td><span class="status-badge draft"><i class="fas fa-circle"></i> Draft</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sustainable Construction Practices</strong></td>
-                            <td>Construction</td>
-                            <td>Admin</td>
-                            <td>28 Jun 2026</td>
-                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Residential Project Planning Guide</strong></td>
-                            <td>Residential</td>
-                            <td>Admin</td>
-                            <td>15 Jun 2026</td>
-                            <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Testimonial Management + Add Form -->
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-star" style="color: var(--secondary);"></i> Testimonial Management</h3>
-                <div class="actions">
-                    <button class="btn-sm primary" id="toggleFormBtn"><i class="fas fa-plus"></i> Add New Testimonial</button>
-                </div>
-            </div>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Client</th>
-                            <th>Company</th>
-                            <th>Review</th>
-                            <th>Rating</th>
-                            <th>Status</th>
-                            <th style="text-align:right;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Mr. R. Kumar</strong></td>
-                            <td>Homeowner</td>
-                            <td>"Exceptional quality and attention to detail."</td>
-                            <td><span class="rating-stars">★★★★★</span></td>
-                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ms. S. Reddy</strong></td>
-                            <td>Business Owner</td>
-                            <td>"Outstanding quality and professional team."</td>
-                            <td><span class="rating-stars">★★★★★</span></td>
-                            <td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Dr. P. Verma</strong></td>
-                            <td>Clinic Owner</td>
-                            <td>"Expertise in architecture and interior design."</td>
-                            <td><span class="rating-stars">★★★★☆</span></td>
-                            <td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td>
-                            <td style="text-align:right;">
-                                <button class="btn-sm success"><i class="fas fa-edit"></i></button>
-                                <button class="btn-sm danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Add Testimonial Form Prototype -->
-            <div class="form-prototype" id="testimonialForm" style="display:none;">
-                <div class="form-title"><i class="fas fa-plus-circle" style="color: var(--secondary);"></i> Add New Testimonial</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Client Name *</label>
-                        <input type="text" placeholder="Mr. S. Gupta" />
-                    </div>
-                    <div class="form-group">
-                        <label>Company / Organization</label>
-                        <input type="text" placeholder="ABC Constructions" />
-                    </div>
-                    <div class="form-group">
-                        <label>Rating *</label>
-                        <select>
-                            <option>⭐⭐⭐⭐⭐ (5)</option>
-                            <option>⭐⭐⭐⭐ (4)</option>
-                            <option>⭐⭐⭐ (3)</option>
-                            <option>⭐⭐ (2)</option>
-                            <option>⭐ (1)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="grid-column: 1 / -1;">
-                        <label>Review / Testimonial *</label>
-                        <textarea placeholder="Write the client's feedback here..."></textarea>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                    <button class="btn-sm primary"><i class="fas fa-check"></i> Publish Testimonial</button>
-                    <button class="btn-sm secondary"><i class="fas fa-times"></i> Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px;">
-            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
-                <div style="font-size:32px; margin-bottom:8px;">📝</div>
-                <div style="font-weight:600; color: var(--gray-700);">Quick Blog</div>
-                <div style="font-size:13px; color: var(--gray-500);">Create a new post</div>
-            </div>
-            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
-                <div style="font-size:32px; margin-bottom:8px;">💬</div>
-                <div style="font-weight:600; color: var(--gray-700);">Add Testimonial</div>
-                <div style="font-size:13px; color: var(--gray-500);">Collect client feedback</div>
-            </div>
-            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
-                <div style="font-size:32px; margin-bottom:8px;">🏗️</div>
-                <div style="font-weight:600; color: var(--gray-700);">New Project</div>
-                <div style="font-size:13px; color: var(--gray-500);">Start a new project</div>
-            </div>
-            <div class="card" style="margin-bottom:0; text-align:center; padding:20px; cursor:pointer; transition: var(--transition);">
-                <div style="font-size:32px; margin-bottom:8px;">📊</div>
-                <div style="font-weight:600; color: var(--gray-700);">View Reports</div>
-                <div style="font-size:13px; color: var(--gray-500);">Analytics & insights</div>
-            </div>
-        </div>
-
+      <div class="login-demo"><b>First time setting this up?</b><br>Accounts are created in Firebase Authentication, then given a role in Firestore. See the setup notes shared with this file — there's no self-signup here on purpose.</div>
     </div>
+  </div>
 </div>
 
-<script>
-    // Mobile sidebar toggle
-    const toggleBtn = document.getElementById('toggleSidebar');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
+<!-- ================= ADMIN APP ================= -->
+<div id="adminApp">
 
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img src="data:image/jpeg;base64,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" alt="Uday Infra" />
+    <div>
+      <div style="font-family:'Fraunces',serif; font-weight:600; color:#fff; font-size:16px;">Uday Infra</div>
+      <div class="brand-tag">Admin Console</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <div class="nav-label">Main Menu</div>
+    <a href="#" class="nav-item" data-page="dashboard" data-roles="superadmin,admin"><i class="fas fa-th-large"></i> Dashboard</a>
+    <a href="#" class="nav-item" data-page="leads" data-roles="superadmin,admin"><i class="fas fa-inbox"></i> Quote Leads <span class="badge" id="leadsBadge">0</span></a>
+    <a href="#" class="nav-item" data-page="blogs" data-roles="superadmin,admin"><i class="fas fa-file-alt"></i> Blogs <span class="badge">24</span></a>
+    <a href="#" class="nav-item" data-page="projects" data-roles="superadmin,admin"><i class="fas fa-project-diagram"></i> Projects <span class="badge">32</span></a>
+    <a href="#" class="nav-item" data-page="testimonials" data-roles="superadmin"><i class="fas fa-comment"></i> Testimonials <span class="badge">18</span></a>
+    <a href="#" class="nav-item" data-page="team" data-roles="superadmin"><i class="fas fa-users"></i> Team Members <span class="badge">15</span></a>
+
+    <div class="nav-label" style="margin-top:16px;">Management</div>
+    <a href="#" class="nav-item" data-page="users" data-roles="superadmin"><i class="fas fa-user-shield"></i> Users &amp; Roles</a>
+    <a href="#" class="nav-item" data-page="settings" data-roles="superadmin"><i class="fas fa-cog"></i> Settings</a>
+    <a href="#" class="nav-item" data-page="analytics" data-roles="superadmin"><i class="fas fa-chart-line"></i> Analytics</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status"><i class="fas fa-circle" style="color:var(--dawn-400); font-size:9px;"></i> Admin v3.0</div>
+    <button class="logout-btn" id="logoutBtn" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i></button>
+  </div>
+</aside>
+
+<div class="main-content">
+
+  <header class="top-header">
+    <div class="left">
+      <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+      <h2 id="topHeaderTitle">Dashboard</h2>
+    </div>
+    <div class="right">
+      <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search..." /></div>
+      <button class="notif-btn" title="Notifications"><i class="fas fa-bell"></i><span class="dot"></span></button>
+      <div class="admin-profile">
+        <div class="avatar" id="avatarInitial">A</div>
+        <div class="info">
+          <div class="name" id="profileName">Loading…<span class="role-badge" id="roleBadge"></span></div>
+          <div class="role" id="profileEmail"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="page active" data-page="dashboard">
+      <div class="stats-grid">
+        <div class="stat-card gold">
+          <div class="top">
+            <div><div class="stat-number" id="statLeads">0</div><div class="stat-label">New Quote Leads</div></div>
+            <div class="stat-icon gold"><i class="fas fa-inbox"></i></div>
+          </div>
+          <div class="stat-change up" id="statLeadsChange"><i class="fas fa-circle-info"></i> Live from Firestore</div>
+        </div>
+        <div class="stat-card navy">
+          <div class="top">
+            <div><div class="stat-number">24</div><div class="stat-label">Total Blogs</div></div>
+            <div class="stat-icon navy"><i class="fas fa-file-alt"></i></div>
+          </div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> 12% this month</div>
+        </div>
+        <div class="stat-card sky">
+          <div class="top">
+            <div><div class="stat-number">32</div><div class="stat-label">Projects</div></div>
+            <div class="stat-icon sky"><i class="fas fa-project-diagram"></i></div>
+          </div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5% this month</div>
+        </div>
+        <div class="stat-card slate">
+          <div class="top">
+            <div><div class="stat-number">4.8</div><div class="stat-label">Avg. Rating</div></div>
+            <div class="stat-icon slate"><i class="fas fa-thumbs-up"></i></div>
+          </div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> 0.3 increase</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-inbox" style="color:var(--dawn-600);"></i> Recent Quote Leads</h3>
+          <div class="actions"><button class="btn-sm secondary" data-goto="leads">View All</button></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Name</th><th>Phone</th><th>Type</th><th>Received</th><th>Status</th></tr></thead>
+            <tbody id="dashboardLeadsBody">
+              <tr><td colspan="5" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <div class="quick-card" data-goto="leads"><div class="icon">📥</div><div class="title">Quote Leads</div><div class="sub">See who's asking</div></div>
+        <div class="quick-card" data-goto="blogs"><div class="icon">📝</div><div class="title">Quick Blog</div><div class="sub">Create a new post</div></div>
+        <div class="quick-card" data-goto="projects"><div class="icon">🏗️</div><div class="title">New Project</div><div class="sub">Start a new project</div></div>
+        <div class="quick-card" data-goto="analytics" data-roles="superadmin"><div class="icon">📊</div><div class="title">View Reports</div><div class="sub">Analytics &amp; insights</div></div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE LEADS (live Firestore) ===== -->
+    <section class="page" data-page="leads">
+      <div class="page-header"><h1>Quote Leads</h1><p>Live submissions from the "Get a Quote" form on the website.</p></div>
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-inbox" style="color:var(--dawn-600);"></i> All Leads</h3></div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Name</th><th>Phone</th><th>Project Type</th><th>Message</th><th>Received</th><th>Status</th></tr></thead>
+            <tbody id="leadsBody">
+              <tr><td colspan="6" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BLOGS (mock) ===== -->
+    <section class="page" data-page="blogs">
+      <div class="page-header"><h1>Blogs <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>Manage articles published on the website.</p></div>
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-file-alt" style="color:var(--dawn-600);"></i> Blog Management</h3>
+          <div class="actions"><button class="btn-sm primary"><i class="fas fa-plus"></i> Add New Blog</button><button class="btn-sm secondary"><i class="fas fa-filter"></i> Filter</button></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Title</th><th>Category</th><th>Author</th><th>Date</th><th>Status</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Trends in Architecture Design 2026</strong></td><td>Design</td><td>Admin</td><td>10 Jul 2026</td><td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Modern Interior Design Ideas</strong></td><td>Interior</td><td>Admin</td><td>02 Jul 2026</td><td><span class="status-badge draft"><i class="fas fa-circle"></i> Draft</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Sustainable Construction Practices</strong></td><td>Construction</td><td>Admin</td><td>28 Jun 2026</td><td><span class="status-badge published"><i class="fas fa-circle"></i> Published</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Residential Project Planning Guide</strong></td><td>Residential</td><td>Admin</td><td>15 Jun 2026</td><td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS (mock) ===== -->
+    <section class="page" data-page="projects">
+      <div class="page-header"><h1>Projects <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>Track ongoing and completed builds.</p></div>
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-project-diagram" style="color:var(--dawn-600);"></i> Project List</h3>
+          <div class="actions"><button class="btn-sm primary"><i class="fas fa-plus"></i> Add New Project</button></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Project</th><th>Client</th><th>Type</th><th>Status</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Kumar Residence</strong></td><td>Mr. R. Kumar</td><td>Residential</td><td><span class="status-badge published"><i class="fas fa-circle"></i> Completed</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Reddy Commercial Complex</strong></td><td>Ms. S. Reddy</td><td>Commercial</td><td><span class="status-badge pending"><i class="fas fa-circle"></i> In Progress</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Verma Clinic Interiors</strong></td><td>Dr. P. Verma</td><td>Healthcare</td><td><span class="status-badge published"><i class="fas fa-circle"></i> Completed</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS (mock, super admin only) ===== -->
+    <section class="page" data-page="testimonials">
+      <div class="page-header"><h1>Testimonials <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Approve and publish client reviews shown on the website.</p></div>
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-star" style="color:var(--dawn-600);"></i> Testimonial Management</h3>
+          <div class="actions"><button class="btn-sm primary" id="toggleFormBtn"><i class="fas fa-plus"></i> Add New Testimonial</button></div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Client</th><th>Company</th><th>Review</th><th>Rating</th><th>Status</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Mr. R. Kumar</strong></td><td>Homeowner</td><td>"Exceptional quality and attention to detail."</td><td><span class="rating-stars">★★★★★</span></td><td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Ms. S. Reddy</strong></td><td>Business Owner</td><td>"Outstanding quality and professional team."</td><td><span class="rating-stars">★★★★★</span></td><td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+              <tr><td><strong>Dr. P. Verma</strong></td><td>Clinic Owner</td><td>"Expertise in architecture and interior design."</td><td><span class="rating-stars">★★★★☆</span></td><td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-prototype" id="testimonialForm" style="display:none;">
+          <div class="form-title"><i class="fas fa-plus-circle" style="color:var(--dawn-600);"></i> Add New Testimonial</div>
+          <div class="form-row">
+            <div class="form-group"><label>Client Name *</label><input type="text" placeholder="Mr. S. Gupta" /></div>
+            <div class="form-group"><label>Company / Organization</label><input type="text" placeholder="ABC Constructions" /></div>
+            <div class="form-group"><label>Rating *</label><select><option>⭐⭐⭐⭐⭐ (5)</option><option>⭐⭐⭐⭐ (4)</option><option>⭐⭐⭐ (3)</option><option>⭐⭐ (2)</option><option>⭐ (1)</option></select></div>
+          </div>
+          <div class="form-row"><div class="form-group" style="grid-column:1/-1;"><label>Review / Testimonial *</label><textarea placeholder="Write the client's feedback here..."></textarea></div></div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn-sm primary"><i class="fas fa-check"></i> Publish Testimonial</button>
+            <button class="btn-sm secondary" id="cancelTestimonialBtn"><i class="fas fa-times"></i> Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEAM (mock, super admin only) ===== -->
+    <section class="page" data-page="team">
+      <div class="page-header"><h1>Team Members <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>The people behind Uday Infra projects.</p></div>
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-users" style="color:var(--dawn-600);"></i> Team</h3><div class="actions"><button class="btn-sm primary"><i class="fas fa-plus"></i> Add Member</button></div></div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Name</th><th>Role</th><th>Department</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Uday Kiran</strong></td><td>Founder &amp; Principal Architect</td><td>Architecture</td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button></td></tr>
+              <tr><td><strong>Team Lead — Interiors</strong></td><td>Senior Designer</td><td>Interior Design</td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button></td></tr>
+              <tr><td><strong>Site Engineer</strong></td><td>Project Execution</td><td>Construction</td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== USERS & ROLES (super admin only, real Firebase) ===== -->
+    <section class="page" data-page="users">
+      <div class="page-header"><h1>Users &amp; Roles</h1><p>Give people Admin access, or grant Super Admin for full control.</p></div>
+
+      <div class="card add-user-card">
+        <div class="card-header"><h3><i class="fas fa-user-plus" style="color:var(--dawn-600);"></i> Add a Team Member</h3></div>
+        <div id="addUserBanner"></div>
+        <form id="addUserForm">
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="newUserName" placeholder="Priya Sharma" required /></div>
+            <div class="form-group"><label>Email *</label><input type="email" id="newUserEmail" placeholder="priya@udayinfra.com" required /></div>
+            <div class="form-group"><label>Temporary Password *</label><input type="text" id="newUserPassword" placeholder="Min. 6 characters" required minlength="6" /></div>
+          </div>
+          <div class="form-row" style="grid-template-columns:1fr;">
+            <div class="form-group" style="max-width:280px;">
+              <label>Role *</label>
+              <select id="newUserRole">
+                <option value="admin">Admin — content &amp; leads only</option>
+                <option value="superadmin">Super Admin — full access</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-sm primary" id="addUserBtn"><i class="fas fa-user-plus"></i> Create Account</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-users-gear" style="color:var(--dawn-600);"></i> Existing Users</h3></div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody id="usersBody">
+              <tr><td colspan="5" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS (super admin only) ===== -->
+    <section class="page" data-page="settings">
+      <div class="page-header"><h1>Settings <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Site-wide configuration.</p></div>
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-cog" style="color:var(--dawn-600);"></i> Business Details</h3></div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone</label><input type="text" value="+91 81858 53338" /></div>
+          <div class="form-group"><label>Email</label><input type="text" value="info@udayinfra.com" /></div>
+          <div class="form-group"><label>Address</label><input type="text" value="Suchitra Circle, Hyderabad" /></div>
+        </div>
+        <button class="btn-sm primary" style="margin-top:8px;"><i class="fas fa-save"></i> Save Changes</button>
+      </div>
+    </section>
+
+    <!-- ===== ANALYTICS (super admin only) ===== -->
+    <section class="page" data-page="analytics">
+      <div class="page-header"><h1>Analytics <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Traffic and engagement insights.</p></div>
+      <div class="card">
+        <div class="empty-state"><i class="fa-solid fa-chart-line"></i><p>Analytics isn't wired up yet — hook this up to Google Analytics or Firebase Analytics when you're ready.</p></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut,
+    setPersistence, browserLocalPersistence, browserSessionPersistence,
+    sendPasswordResetEmail, createUserWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, setDoc, collection, query, orderBy,
+    onSnapshot, updateDoc, deleteDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // TODO: paste your Firebase project config here — same config as index.html
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyBUrMuthDlsmKLW5TEWZuv7idagCvrV2Mw",
+  //   authDomain: "codexaura-it-solutions.firebaseapp.com",
+  //   projectId: "codexaura-it-solutions",
+  //   storageBucket: "codexaura-it-solutions.firebasestorage.app",
+  //   messagingSenderId: "852712858901",
+  //   appId: "1:852712858901:web:dde51d7f37e505cfd8751c"
+  // };
+  const firebaseConfig = {
+  apiKey: "AIzaSyCY9JLrcqVYc8iaH0DbgJCY_xs6aoHJNPE",
+  authDomain: "udayinfra-5b790.firebaseapp.com",
+  projectId: "udayinfra-5b790",
+  storageBucket: "udayinfra-5b790.firebasestorage.app",
+  messagingSenderId: "150527368715",
+  appId: "1:150527368715:web:2d7b79c4089ce89875710e",
+  measurementId: "G-79QL8S4C1F"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Fixed role → allowed pages. Edit these two lists to change what Admin can see.
+  const ROLE_ACCESS = {
+    superadmin: ['dashboard','leads','blogs','projects','testimonials','team','users','settings','analytics'],
+    admin:      ['dashboard','leads','blogs','projects']
+  };
+  const ROLE_LABEL = { superadmin: 'Super Admin', admin: 'Admin' };
+
+  let currentRole = null;
+  let unsubLeads = null;
+  let unsubUsers = null;
+
+  const loginScreen = document.getElementById('loginScreen');
+  const adminApp = document.getElementById('adminApp');
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
+  const loginErrorText = document.getElementById('loginErrorText');
+  const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
+  function showLoginError(msg, isSuccess){
+    loginErrorText.textContent = msg;
+    loginError.classList.add('show');
+    loginError.style.background = isSuccess ? 'var(--success-bg)' : 'var(--danger-bg)';
+    loginError.style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+  }
+
+  // ---------- Auth state ----------
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      loginScreen.style.display = 'grid';
+      adminApp.classList.remove('show');
+      if (unsubLeads) unsubLeads();
+      if (unsubUsers) unsubUsers();
+      return;
     }
 
-    toggleBtn.addEventListener('click', toggleSidebar);
-    overlay.addEventListener('click', toggleSidebar);
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    if (!userSnap.exists()) {
+      showLoginError("This account isn't set up with a role yet. Ask a Super Admin to add you in Users & Roles.", false);
+      await signOut(auth);
+      return;
+    }
 
-    // Close sidebar on nav item click (mobile)
-    document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                toggleSidebar();
-            }
-        });
+    const profile = userSnap.data();
+    currentRole = profile.role === 'superadmin' ? 'superadmin' : 'admin';
+
+    document.getElementById('profileName').innerHTML =
+      (profile.name || user.email) + `<span class="role-badge ${currentRole}">${ROLE_LABEL[currentRole]}</span>`;
+    document.getElementById('profileEmail').textContent = user.email;
+    document.getElementById('avatarInitial').textContent = (profile.name || user.email).charAt(0).toUpperCase();
+
+    applyRoleAccess(currentRole);
+    loginScreen.style.display = 'none';
+    adminApp.classList.add('show');
+    loginForm.reset();
+    loginError.classList.remove('show');
+
+    startLeadsListener();
+    if (currentRole === 'superadmin') startUsersListener();
+  });
+
+  loginForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const remember = document.getElementById('rememberMe').checked;
+
+    loginError.classList.remove('show');
+    loginSubmitBtn.disabled = true;
+    loginSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+
+    try {
+      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error(err);
+      showLoginError('Incorrect email or password. Try again.', false);
+    } finally {
+      loginSubmitBtn.disabled = false;
+      loginSubmitBtn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In';
+    }
+  });
+
+  document.getElementById('forgotPwLink').addEventListener('click', async function(e){
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) { showLoginError('Enter your email above first, then click "Forgot password?" again.', false); return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showLoginError('Password reset email sent — check your inbox.', true);
+    } catch (err) {
+      showLoginError('Could not send reset email. Check the address and try again.', false);
+    }
+  });
+
+  document.getElementById('togglePw').addEventListener('click', function(){
+    const pw = document.getElementById('loginPassword');
+    const icon = this.querySelector('i');
+    if (pw.type === 'password') { pw.type = 'text'; icon.classList.replace('fa-eye','fa-eye-slash'); }
+    else { pw.type = 'password'; icon.classList.replace('fa-eye-slash','fa-eye'); }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+  // ---------- Role-based nav ----------
+  function applyRoleAccess(role){
+    const allowed = ROLE_ACCESS[role] || [];
+    document.querySelectorAll('#sidebarNav .nav-item').forEach(item => {
+      const page = item.getAttribute('data-page');
+      item.style.display = allowed.includes(page) ? '' : 'none';
     });
+    document.querySelectorAll('[data-roles]').forEach(el => {
+      const roles = el.getAttribute('data-roles').split(',');
+      if (!roles.includes(role) && el.classList.contains('quick-card')) el.style.display = 'none';
+    });
+    // land on first allowed page
+    if (!allowed.includes('dashboard')) goToPage(allowed[0] || 'dashboard');
+  }
 
-    // Toggle testimonial form
-    const toggleFormBtn = document.getElementById('toggleFormBtn');
-    const testimonialForm = document.getElementById('testimonialForm');
+  function goToPage(page){
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.getAttribute('data-page') === page));
+    document.querySelectorAll('#sidebarNav .nav-item').forEach(n => n.classList.toggle('active', n.getAttribute('data-page') === page));
+    const activeItem = document.querySelector(`#sidebarNav .nav-item[data-page="${page}"]`);
+    document.getElementById('topHeaderTitle').textContent = activeItem ? activeItem.textContent.trim().replace(/\d+$/,'').trim() : 'Dashboard';
+  }
 
+  document.querySelectorAll('#sidebarNav .nav-item').forEach(item => {
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      const page = this.getAttribute('data-page');
+      const roles = (this.getAttribute('data-roles') || '').split(',');
+      if (currentRole && !roles.includes(currentRole)) return;
+      goToPage(page);
+      if (window.innerWidth <= 768) toggleSidebar();
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', function(){
+      const page = this.getAttribute('data-goto');
+      const roles = (this.getAttribute('data-roles') || 'superadmin,admin').split(',');
+      if (currentRole && !roles.includes(currentRole)) return;
+      goToPage(page);
+    });
+  });
+
+  // ---------- Sidebar toggle (mobile) ----------
+  const toggleBtn = document.getElementById('toggleSidebar');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  function toggleSidebar(){
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  }
+  toggleBtn.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', toggleSidebar);
+
+  // ---------- Testimonial form toggle (prototype) ----------
+  const toggleFormBtn = document.getElementById('toggleFormBtn');
+  const testimonialForm = document.getElementById('testimonialForm');
+  if (toggleFormBtn) {
     toggleFormBtn.addEventListener('click', () => {
-        const isHidden = testimonialForm.style.display === 'none';
-        testimonialForm.style.display = isHidden ? 'block' : 'none';
-        toggleFormBtn.innerHTML = isHidden ? '<i class="fas fa-times"></i> Close Form' : '<i class="fas fa-plus"></i> Add New Testimonial';
+      const isHidden = testimonialForm.style.display === 'none';
+      testimonialForm.style.display = isHidden ? 'block' : 'none';
+      toggleFormBtn.innerHTML = isHidden ? '<i class="fas fa-times"></i> Close Form' : '<i class="fas fa-plus"></i> Add New Testimonial';
     });
+    document.getElementById('cancelTestimonialBtn').addEventListener('click', () => {
+      testimonialForm.style.display = 'none';
+      toggleFormBtn.innerHTML = '<i class="fas fa-plus"></i> Add New Testimonial';
+    });
+  }
 
-    // Active nav state
-    document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            document.querySelectorAll('.sidebar-nav .nav-item').forEach(n => n.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
+  // ---------- Quote leads (live) ----------
+  function fmtDate(ts){
+    if (!ts || !ts.toDate) return '—';
+    return ts.toDate().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+  }
 
-    // Close dropdowns on outside click (basic)
-    document.addEventListener('click', function(e) {
-        // Close mobile sidebar if clicking outside
-        if (window.innerWidth <= 768) {
-            const isSidebar = sidebar.contains(e.target);
-            const isToggle = toggleBtn.contains(e.target);
-            if (!isSidebar && !isToggle && sidebar.classList.contains('open')) {
-                toggleSidebar();
-            }
-        }
-    });
+  function startLeadsListener(){
+    const q = query(collection(db, 'leads'), orderBy('createdAt', 'desc'));
+    unsubLeads = onSnapshot(q, (snap) => {
+      const leads = [];
+      snap.forEach(d => leads.push({ id: d.id, ...d.data() }));
 
-    // Force logo visibility check for sidebar
-    document.querySelectorAll('.sidebar-brand img').forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.display = 'block';
-            if (this.parentElement.querySelector('.brand-text')) {
-                this.parentElement.querySelector('.brand-text').style.display = 'none';
-            }
+      const newCount = leads.filter(l => l.status === 'new').length;
+      document.getElementById('leadsBadge').textContent = newCount;
+      document.getElementById('statLeads').textContent = newCount;
+
+      const leadsBody = document.getElementById('leadsBody');
+      const dashBody = document.getElementById('dashboardLeadsBody');
+
+      if (leads.length === 0) {
+        leadsBody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fa-solid fa-inbox"></i><p>No quote requests yet.</p></td></tr>`;
+        dashBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--slate-light);">No leads yet.</td></tr>`;
+        return;
+      }
+
+      leadsBody.innerHTML = leads.map(l => `
+        <tr>
+          <td><strong>${escapeHtml(l.name||'—')}</strong></td>
+          <td>${escapeHtml(l.phone||'—')}</td>
+          <td>${escapeHtml(l.projectType||'—')}</td>
+          <td style="max-width:260px;">${escapeHtml(l.message||'—')}</td>
+          <td>${fmtDate(l.createdAt)}</td>
+          <td><select class="lead-status-select ${l.status||'new'}" data-id="${l.id}">
+                <option value="new" ${l.status==='new'?'selected':''}>New</option>
+                <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
+                <option value="closed" ${l.status==='closed'?'selected':''}>Closed</option>
+              </select></td>
+        </tr>`).join('');
+
+      dashBody.innerHTML = leads.slice(0,5).map(l => `
+        <tr>
+          <td><strong>${escapeHtml(l.name||'—')}</strong></td>
+          <td>${escapeHtml(l.phone||'—')}</td>
+          <td>${escapeHtml(l.projectType||'—')}</td>
+          <td>${fmtDate(l.createdAt)}</td>
+          <td><span class="status-badge ${l.status==='closed'?'published':l.status==='contacted'?'pending':'draft'}"><i class="fas fa-circle"></i> ${l.status||'new'}</span></td>
+        </tr>`).join('');
+
+      leadsBody.querySelectorAll('.lead-status-select').forEach(sel => {
+        sel.addEventListener('change', async function(){
+          sel.className = 'lead-status-select ' + this.value;
+          try { await updateDoc(doc(db, 'leads', this.getAttribute('data-id')), { status: this.value }); }
+          catch(err){ console.error('status update failed', err); }
         });
-        img.addEventListener('error', function() {
-            this.style.display = 'none';
-            if (this.parentElement.querySelector('.brand-text')) {
-                this.parentElement.querySelector('.brand-text').style.display = 'flex';
-            }
-        });
+      });
+    }, (err) => {
+      console.error('leads listener error', err);
+      document.getElementById('leadsBody').innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load leads — check Firestore rules.</p></td></tr>`;
     });
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // ---------- Users & roles (super admin only) ----------
+  function startUsersListener(){
+    unsubUsers = onSnapshot(collection(db, 'users'), (snap) => {
+      const users = [];
+      snap.forEach(d => users.push({ id: d.id, ...d.data() }));
+      const body = document.getElementById('usersBody');
+      if (users.length === 0) {
+        body.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--slate-light);">No users yet.</td></tr>`;
+        return;
+      }
+      body.innerHTML = users.map(u => `
+        <tr>
+          <td><strong>${escapeHtml(u.name||'—')}</strong></td>
+          <td>${escapeHtml(u.email||'—')}</td>
+          <td><span class="role-pill ${u.role==='superadmin'?'superadmin':'admin'}">${ROLE_LABEL[u.role]||u.role}</span></td>
+          <td>${fmtDate(u.createdAt)}</td>
+          <td style="text-align:right;">
+            ${u.id === auth.currentUser?.uid ? '<span style="font-size:12px;color:var(--slate-light);">(you)</span>' : `<button class="btn-sm danger" data-remove="${u.id}"><i class="fas fa-user-slash"></i> Revoke</button>`}
+          </td>
+        </tr>`).join('');
+
+      body.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', async function(){
+          if (!confirm("Revoke this person's access to the admin console? Their login will no longer work here. (This does not delete their Firebase Authentication account -- do that separately in the Firebase console if needed.)")) return;
+          try { await deleteDoc(doc(db, 'users', this.getAttribute('data-remove'))); }
+          catch(err){ console.error('revoke failed', err); }
+        });
+      });
+    }, (err) => {
+      console.error('users listener error', err);
+      document.getElementById('usersBody').innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load users — check Firestore rules.</p></td></tr>`;
+    });
+  }
+
+  // Create a new admin/superadmin account without logging the current
+  // super admin out — Firebase signs in whichever app instance creates
+  // the user, so we spin up a throwaway secondary app just for this.
+  const addUserForm = document.getElementById('addUserForm');
+  const addUserBanner = document.getElementById('addUserBanner');
+  addUserForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('newUserName').value.trim();
+    const email = document.getElementById('newUserEmail').value.trim();
+    const password = document.getElementById('newUserPassword').value;
+    const role = document.getElementById('newUserRole').value;
+    const btn = document.getElementById('addUserBtn');
+
+    addUserBanner.innerHTML = '';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating...';
+
+    const secondaryApp = initializeApp(firebaseConfig, 'Secondary-' + Date.now());
+    const secondaryAuth = getAuth(secondaryApp);
+
+    try {
+      const cred = await createUserWithEmailAndPassword(secondaryAuth, email, password);
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        name, email, role, createdAt: serverTimestamp()
+      });
+      await signOut(secondaryAuth);
+      addUserBanner.innerHTML = `<div class="banner success"><i class="fa-solid fa-circle-check"></i> Account created for ${escapeHtml(email)}. Share the temporary password with them securely and ask them to change it after first login.</div>`;
+      addUserForm.reset();
+    } catch (err) {
+      console.error(err);
+      let msg = 'Could not create this account.';
+      if (err.code === 'auth/email-already-in-use') msg = 'That email already has an account.';
+      if (err.code === 'auth/weak-password') msg = 'Password is too weak — use at least 6 characters.';
+      addUserBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> ${msg}</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+    }
+  });
 </script>
-
 </body>
 </html>
