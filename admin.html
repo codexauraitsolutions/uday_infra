@@ -357,6 +357,26 @@
   .role-pill.superadmin{background:#fbf1de; color:var(--dawn-600);}
   .role-pill.admin{background:#eaf0f8; color:var(--navy-800);}
 
+  .permission-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin-top:6px;
+  }
+  .permission-chip{
+    display:flex; align-items:center; gap:9px; background:var(--paper); border:1.5px solid var(--line);
+    border-radius:8px; padding:10px 12px; font-size:13px; font-weight:600; color:var(--slate); cursor:pointer;
+    transition:border .2s var(--ease), background .2s var(--ease);
+  }
+  .permission-chip input{accent-color:var(--dawn-500); width:15px; height:15px; cursor:pointer;}
+  .permission-chip:has(input:checked){border-color:var(--dawn-500); background:#fbf1de; color:var(--navy-900);}
+  .access-btn{
+    background:var(--paper); color:var(--navy-800); border:1px solid var(--line); padding:7px 14px; border-radius:50px;
+    font-size:12.5px; font-weight:700; cursor:pointer; transition:var(--transition);
+  }
+  .access-btn:hover{background:var(--line);}
+  .access-panel{background:var(--paper);}
+  .access-panel td{padding:18px 20px;}
+  .access-panel-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .full-access-tag{font-size:12.5px; color:var(--dawn-600); font-weight:700; display:flex; align-items:center; gap:6px;}
+
   .banner{
     display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:10px; font-size:13.5px; font-weight:600; margin-bottom:22px;
   }
@@ -449,17 +469,17 @@
   </div>
   <nav class="sidebar-nav" id="sidebarNav">
     <div class="nav-label">Main Menu</div>
-    <a href="#" class="nav-item" data-page="dashboard" data-roles="superadmin,admin"><i class="fas fa-th-large"></i> Dashboard</a>
-    <a href="#" class="nav-item" data-page="leads" data-roles="superadmin,admin"><i class="fas fa-inbox"></i> Quote Leads <span class="badge" id="leadsBadge">0</span></a>
-    <a href="#" class="nav-item" data-page="blogs" data-roles="superadmin,admin"><i class="fas fa-file-alt"></i> Blogs <span class="badge">24</span></a>
-    <a href="#" class="nav-item" data-page="projects" data-roles="superadmin,admin"><i class="fas fa-project-diagram"></i> Projects <span class="badge">32</span></a>
-    <a href="#" class="nav-item" data-page="testimonials" data-roles="superadmin"><i class="fas fa-comment"></i> Testimonials <span class="badge">18</span></a>
-    <a href="#" class="nav-item" data-page="team" data-roles="superadmin"><i class="fas fa-users"></i> Team Members <span class="badge">15</span></a>
+    <a href="#" class="nav-item" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</a>
+    <a href="#" class="nav-item" data-page="leads"><i class="fas fa-inbox"></i> Quote Leads <span class="badge" id="leadsBadge">0</span></a>
+    <a href="#" class="nav-item" data-page="blogs"><i class="fas fa-file-alt"></i> Blogs <span class="badge">24</span></a>
+    <a href="#" class="nav-item" data-page="projects"><i class="fas fa-project-diagram"></i> Projects <span class="badge">32</span></a>
+    <a href="#" class="nav-item" data-page="testimonials"><i class="fas fa-comment"></i> Testimonials <span class="badge" id="testimonialsBadge">0</span></a>
+    <a href="#" class="nav-item" data-page="team"><i class="fas fa-users"></i> Team Members <span class="badge">15</span></a>
 
     <div class="nav-label" style="margin-top:16px;">Management</div>
-    <a href="#" class="nav-item" data-page="users" data-roles="superadmin"><i class="fas fa-user-shield"></i> Users &amp; Roles</a>
-    <a href="#" class="nav-item" data-page="settings" data-roles="superadmin"><i class="fas fa-cog"></i> Settings</a>
-    <a href="#" class="nav-item" data-page="analytics" data-roles="superadmin"><i class="fas fa-chart-line"></i> Analytics</a>
+    <a href="#" class="nav-item" data-page="users" data-superadmin-only="true"><i class="fas fa-user-shield"></i> Users &amp; Roles</a>
+    <a href="#" class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Settings</a>
+    <a href="#" class="nav-item" data-page="analytics"><i class="fas fa-chart-line"></i> Analytics</a>
   </nav>
   <div class="sidebar-footer">
     <div class="status"><i class="fas fa-circle" style="color:var(--dawn-400); font-size:9px;"></i> Admin v3.0</div>
@@ -540,7 +560,7 @@
         <div class="quick-card" data-goto="leads"><div class="icon">📥</div><div class="title">Quote Leads</div><div class="sub">See who's asking</div></div>
         <div class="quick-card" data-goto="blogs"><div class="icon">📝</div><div class="title">Quick Blog</div><div class="sub">Create a new post</div></div>
         <div class="quick-card" data-goto="projects"><div class="icon">🏗️</div><div class="title">New Project</div><div class="sub">Start a new project</div></div>
-        <div class="quick-card" data-goto="analytics" data-roles="superadmin"><div class="icon">📊</div><div class="title">View Reports</div><div class="sub">Analytics &amp; insights</div></div>
+        <div class="quick-card" data-goto="analytics"><div class="icon">📊</div><div class="title">View Reports</div><div class="sub">Analytics &amp; insights</div></div>
       </div>
     </section>
 
@@ -603,9 +623,9 @@
       </div>
     </section>
 
-    <!-- ===== TESTIMONIALS (mock, super admin only) ===== -->
+    <!-- ===== TESTIMONIALS (live Firestore) ===== -->
     <section class="page" data-page="testimonials">
-      <div class="page-header"><h1>Testimonials <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Approve and publish client reviews shown on the website.</p></div>
+      <div class="page-header"><h1>Testimonials</h1><p>Approve and publish client reviews shown on the website. Only "Approved" testimonials appear on the live site.</p></div>
       <div class="card">
         <div class="card-header">
           <h3><i class="fas fa-star" style="color:var(--dawn-600);"></i> Testimonial Management</h3>
@@ -614,32 +634,40 @@
         <div class="table-wrapper">
           <table>
             <thead><tr><th>Client</th><th>Company</th><th>Review</th><th>Rating</th><th>Status</th><th style="text-align:right;">Actions</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Mr. R. Kumar</strong></td><td>Homeowner</td><td>"Exceptional quality and attention to detail."</td><td><span class="rating-stars">★★★★★</span></td><td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
-              <tr><td><strong>Ms. S. Reddy</strong></td><td>Business Owner</td><td>"Outstanding quality and professional team."</td><td><span class="rating-stars">★★★★★</span></td><td><span class="status-badge published"><i class="fas fa-circle"></i> Approved</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
-              <tr><td><strong>Dr. P. Verma</strong></td><td>Clinic Owner</td><td>"Expertise in architecture and interior design."</td><td><span class="rating-stars">★★★★☆</span></td><td><span class="status-badge pending"><i class="fas fa-circle"></i> Pending</span></td><td style="text-align:right;"><button class="btn-sm success"><i class="fas fa-edit"></i></button> <button class="btn-sm danger"><i class="fas fa-trash"></i></button></td></tr>
+            <tbody id="testimonialsBody">
+              <tr><td colspan="6" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
             </tbody>
           </table>
         </div>
         <div class="form-prototype" id="testimonialForm" style="display:none;">
           <div class="form-title"><i class="fas fa-plus-circle" style="color:var(--dawn-600);"></i> Add New Testimonial</div>
+          <div id="testimonialFormBanner"></div>
           <div class="form-row">
-            <div class="form-group"><label>Client Name *</label><input type="text" placeholder="Mr. S. Gupta" /></div>
-            <div class="form-group"><label>Company / Organization</label><input type="text" placeholder="ABC Constructions" /></div>
-            <div class="form-group"><label>Rating *</label><select><option>⭐⭐⭐⭐⭐ (5)</option><option>⭐⭐⭐⭐ (4)</option><option>⭐⭐⭐ (3)</option><option>⭐⭐ (2)</option><option>⭐ (1)</option></select></div>
+            <div class="form-group"><label>Client Name *</label><input type="text" id="tName" placeholder="Mr. S. Gupta" /></div>
+            <div class="form-group"><label>Company / Organization</label><input type="text" id="tCompany" placeholder="ABC Constructions" /></div>
+            <div class="form-group"><label>Rating *</label>
+              <select id="tRating">
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                <option value="4">⭐⭐⭐⭐ (4)</option>
+                <option value="3">⭐⭐⭐ (3)</option>
+                <option value="2">⭐⭐ (2)</option>
+                <option value="1">⭐ (1)</option>
+              </select>
+            </div>
           </div>
-          <div class="form-row"><div class="form-group" style="grid-column:1/-1;"><label>Review / Testimonial *</label><textarea placeholder="Write the client's feedback here..."></textarea></div></div>
+          <div class="form-row"><div class="form-group" style="grid-column:1/-1;"><label>Review / Testimonial *</label><textarea id="tReview" placeholder="Write the client's feedback here..."></textarea></div></div>
           <div style="display:flex; gap:12px; flex-wrap:wrap;">
-            <button class="btn-sm primary"><i class="fas fa-check"></i> Publish Testimonial</button>
+            <button class="btn-sm primary" id="publishTestimonialBtn"><i class="fas fa-check"></i> Publish as Approved</button>
+            <button class="btn-sm secondary" id="saveDraftTestimonialBtn"><i class="fas fa-clock"></i> Save as Pending</button>
             <button class="btn-sm secondary" id="cancelTestimonialBtn"><i class="fas fa-times"></i> Cancel</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== TEAM (mock, super admin only) ===== -->
+    <!-- ===== TEAM (mock) ===== -->
     <section class="page" data-page="team">
-      <div class="page-header"><h1>Team Members <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>The people behind Uday Infra projects.</p></div>
+      <div class="page-header"><h1>Team Members <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>The people behind Uday Infra projects.</p></div>
       <div class="card">
         <div class="card-header"><h3><i class="fas fa-users" style="color:var(--dawn-600);"></i> Team</h3><div class="actions"><button class="btn-sm primary"><i class="fas fa-plus"></i> Add Member</button></div></div>
         <div class="table-wrapper">
@@ -657,7 +685,7 @@
 
     <!-- ===== USERS & ROLES (super admin only, real Firebase) ===== -->
     <section class="page" data-page="users">
-      <div class="page-header"><h1>Users &amp; Roles</h1><p>Give people Admin access, or grant Super Admin for full control.</p></div>
+      <div class="page-header"><h1>Users &amp; Roles</h1><p>Give people Admin access with specific permissions, or grant Super Admin for full control.</p></div>
 
       <div class="card add-user-card">
         <div class="card-header"><h3><i class="fas fa-user-plus" style="color:var(--dawn-600);"></i> Add a Team Member</h3></div>
@@ -672,9 +700,15 @@
             <div class="form-group" style="max-width:280px;">
               <label>Role *</label>
               <select id="newUserRole">
-                <option value="admin">Admin — content &amp; leads only</option>
+                <option value="admin">Admin — choose access below</option>
                 <option value="superadmin">Super Admin — full access</option>
               </select>
+            </div>
+          </div>
+          <div id="newUserPermissionsWrap" class="form-row" style="grid-template-columns:1fr; margin-bottom:8px;">
+            <div class="form-group">
+              <label>Grant access to</label>
+              <div id="newUserPermissions" class="permission-grid"></div>
             </div>
           </div>
           <button type="submit" class="btn-sm primary" id="addUserBtn"><i class="fas fa-user-plus"></i> Create Account</button>
@@ -685,7 +719,7 @@
         <div class="card-header"><h3><i class="fas fa-users-gear" style="color:var(--dawn-600);"></i> Existing Users</h3></div>
         <div class="table-wrapper">
           <table>
-            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th style="text-align:right;">Actions</th></tr></thead>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th style="text-align:right;">Access</th></tr></thead>
             <tbody id="usersBody">
               <tr><td colspan="5" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
             </tbody>
@@ -696,7 +730,7 @@
 
     <!-- ===== SETTINGS (super admin only) ===== -->
     <section class="page" data-page="settings">
-      <div class="page-header"><h1>Settings <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Site-wide configuration.</p></div>
+      <div class="page-header"><h1>Settings <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>Site-wide configuration.</p></div>
       <div class="card">
         <div class="card-header"><h3><i class="fas fa-cog" style="color:var(--dawn-600);"></i> Business Details</h3></div>
         <div class="form-row">
@@ -710,7 +744,7 @@
 
     <!-- ===== ANALYTICS (super admin only) ===== -->
     <section class="page" data-page="analytics">
-      <div class="page-header"><h1>Analytics <span class="proto-tag"><i class="fa-solid fa-lock"></i> Super Admin only · Prototype UI</span></h1><p>Traffic and engagement insights.</p></div>
+      <div class="page-header"><h1>Analytics <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>Traffic and engagement insights.</p></div>
       <div class="card">
         <div class="empty-state"><i class="fa-solid fa-chart-line"></i><p>Analytics isn't wired up yet — hook this up to Google Analytics or Firebase Analytics when you're ready.</p></div>
       </div>
@@ -727,7 +761,7 @@
     sendPasswordResetEmail, createUserWithEmailAndPassword
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import {
-    getFirestore, doc, getDoc, setDoc, collection, query, orderBy,
+    getFirestore, doc, getDoc, setDoc, addDoc, collection, query, orderBy,
     onSnapshot, updateDoc, deleteDoc, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -755,16 +789,34 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // Fixed role → allowed pages. Edit these two lists to change what Admin can see.
-  const ROLE_ACCESS = {
-    superadmin: ['dashboard','leads','blogs','projects','testimonials','team','users','settings','analytics'],
-    admin:      ['dashboard','leads','blogs','projects']
-  };
+
+  // Modules a Super Admin can grant/revoke per Admin, anytime.
+  // "dashboard" is always visible to any signed-in user; "users" is always Super-Admin-only
+  // (an Admin must never be able to grant themselves more access).
+  const TOGGLEABLE_MODULES = [
+    { key: 'leads',        label: 'Quote Leads' },
+    { key: 'blogs',        label: 'Blogs' },
+    { key: 'testimonials', label: 'Testimonials' },
+    { key: 'projects',     label: 'Projects' },
+    { key: 'team',         label: 'Team Members' },
+    { key: 'settings',     label: 'Settings' },
+    { key: 'analytics',    label: 'Analytics' }
+  ];
   const ROLE_LABEL = { superadmin: 'Super Admin', admin: 'Admin' };
 
+  function canAccess(page, profile){
+    if (page === 'dashboard') return true;
+    if (page === 'users') return profile.role === 'superadmin';
+    if (profile.role === 'superadmin') return true;
+    return Array.isArray(profile.permissions) && profile.permissions.includes(page);
+  }
+
   let currentRole = null;
+  let currentProfile = null;
   let unsubLeads = null;
   let unsubUsers = null;
+  let unsubTestimonials = null;
+  let unsubOwnProfile = null;
 
   const loginScreen = document.getElementById('loginScreen');
   const adminApp = document.getElementById('adminApp');
@@ -787,32 +839,48 @@
       adminApp.classList.remove('show');
       if (unsubLeads) unsubLeads();
       if (unsubUsers) unsubUsers();
+      if (unsubTestimonials) unsubTestimonials();
+      if (unsubOwnProfile) unsubOwnProfile();
       return;
     }
 
-    const userSnap = await getDoc(doc(db, 'users', user.uid));
-    if (!userSnap.exists()) {
-      showLoginError("This account isn't set up with a role yet. Ask a Super Admin to add you in Users & Roles.", false);
-      await signOut(auth);
-      return;
-    }
+    // Live-listen to our own profile so permission changes from a Super Admin
+    // apply immediately, without needing to log out and back in.
+    let firstLoad = true;
+    unsubOwnProfile = onSnapshot(doc(db, 'users', user.uid), (snap) => {
+      if (!snap.exists()) {
+        showLoginError("This account isn't set up with a role yet. Ask a Super Admin to add you in Users & Roles.", false);
+        signOut(auth);
+        return;
+      }
 
-    const profile = userSnap.data();
-    currentRole = profile.role === 'superadmin' ? 'superadmin' : 'admin';
+      const profile = snap.data();
+      currentProfile = profile;
+      currentRole = profile.role === 'superadmin' ? 'superadmin' : 'admin';
 
-    document.getElementById('profileName').innerHTML =
-      (profile.name || user.email) + `<span class="role-badge ${currentRole}">${ROLE_LABEL[currentRole]}</span>`;
-    document.getElementById('profileEmail').textContent = user.email;
-    document.getElementById('avatarInitial').textContent = (profile.name || user.email).charAt(0).toUpperCase();
+      document.getElementById('profileName').innerHTML =
+        (profile.name || user.email) + `<span class="role-badge ${currentRole}">${ROLE_LABEL[currentRole]}</span>`;
+      document.getElementById('profileEmail').textContent = user.email;
+      document.getElementById('avatarInitial').textContent = (profile.name || user.email).charAt(0).toUpperCase();
 
-    applyRoleAccess(currentRole);
-    loginScreen.style.display = 'none';
-    adminApp.classList.add('show');
-    loginForm.reset();
-    loginError.classList.remove('show');
+      applyRoleAccess(profile);
 
-    startLeadsListener();
-    if (currentRole === 'superadmin') startUsersListener();
+    
+
+      if (firstLoad) {
+        firstLoad = false;
+        loginScreen.style.display = 'none';
+        adminApp.classList.add('show');
+        loginForm.reset();
+        loginError.classList.remove('show');
+
+        startLeadsListener();
+        startTestimonialsListener();
+        if (currentRole === 'superadmin') startUsersListener();
+      }
+    }, (err) => {
+      console.error('profile listener error', err);
+    });
   });
 
   loginForm.addEventListener('submit', async function(e){
@@ -858,19 +926,23 @@
 
   document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
-  // ---------- Role-based nav ----------
-  function applyRoleAccess(role){
-    const allowed = ROLE_ACCESS[role] || [];
+  // ---------- Permission-based nav ----------
+  function applyRoleAccess(profile){
+    let anyAllowed = 'dashboard';
     document.querySelectorAll('#sidebarNav .nav-item').forEach(item => {
       const page = item.getAttribute('data-page');
-      item.style.display = allowed.includes(page) ? '' : 'none';
+      const allowed = canAccess(page, profile);
+      item.style.display = allowed ? '' : 'none';
     });
-    document.querySelectorAll('[data-roles]').forEach(el => {
-      const roles = el.getAttribute('data-roles').split(',');
-      if (!roles.includes(role) && el.classList.contains('quick-card')) el.style.display = 'none';
+    document.querySelectorAll('.quick-card[data-goto]').forEach(el => {
+      const page = el.getAttribute('data-goto');
+      el.style.display = canAccess(page, profile) ? '' : 'none';
     });
-    // land on first allowed page
-    if (!allowed.includes('dashboard')) goToPage(allowed[0] || 'dashboard');
+    // if the page currently open is no longer allowed (e.g. access was just revoked), bounce to dashboard
+    const activePage = document.querySelector('.page.active');
+    if (activePage && !canAccess(activePage.getAttribute('data-page'), profile)) {
+      goToPage('dashboard');
+    }
   }
 
   function goToPage(page){
@@ -884,8 +956,7 @@
     item.addEventListener('click', function(e){
       e.preventDefault();
       const page = this.getAttribute('data-page');
-      const roles = (this.getAttribute('data-roles') || '').split(',');
-      if (currentRole && !roles.includes(currentRole)) return;
+      if (currentProfile && !canAccess(page, currentProfile)) return;
       goToPage(page);
       if (window.innerWidth <= 768) toggleSidebar();
     });
@@ -894,8 +965,7 @@
   document.querySelectorAll('[data-goto]').forEach(el => {
     el.addEventListener('click', function(){
       const page = this.getAttribute('data-goto');
-      const roles = (this.getAttribute('data-roles') || 'superadmin,admin').split(',');
-      if (currentRole && !roles.includes(currentRole)) return;
+      if (currentProfile && !canAccess(page, currentProfile)) return;
       goToPage(page);
     });
   });
@@ -912,9 +982,10 @@
   toggleBtn.addEventListener('click', toggleSidebar);
   overlay.addEventListener('click', toggleSidebar);
 
-  // ---------- Testimonial form toggle (prototype) ----------
+  // ---------- Testimonial form toggle + submit ----------
   const toggleFormBtn = document.getElementById('toggleFormBtn');
   const testimonialForm = document.getElementById('testimonialForm');
+  const testimonialFormBanner = document.getElementById('testimonialFormBanner');
   if (toggleFormBtn) {
     toggleFormBtn.addEventListener('click', () => {
       const isHidden = testimonialForm.style.display === 'none';
@@ -925,6 +996,35 @@
       testimonialForm.style.display = 'none';
       toggleFormBtn.innerHTML = '<i class="fas fa-plus"></i> Add New Testimonial';
     });
+
+    async function submitTestimonial(status){
+      const name = document.getElementById('tName').value.trim();
+      const company = document.getElementById('tCompany').value.trim();
+      const rating = Number(document.getElementById('tRating').value);
+      const review = document.getElementById('tReview').value.trim();
+
+      if (!name || !review) {
+        testimonialFormBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Client name and review are required.</div>`;
+        return;
+      }
+      try {
+        await addDoc(collection(db, 'testimonials'), {
+          name, company, rating, review, status, createdAt: serverTimestamp()
+        });
+        testimonialFormBanner.innerHTML = '';
+        testimonialForm.reset ? testimonialForm.reset() : null;
+        document.getElementById('tName').value = '';
+        document.getElementById('tCompany').value = '';
+        document.getElementById('tReview').value = '';
+        testimonialForm.style.display = 'none';
+        toggleFormBtn.innerHTML = '<i class="fas fa-plus"></i> Add New Testimonial';
+      } catch (err) {
+        console.error(err);
+        testimonialFormBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Could not save — check your access permissions.</div>`;
+      }
+    }
+    document.getElementById('publishTestimonialBtn').addEventListener('click', () => submitTestimonial('approved'));
+    document.getElementById('saveDraftTestimonialBtn').addEventListener('click', () => submitTestimonial('pending'));
   }
 
   // ---------- Quote leads (live) ----------
@@ -992,7 +1092,76 @@
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
+  // ---------- Testimonials (live) ----------
+  function starString(n){
+    const full = Math.max(0, Math.min(5, Number(n) || 0));
+    return '★'.repeat(full) + '☆'.repeat(5 - full);
+  }
+
+  function startTestimonialsListener(){
+    const q = query(collection(db, 'testimonials'), orderBy('createdAt', 'desc'));
+    unsubTestimonials = onSnapshot(q, (snap) => {
+      const items = [];
+      snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+
+      document.getElementById('testimonialsBadge').textContent = items.length;
+
+      const body = document.getElementById('testimonialsBody');
+      if (items.length === 0) {
+        body.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fa-solid fa-comment"></i><p>No testimonials yet — add your first one above.</p></td></tr>`;
+        return;
+      }
+
+      body.innerHTML = items.map(t => `
+        <tr>
+          <td><strong>${escapeHtml(t.name||'—')}</strong></td>
+          <td>${escapeHtml(t.company||'—')}</td>
+          <td style="max-width:280px;">"${escapeHtml(t.review||'')}"</td>
+          <td><span class="rating-stars">${starString(t.rating)}</span></td>
+          <td>
+            <span class="status-badge ${t.status==='approved'?'published':'pending'}"><i class="fas fa-circle"></i> ${t.status==='approved'?'Approved':'Pending'}</span>
+          </td>
+          <td style="text-align:right; white-space:nowrap;">
+            ${t.status !== 'approved' ? `<button class="btn-sm success" data-approve="${t.id}" title="Approve"><i class="fas fa-check"></i></button>` : `<button class="btn-sm secondary" data-unapprove="${t.id}" title="Move to pending"><i class="fas fa-rotate-left"></i></button>`}
+            <button class="btn-sm danger" data-delete-t="${t.id}" title="Delete"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>`).join('');
+
+      body.querySelectorAll('[data-approve]').forEach(btn => {
+        btn.addEventListener('click', async function(){
+          try { await updateDoc(doc(db, 'testimonials', this.getAttribute('data-approve')), { status: 'approved' }); }
+          catch(err){ console.error('approve failed', err); }
+        });
+      });
+      body.querySelectorAll('[data-unapprove]').forEach(btn => {
+        btn.addEventListener('click', async function(){
+          try { await updateDoc(doc(db, 'testimonials', this.getAttribute('data-unapprove')), { status: 'pending' }); }
+          catch(err){ console.error('unapprove failed', err); }
+        });
+      });
+      body.querySelectorAll('[data-delete-t]').forEach(btn => {
+        btn.addEventListener('click', async function(){
+          if (!confirm('Delete this testimonial permanently?')) return;
+          try { await deleteDoc(doc(db, 'testimonials', this.getAttribute('data-delete-t'))); }
+          catch(err){ console.error('delete failed', err); }
+        });
+      });
+    }, (err) => {
+      console.error('testimonials listener error', err);
+      document.getElementById('testimonialsBody').innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load testimonials — check your access permissions.</p></td></tr>`;
+    });
+  }
+
   // ---------- Users & roles (super admin only) ----------
+  function permissionChipsHtml(uid, currentPerms){
+    const perms = Array.isArray(currentPerms) ? currentPerms : [];
+    return TOGGLEABLE_MODULES.map(m => `
+      <label class="permission-chip">
+        <input type="checkbox" data-perm-uid="${uid}" data-perm-key="${m.key}" ${perms.includes(m.key) ? 'checked' : ''}/>
+        ${m.label}
+      </label>`).join('');
+  }
+
   function startUsersListener(){
     unsubUsers = onSnapshot(collection(db, 'users'), (snap) => {
       const users = [];
@@ -1002,16 +1171,54 @@
         body.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--slate-light);">No users yet.</td></tr>`;
         return;
       }
-      body.innerHTML = users.map(u => `
+
+      body.innerHTML = users.map(u => {
+        const isSelf = u.id === auth.currentUser?.uid;
+        const isSuper = u.role === 'superadmin';
+        const rows = [`
         <tr>
           <td><strong>${escapeHtml(u.name||'—')}</strong></td>
           <td>${escapeHtml(u.email||'—')}</td>
-          <td><span class="role-pill ${u.role==='superadmin'?'superadmin':'admin'}">${ROLE_LABEL[u.role]||u.role}</span></td>
+          <td><span class="role-pill ${isSuper?'superadmin':'admin'}">${ROLE_LABEL[u.role]||u.role}</span></td>
           <td>${fmtDate(u.createdAt)}</td>
           <td style="text-align:right;">
-            ${u.id === auth.currentUser?.uid ? '<span style="font-size:12px;color:var(--slate-light);">(you)</span>' : `<button class="btn-sm danger" data-remove="${u.id}"><i class="fas fa-user-slash"></i> Revoke</button>`}
+            ${isSuper
+              ? '<span class="full-access-tag"><i class="fa-solid fa-star"></i> Full access</span>'
+              : `<button class="btn-sm secondary access-btn" data-toggle-access="${u.id}"><i class="fas fa-sliders"></i> Manage Access</button>`}
+            ${isSelf ? '' : (isSuper ? '' : `<button class="btn-sm danger" data-remove="${u.id}" style="margin-left:6px;"><i class="fas fa-user-slash"></i></button>`)}
           </td>
-        </tr>`).join('');
+        </tr>`];
+        if (!isSuper) {
+          rows.push(`
+        <tr class="access-panel" id="access-panel-${u.id}" style="display:none;">
+          <td colspan="5">
+            <div class="access-panel-inner">
+              <div class="permission-grid" style="flex:1;">${permissionChipsHtml(u.id, u.permissions)}</div>
+            </div>
+          </td>
+        </tr>`);
+        }
+        return rows.join('');
+      }).join('');
+
+      body.querySelectorAll('[data-toggle-access]').forEach(btn => {
+        btn.addEventListener('click', function(){
+          const panel = document.getElementById('access-panel-' + this.getAttribute('data-toggle-access'));
+          if (panel) panel.style.display = panel.style.display === 'none' ? 'table-row' : 'none';
+        });
+      });
+
+      body.querySelectorAll('[data-perm-uid]').forEach(chk => {
+        chk.addEventListener('change', async function(){
+          const uid = this.getAttribute('data-perm-uid');
+          const key = this.getAttribute('data-perm-key');
+          const user = users.find(u => u.id === uid);
+          const current = new Set(Array.isArray(user?.permissions) ? user.permissions : []);
+          if (this.checked) current.add(key); else current.delete(key);
+          try { await updateDoc(doc(db, 'users', uid), { permissions: Array.from(current) }); }
+          catch(err){ console.error('permission update failed', err); this.checked = !this.checked; }
+        });
+      });
 
       body.querySelectorAll('[data-remove]').forEach(btn => {
         btn.addEventListener('click', async function(){
@@ -1031,12 +1238,31 @@
   // the user, so we spin up a throwaway secondary app just for this.
   const addUserForm = document.getElementById('addUserForm');
   const addUserBanner = document.getElementById('addUserBanner');
+  const newUserRoleSelect = document.getElementById('newUserRole');
+  const newUserPermissionsWrap = document.getElementById('newUserPermissionsWrap');
+  const newUserPermissionsDiv = document.getElementById('newUserPermissions');
+
+  newUserPermissionsDiv.innerHTML = TOGGLEABLE_MODULES.map(m => `
+    <label class="permission-chip">
+      <input type="checkbox" class="new-user-perm" value="${m.key}" />
+      ${m.label}
+    </label>`).join('');
+
+  function syncPermissionsVisibility(){
+    newUserPermissionsWrap.style.display = newUserRoleSelect.value === 'admin' ? '' : 'none';
+  }
+  newUserRoleSelect.addEventListener('change', syncPermissionsVisibility);
+  syncPermissionsVisibility();
+
   addUserForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const name = document.getElementById('newUserName').value.trim();
     const email = document.getElementById('newUserEmail').value.trim();
     const password = document.getElementById('newUserPassword').value;
-    const role = document.getElementById('newUserRole').value;
+    const role = newUserRoleSelect.value;
+    const permissions = role === 'admin'
+      ? Array.from(document.querySelectorAll('.new-user-perm:checked')).map(el => el.value)
+      : [];
     const btn = document.getElementById('addUserBtn');
 
     addUserBanner.innerHTML = '';
@@ -1049,11 +1275,13 @@
     try {
       const cred = await createUserWithEmailAndPassword(secondaryAuth, email, password);
       await setDoc(doc(db, 'users', cred.user.uid), {
-        name, email, role, createdAt: serverTimestamp()
+        name, email, role, permissions, createdAt: serverTimestamp()
       });
       await signOut(secondaryAuth);
       addUserBanner.innerHTML = `<div class="banner success"><i class="fa-solid fa-circle-check"></i> Account created for ${escapeHtml(email)}. Share the temporary password with them securely and ask them to change it after first login.</div>`;
       addUserForm.reset();
+      document.querySelectorAll('.new-user-perm').forEach(el => el.checked = false);
+      syncPermissionsVisibility();
     } catch (err) {
       console.error(err);
       let msg = 'Could not create this account.';
