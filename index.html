@@ -1,925 +1,1581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Uday Infra — Turnkey Interior &amp; Infrastructure Solutions, Hyderabad</title>
-<meta name="description" content="Uday Infra is a Hyderabad-based turnkey interior and infrastructure company delivering NABH-compliant hospitals, offices, clinics, residential and commercial spaces end-to-end." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
-  :root{
-    --navy-950:#060f1f;
-    --navy-900:#0a1f3d;
-    --navy-800:#0f2d52;
-    --navy-700:#164070;
-    --navy-600:#20548c;
-    --sky-400:#6fa3d6;
-    --dawn-300:#f6cd83;
-    --dawn-400:#eeae52;
-    --dawn-500:#e39a34;
-    --dawn-600:#c17d1f;
-    --cream:#faf6ef;
-    --paper:#f2ede2;
-    --ink:#0e2038;
-    --slate:#4c5d75;
-    --slate-light:#7c8aa0;
-    --line:rgba(14,32,56,0.09);
-    --shadow-soft: 0 20px 60px rgba(9,25,48,0.10);
-    --shadow-hard: 0 30px 80px rgba(9,25,48,0.28);
-    --ease:cubic-bezier(.22,.61,.36,1);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Uday Infra — Turnkey Interior &amp; Infrastructure Solutions, Hyderabad</title>
+  <meta name="description" content="Uday Infra is a Hyderabad-based turnkey interior and infrastructure company delivering NABH-compliant hospitals, offices, clinics, residential and commercial spaces end-to-end." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --navy-950: #060f1f;
+      --navy-900: #0a1f3d;
+      --navy-800: #0f2d52;
+      --navy-700: #164070;
+      --navy-600: #20548c;
+      --sky-400: #6fa3d6;
+      --dawn-300: #f6cd83;
+      --dawn-400: #eeae52;
+      --dawn-500: #e39a34;
+      --dawn-600: #c17d1f;
+      --cream: #faf6ef;
+      --paper: #f2ede2;
+      --ink: #0e2038;
+      --slate: #4c5d75;
+      --slate-light: #7c8aa0;
+      --line: rgba(14, 32, 56, 0.09);
+      --shadow-soft: 0 20px 60px rgba(9, 25, 48, 0.10);
+      --shadow-hard: 0 30px 80px rgba(9, 25, 48, 0.28);
+      --ease: cubic-bezier(.22, .61, .36, 1);
+    }
 
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
-  body{
-    font-family:'Manrope',sans-serif;
-    color:var(--ink);
-    background:var(--cream);
-    line-height:1.6;
-    overflow-x:hidden;
-  }
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-  a{color:inherit;text-decoration:none;}
-  ul{list-style:none;}
-  img{max-width:100%;display:block;}
-  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
 
-  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
 
-  h1,h2,h3,h4{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    color:var(--navy-900);
-  }
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--navy-900);
+    }
 
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12.5px;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--dawn-600);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:18px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:26px;height:1px;
-    background:var(--dawn-500);
-    display:inline-block;
-  }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dawn-600);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: var(--dawn-500);
+      display: inline-block;
+    }
 
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:15px 30px;
-    border-radius:3px;
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:0.01em;
-    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
-    white-space:nowrap;
-  }
-  .btn-gold{
-    background:linear-gradient(135deg,var(--dawn-400),var(--dawn-600));
-    color:var(--navy-950);
-    box-shadow:0 14px 30px -10px rgba(227,154,52,0.55);
-  }
-  .btn-gold:hover{transform:translateY(-2px); box-shadow:0 18px 36px -8px rgba(227,154,52,0.65);}
-  .btn-ghost{
-    border:1px solid rgba(255,255,255,0.35);
-    color:#fff;
-  }
-  .btn-ghost:hover{background:rgba(255,255,255,0.1); transform:translateY(-2px);}
-  .btn-outline-navy{
-    border:1.5px solid var(--navy-900);
-    color:var(--navy-900);
-  }
-  .btn-outline-navy:hover{background:var(--navy-900); color:#fff;}
-  .btn:focus-visible{outline:2.5px solid var(--dawn-500); outline-offset:3px;}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+      white-space: nowrap;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--dawn-400), var(--dawn-600));
+      color: var(--navy-950);
+      box-shadow: 0 14px 30px -10px rgba(227, 154, 52, 0.55);
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px -8px rgba(227, 154, 52, 0.65);
+    }
+    .btn-ghost {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    .btn-outline-navy {
+      border: 1.5px solid var(--navy-900);
+      color: var(--navy-900);
+    }
+    .btn-outline-navy:hover {
+      background: var(--navy-900);
+      color: #fff;
+    }
+    .btn:focus-visible {
+      outline: 2.5px solid var(--dawn-500);
+      outline-offset: 3px;
+    }
 
-  /* ---------- NAV ---------- */
-  header{
-    position:fixed; top:0; left:0; right:0; z-index:200;
-    padding:22px 0;
-    transition:padding .4s var(--ease), background .4s var(--ease), box-shadow .4s var(--ease);
-  }
-  header.scrolled{
-    padding:12px 0;
-    background:rgba(6,15,31,0.86);
-    backdrop-filter:blur(14px);
-    box-shadow:0 10px 30px rgba(6,15,31,0.25);
-  }
-  nav.wrap{display:flex; align-items:center; justify-content:space-between;}
-  .brand{display:flex; align-items:center; gap:12px;}
-  .brand img{height:46px; width:auto;}
-  .brand-text{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; color:rgba(255,255,255,0.55); text-transform:uppercase;}
-  .nav-links{display:flex; align-items:center; gap:38px;}
-  .nav-links a{
-    font-size:14.5px; font-weight:600; color:rgba(255,255,255,0.82);
-    position:relative; padding:6px 0;
-  }
-  .nav-links a::after{
-    content:""; position:absolute; left:0; bottom:0; height:2px; width:0;
-    background:var(--dawn-400); transition:width .3s var(--ease);
-  }
-  .nav-links a:hover::after{width:100%;}
-  .nav-cta{display:flex; align-items:center; gap:22px;}
-  .burger{display:none; flex-direction:column; gap:5px; width:26px;}
-  .burger span{height:2px; background:#fff; border-radius:2px;}
+    /* ---------- NAV ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 18px 0;
+      transition: padding .4s var(--ease), background .4s var(--ease), box-shadow .4s var(--ease);
+    }
+    header.scrolled {
+      padding: 10px 0;
+      background: rgba(6, 15, 31, 0.86);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(6, 15, 31, 0.25);
+    }
+    nav.wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand img {
+      height: 42px;
+      width: auto;
+    }
+    .brand-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.82);
+      position: relative;
+      padding: 6px 0;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: var(--dawn-400);
+      transition: width .3s var(--ease);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 26px;
+    }
+    .burger span {
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
 
-  .mobile-menu{
-    position:fixed; inset:0; background:var(--navy-950); z-index:300;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px;
-    transform:translateY(-100%); transition:transform .5s var(--ease);
-  }
-  .mobile-menu.open{transform:translateY(0);}
-  .mobile-menu a{font-family:'Fraunces',serif; font-size:30px; color:#fff;}
-  .mobile-close{position:absolute; top:26px; right:32px; font-size:26px; color:#fff;}
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--navy-950);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+      transform: translateY(-100%);
+      transition: transform .5s var(--ease);
+    }
+    .mobile-menu.open {
+      transform: translateY(0);
+    }
+    .mobile-menu a {
+      font-family: 'Fraunces', serif;
+      font-size: 30px;
+      color: #fff;
+    }
+    .mobile-close {
+      position: absolute;
+      top: 26px;
+      right: 32px;
+      font-size: 26px;
+      color: #fff;
+    }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex; align-items:center;
-    background:linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 38%, var(--navy-700) 72%, var(--dawn-500) 132%);
-    overflow:hidden;
-    padding-top:120px;
-    padding-bottom:0;
-  }
-  .hero::before{ /* sun */
-    content:"";
-    position:absolute;
-    right:8%; bottom:6%;
-    width:420px; height:420px;
-    border-radius:50%;
-    background:radial-gradient(circle at 50% 50%, rgba(246,205,131,0.95), rgba(227,154,52,0.35) 55%, transparent 72%);
-    filter:blur(2px);
-    animation:rise 3.5s var(--ease) both;
-  }
-  @keyframes rise{
-    from{transform:translateY(80px); opacity:0;}
-    to{transform:translateY(0); opacity:1;}
-  }
-  .hero-skyline{
-    position:absolute; left:0; right:0; bottom:-2px; width:100%; height:auto;
-    opacity:0.9;
-  }
-  .hero-grid{
-    position:relative; z-index:5;
-    display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:end;
-    width:100%;
-    padding-bottom:150px;
-  }
-  .hero-copy .eyebrow{color:var(--dawn-300);}
-  .hero-copy .eyebrow::before{background:var(--dawn-300);}
-  .hero-copy h1{
-    font-size:clamp(40px,5.4vw,70px);
-    color:#fff;
-    line-height:1.05;
-    max-width:14ch;
-  }
-  .hero-copy h1 em{
-    font-style:normal;
-    background:linear-gradient(100deg,var(--dawn-300),var(--dawn-500));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .hero-copy p{
-    margin-top:26px;
-    font-size:18px;
-    color:rgba(255,255,255,0.72);
-    max-width:44ch;
-    line-height:1.75;
-  }
-  .hero-actions{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
-  .hero-stats{
-    display:flex; flex-direction:column; gap:22px;
-    border-left:1px solid rgba(255,255,255,0.18);
-    padding-left:32px;
-  }
-  .hero-stat b{
-    font-family:'Fraunces',serif; font-weight:600;
-    font-size:40px; color:#fff; display:block; line-height:1;
-  }
-  .hero-stat span{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
-    color:rgba(255,255,255,0.55);
-  }
-  .scroll-cue{
-    position:absolute; left:32px; bottom:34px; z-index:5;
-    display:flex; align-items:center; gap:12px;
-    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em;
-    color:rgba(255,255,255,0.55); text-transform:uppercase;
-  }
-  .scroll-cue .line{width:34px; height:1px; background:rgba(255,255,255,0.4); position:relative; overflow:hidden;}
-  .scroll-cue .line::after{content:"";position:absolute;left:-100%;top:0;bottom:0;width:100%;background:var(--dawn-400);animation:scrollline 2.2s ease-in-out infinite;}
-  @keyframes scrollline{ 0%{left:-100%;} 50%{left:0;} 100%{left:100%;} }
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 38%, var(--navy-700) 72%, var(--dawn-500) 132%);
+      overflow: hidden;
+      padding-top: 100px;
+      padding-bottom: 0;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: 8%;
+      bottom: 6%;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, rgba(246, 205, 131, 0.95), rgba(227, 154, 52, 0.35) 55%, transparent 72%);
+      filter: blur(2px);
+      animation: rise 3.5s var(--ease) both;
+    }
+    @keyframes rise {
+      from {
+        transform: translateY(80px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .hero-skyline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      width: 100%;
+      height: auto;
+      opacity: 0.9;
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: end;
+      width: 100%;
+      padding-bottom: 120px;
+    }
+    .hero-copy .eyebrow {
+      color: var(--dawn-300);
+    }
+    .hero-copy .eyebrow::before {
+      background: var(--dawn-300);
+    }
+    .hero-copy h1 {
+      font-size: clamp(38px, 5.4vw, 66px);
+      color: #fff;
+      line-height: 1.05;
+      max-width: 14ch;
+    }
+    .hero-copy h1 em {
+      font-style: normal;
+      background: linear-gradient(100deg, var(--dawn-300), var(--dawn-500));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-copy p {
+      margin-top: 20px;
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 44ch;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border-left: 1px solid rgba(255, 255, 255, 0.18);
+      padding-left: 28px;
+    }
+    .hero-stat b {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 36px;
+      color: #fff;
+      display: block;
+      line-height: 1;
+    }
+    .hero-stat span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .scroll-cue {
+      position: absolute;
+      left: 32px;
+      bottom: 34px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+    }
+    .scroll-cue .line {
+      width: 34px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-cue .line::after {
+      content: "";
+      position: absolute;
+      left: -100%;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      background: var(--dawn-400);
+      animation: scrollline 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollline {
+      0% {
+        left: -100%;
+      }
+      50% {
+        left: 0;
+      }
+      100% {
+        left: 100%;
+      }
+    }
 
-  /* ---------- TRUST STRIP ---------- */
-  .trust{
-    background:var(--navy-900);
-    padding:26px 0;
-    border-top:1px solid rgba(255,255,255,0.08);
-  }
-  .trust .wrap{
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px;
-  }
-  .trust-item{
-    display:flex; align-items:center; gap:10px;
-    color:rgba(255,255,255,0.68);
-    font-size:14px; font-weight:600;
-  }
-  .trust-item i{color:var(--dawn-400);}
+    /* ---------- TRUST STRIP ---------- */
+    .trust {
+      background: var(--navy-900);
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .trust .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .trust-item i {
+      color: var(--dawn-400);
+      width: 18px;
+      text-align: center;
+    }
 
-  /* ---------- SECTION GENERIC ---------- */
-  section{padding:120px 0;}
-  .section-head{
-    max-width:640px; margin-bottom:64px;
-  }
-  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
-  .section-head h2{font-size:clamp(32px,4vw,46px); line-height:1.15;}
-  .section-head p{margin-top:18px; font-size:17px; color:var(--slate); line-height:1.75;}
+    /* ---------- SECTION GENERIC ---------- */
+    section {
+      padding: 90px 0;
+    }
+    .section-head {
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+    .section-head.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .section-head h2 {
+      font-size: clamp(28px, 3.6vw, 42px);
+      line-height: 1.15;
+    }
+    .section-head p {
+      margin-top: 14px;
+      font-size: 16px;
+      color: var(--slate);
+      line-height: 1.7;
+    }
 
-  /* reveal */
-  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease);}
-  .reveal.in{opacity:1; transform:none;}
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
 
-  /* ---------- SERVICES ---------- */
-  .services-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .service-card{
-    background:var(--cream);
-    padding:44px 36px;
-    transition:background .4s var(--ease);
-    position:relative;
-  }
-  .service-card:hover{background:var(--paper);}
-  .service-num{
-    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--dawn-600); letter-spacing:.1em;
-  }
-  .service-icon{
-    width:52px;height:52px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--navy-900); color:var(--dawn-400); font-size:19px;
-    margin:22px 0 22px;
-    transition:transform .4s var(--ease), background .4s var(--ease);
-  }
-  .service-card:hover .service-icon{transform:rotate(-8deg) scale(1.06); background:var(--dawn-500); color:var(--navy-950);}
-  .service-card h3{font-size:21px; margin-bottom:12px;}
-  .service-card p{font-size:14.8px; color:var(--slate); line-height:1.7;}
+    /* ---------- SERVICES ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .service-card {
+      background: var(--cream);
+      padding: 36px 28px;
+      transition: background .4s var(--ease);
+      position: relative;
+    }
+    .service-card:hover {
+      background: var(--paper);
+    }
+    .service-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--dawn-600);
+      letter-spacing: .1em;
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy-900);
+      color: var(--dawn-400);
+      font-size: 17px;
+      margin: 18px 0 18px;
+      transition: transform .4s var(--ease), background .4s var(--ease);
+    }
+    .service-card:hover .service-icon {
+      transform: rotate(-8deg) scale(1.06);
+      background: var(--dawn-500);
+      color: var(--navy-950);
+    }
+    .service-card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.65;
+    }
 
-  /* ---------- ABOUT ---------- */
-  .about{background:var(--navy-950); color:#fff; position:relative; overflow:hidden;}
-  .about::after{
-    content:""; position:absolute; inset:0;
-    background:
-      linear-gradient(90deg, rgba(6,15,31,0.9), rgba(6,15,31,0.55)),
-      radial-gradient(circle at 85% 20%, rgba(227,154,52,0.18), transparent 45%);
-    pointer-events:none;
-  }
-  .about .wrap{position:relative; z-index:2; display:grid; grid-template-columns:0.9fr 1.1fr; gap:80px; align-items:center;}
-  .about-visual{
-    position:relative;
-    aspect-ratio:4/5;
-    border:1px solid rgba(255,255,255,0.14);
-    display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(160deg,var(--navy-800),var(--navy-950));
-  }
-  .about-visual img{width:64%;}
-  .about-visual .frame-label{
-    position:absolute; bottom:22px; left:22px;
-    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; color:rgba(255,255,255,0.45); text-transform:uppercase;
-  }
-  .about-copy .eyebrow{color:var(--dawn-300);}
-  .about-copy .eyebrow::before{background:var(--dawn-300);}
-  .about-copy h2{color:#fff; font-size:clamp(30px,3.6vw,42px); line-height:1.2; max-width:16ch;}
-  .about-copy > p{margin-top:22px; color:rgba(255,255,255,0.68); font-size:16.5px; line-height:1.8; max-width:52ch;}
-  .about-list{display:grid; grid-template-columns:1fr 1fr; gap:16px 28px; margin-top:36px;}
-  .about-list li{display:flex; align-items:center; gap:12px; font-size:14.5px; color:rgba(255,255,255,0.85); font-weight:600;}
-  .about-list i{color:var(--dawn-400);}
-  .about-copy .btn{margin-top:38px;}
+    /* ---------- ABOUT ---------- */
+    .about {
+      background: var(--navy-950);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .about::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(6, 15, 31, 0.9), rgba(6, 15, 31, 0.55)),
+        radial-gradient(circle at 85% 20%, rgba(227, 154, 52, 0.18), transparent 45%);
+      pointer-events: none;
+    }
+    .about .wrap {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, var(--navy-800), var(--navy-950));
+    }
+    .about-visual img {
+      width: 64%;
+    }
+    .about-visual .frame-label {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+    }
+    .about-copy .eyebrow {
+      color: var(--dawn-300);
+    }
+    .about-copy .eyebrow::before {
+      background: var(--dawn-300);
+    }
+    .about-copy h2 {
+      color: #fff;
+      font-size: clamp(28px, 3.2vw, 38px);
+      line-height: 1.2;
+      max-width: 16ch;
+    }
+    .about-copy>p {
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 15.5px;
+      line-height: 1.75;
+      max-width: 52ch;
+    }
+    .about-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+      margin-top: 28px;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+    }
+    .about-list i {
+      color: var(--dawn-400);
+    }
+    .about-copy .btn {
+      margin-top: 32px;
+    }
+    .why-choose-us {
+      margin-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 28px;
+    }
+    .why-choose-us h3 {
+      color: var(--dawn-300);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
 
-  /* ---------- STATS BAND ---------- */
-  .stats-band{
-    background:var(--paper);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    padding:70px 0;
-  }
-  .stats-band .wrap{display:grid; grid-template-columns:repeat(4,1fr);}
-  .stat-block{
-    text-align:center; padding:0 20px;
-    border-right:1px solid var(--line);
-  }
-  .stat-block:last-child{border-right:none;}
-  .stat-block b{
-    font-family:'Fraunces',serif; font-size:44px; color:var(--navy-900); display:block;
-  }
-  .stat-block span{
-    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--slate-light);
-  }
+    /* ---------- STATS BAND ---------- */
+    .stats-band {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 56px 0;
+    }
+    .stats-band .wrap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-block {
+      text-align: center;
+      padding: 0 16px;
+      border-right: 1px solid var(--line);
+    }
+    .stat-block:last-child {
+      border-right: none;
+    }
+    .stat-block b {
+      font-family: 'Fraunces', serif;
+      font-size: 38px;
+      color: var(--navy-900);
+      display: block;
+    }
+    .stat-block span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--slate-light);
+    }
 
-  /* ---------- TESTIMONIALS ---------- */
-  .testimonials{background:var(--cream);}
-  .t-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
-  .t-card{
-    background:#fff; border:1px solid var(--line); padding:38px 32px 30px;
-    position:relative; border-radius:2px;
-    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
-  }
-  .t-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-soft);}
-  .t-card .quote-mark{
-    font-family:'Fraunces',serif; font-size:56px; color:var(--dawn-400); line-height:1; display:block; margin-bottom:6px;
-  }
-  .t-card p{font-size:15.5px; color:var(--slate); line-height:1.75; min-height:120px;}
-  .t-person{display:flex; align-items:center; gap:14px; margin-top:26px; padding-top:22px; border-top:1px solid var(--line);}
-  .t-avatar{
-    width:44px;height:44px; border-radius:50%; background:var(--navy-900); color:var(--dawn-400);
-    display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600;
-  }
-  .t-person b{display:block; font-size:14.5px; color:var(--navy-900);}
-  .t-person span{font-size:12.5px; color:var(--slate-light);}
+    /* ---------- TESTIMONIALS ---------- */
+    .testimonials {
+      background: var(--cream);
+    }
+    .t-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .t-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 32px 24px 26px;
+      position: relative;
+      border-radius: 2px;
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+    }
+    .t-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-soft);
+    }
+    .t-card .quote-mark {
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      color: var(--dawn-400);
+      line-height: 1;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .t-card p {
+      font-size: 14.5px;
+      color: var(--slate);
+      line-height: 1.7;
+      min-height: 100px;
+    }
+    .t-person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .t-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--navy-900);
+      color: var(--dawn-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .t-person b {
+      display: block;
+      font-size: 14px;
+      color: var(--navy-900);
+    }
+    .t-person span {
+      font-size: 12px;
+      color: var(--slate-light);
+    }
 
-  /* ---------- CTA BANNER ---------- */
-  .cta-banner{
-    position:relative;
-    background:linear-gradient(120deg, var(--navy-900), var(--navy-700) 60%, var(--dawn-500) 145%);
-    padding:100px 0;
-    overflow:hidden;
-  }
-  .cta-banner .wrap{position:relative; z-index:2; text-align:center;}
-  .cta-banner h2{color:#fff; font-size:clamp(30px,4.2vw,50px); max-width:18ch; margin:0 auto;}
-  .cta-banner p{color:rgba(255,255,255,0.72); margin-top:18px; font-size:17px;}
-  .cta-banner .hero-actions{justify-content:center; margin-top:34px;}
+    /* ---------- CTA BANNER ---------- */
+    .cta-banner {
+      position: relative;
+      background: linear-gradient(120deg, var(--navy-900), var(--navy-700) 60%, var(--dawn-500) 145%);
+      padding: 80px 0;
+      overflow: hidden;
+    }
+    .cta-banner .wrap {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      color: #fff;
+      font-size: clamp(28px, 3.8vw, 44px);
+      max-width: 18ch;
+      margin: 0 auto;
+    }
+    .cta-banner p {
+      color: rgba(255, 255, 255, 0.72);
+      margin-top: 14px;
+      font-size: 16px;
+    }
+    .cta-banner .hero-actions {
+      justify-content: center;
+      margin-top: 28px;
+    }
 
-  /* ---------- CONTACT ---------- */
-  .contact .wrap{display:grid; grid-template-columns:1fr 1fr; gap:80px;}
-  .contact-info-list{margin-top:36px; display:flex; flex-direction:column; gap:26px;}
-  .c-row{display:flex; gap:18px; align-items:flex-start;}
-  .c-icon{
-    width:46px;height:46px; flex:0 0 auto; border-radius:50%;
-    background:var(--navy-900); color:var(--dawn-400);
-    display:flex; align-items:center; justify-content:center; font-size:16px;
-  }
-  .c-row b{display:block; font-size:15px; color:var(--navy-900); margin-bottom:4px;}
-  .c-row span, .c-row a{font-size:14.5px; color:var(--slate); line-height:1.6;}
-  .c-row a:hover{color:var(--dawn-600);}
+    /* ---------- CONTACT ---------- */
+    .contact .wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-info-list {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .c-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .c-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--navy-900);
+      color: var(--dawn-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .c-row b {
+      display: block;
+      font-size: 14px;
+      color: var(--navy-900);
+      margin-bottom: 4px;
+    }
+    .c-row span,
+    .c-row a {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+    .c-row a:hover {
+      color: var(--dawn-600);
+    }
 
-  .form-card{
-    background:var(--navy-950); padding:44px; border-radius:2px; color:#fff;
-    position:relative; overflow:hidden;
-  }
-  .form-card::after{content:"";position:absolute;top:-40%;right:-20%;width:60%;height:140%;background:radial-gradient(circle,rgba(227,154,52,0.18),transparent 70%);}
-  .form-card h3{color:#fff; font-size:24px; position:relative; z-index:2;}
-  .form-card p{color:rgba(255,255,255,0.6); font-size:14px; margin-top:8px; position:relative; z-index:2;}
-  .field{margin-top:20px; position:relative; z-index:2;}
-  .field label{display:block; font-size:12px; font-family:'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px;}
-  .field input, .field textarea, .field select{
-    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.16);
-    padding:13px 14px; color:#fff; font-family:'Manrope',sans-serif; font-size:14.5px; border-radius:2px;
-    transition:border .3s var(--ease), background .3s var(--ease);
-  }
-  .field input:focus, .field textarea:focus, .field select:focus{
-    outline:none; border-color:var(--dawn-400); background:rgba(255,255,255,0.09);
-  }
-  .field textarea{resize:vertical; min-height:90px;}
-  .form-card .btn{width:100%; justify-content:center; margin-top:26px; position:relative; z-index:2;}
-  .form-note{font-size:12px; color:rgba(255,255,255,0.4); margin-top:14px; text-align:center; position:relative; z-index:2;}
+    .form-card {
+      background: var(--navy-950);
+      padding: 36px 32px;
+      border-radius: 2px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-card::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 60%;
+      height: 140%;
+      background: radial-gradient(circle, rgba(227, 154, 52, 0.18), transparent 70%);
+    }
+    .form-card h3 {
+      color: #fff;
+      font-size: 22px;
+      position: relative;
+      z-index: 2;
+    }
+    .form-card p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 13.5px;
+      margin-top: 6px;
+      position: relative;
+      z-index: 2;
+    }
+    .field {
+      margin-top: 18px;
+      position: relative;
+      z-index: 2;
+    }
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 12px 14px;
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      border-radius: 2px;
+      transition: border .3s var(--ease), background .3s var(--ease);
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--dawn-400);
+      background: rgba(255, 255, 255, 0.09);
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .form-card .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 22px;
+      position: relative;
+      z-index: 2;
+    }
+    .form-note {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 12px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
 
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--navy-950); color:rgba(255,255,255,0.7); padding-top:80px;}
-  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:50px; padding-bottom:60px; border-bottom:1px solid rgba(255,255,255,0.08);}
-  .footer-brand img{height:42px; margin-bottom:18px;}
-  .footer-brand p{font-size:14px; line-height:1.75; color:rgba(255,255,255,0.5); max-width:32ch;}
-  .footer-social{display:flex; gap:12px; margin-top:22px;}
-  .footer-social a{
-    width:38px;height:38px; border:1px solid rgba(255,255,255,0.16); border-radius:50%;
-    display:flex; align-items:center; justify-content:center; transition:background .3s var(--ease), border-color .3s var(--ease);
-  }
-  .footer-social a:hover{background:var(--dawn-500); border-color:var(--dawn-500); color:var(--navy-950);}
-  .footer-col h4{color:#fff; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:20px;}
-  .footer-col ul{display:flex; flex-direction:column; gap:12px;}
-  .footer-col a, .footer-col span{font-size:14.5px; color:rgba(255,255,255,0.55); transition:color .3s var(--ease);}
-  .footer-col a:hover{color:var(--dawn-400);}
-  .footer-bottom{
-    padding:26px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
-    font-size:13px; color:rgba(255,255,255,0.4);
-  }
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--navy-950);
+      color: rgba(255, 255, 255, 0.7);
+      padding-top: 64px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1.2fr;
+      gap: 40px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-brand img {
+      height: 36px;
+      margin-bottom: 14px;
+    }
+    .footer-brand p {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 32ch;
+    }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s var(--ease), border-color .3s var(--ease);
+    }
+    .footer-social a:hover {
+      background: var(--dawn-500);
+      border-color: var(--dawn-500);
+      color: var(--navy-950);
+    }
+    .footer-col h4 {
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a,
+    .footer-col span {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.55);
+      transition: color .3s var(--ease);
+    }
+    .footer-col a:hover {
+      color: var(--dawn-400);
+    }
+    .footer-bottom {
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.4);
+    }
 
-  /* ---------- responsive ---------- */
-  @media (max-width:980px){
-    .nav-links, .nav-cta .btn-outline-navy{display:none;}
-    .burger{display:flex;}
-    .hero-grid{grid-template-columns:1fr; padding-bottom:90px;}
-    .hero-stats{flex-direction:row; border-left:none; padding-left:0; gap:34px; border-top:1px solid rgba(255,255,255,0.18); padding-top:26px; margin-top:10px;}
-    .services-grid{grid-template-columns:repeat(2,1fr);}
-    .about .wrap{grid-template-columns:1fr; gap:44px;}
-    .about-visual{max-width:340px;}
-    .stats-band .wrap{grid-template-columns:repeat(2,1fr); row-gap:34px;}
-    .stat-block:nth-child(2){border-right:none;}
-    .t-grid{grid-template-columns:1fr;}
-    .contact .wrap{grid-template-columns:1fr; gap:50px;}
-    .footer-grid{grid-template-columns:1fr 1fr; row-gap:40px;}
-  }
-  @media (max-width:600px){
-    .wrap{padding:0 22px;}
-    section{padding:80px 0;}
-    .services-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;}
-    .hero-actions .btn{flex:1; justify-content:center;}
-    .trust .wrap{justify-content:center; text-align:center;}
-  }
-</style>
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 980px) {
+      .nav-links,
+      .nav-cta .btn-outline-navy {
+        display: none;
+      }
+      .burger {
+        display: flex;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding-bottom: 70px;
+      }
+      .hero-stats {
+        flex-direction: row;
+        border-left: none;
+        padding-left: 0;
+        gap: 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        padding-top: 20px;
+        margin-top: 10px;
+      }
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .about .wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-visual {
+        max-width: 320px;
+      }
+      .stats-band .wrap {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 28px;
+      }
+      .stat-block:nth-child(2) {
+        border-right: none;
+      }
+      .t-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact .wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .wrap {
+        padding: 0 18px;
+      }
+      section {
+        padding: 60px 0;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-actions .btn {
+        flex: 1;
+        justify-content: center;
+      }
+      .trust .wrap {
+        justify-content: center;
+        text-align: center;
+        gap: 8px 12px;
+      }
+      .trust-item {
+        font-size: 11px;
+      }
+      /* mobile top fixes */
+      header {
+        padding: 12px 0;
+      }
+      .brand img {
+        height: 34px;
+      }
+      .brand-text {
+        font-size: 9px;
+      }
+      .hero-copy h1 {
+        font-size: 32px;
+      }
+      .hero-copy p {
+        font-size: 15px;
+      }
+      .hero-stats b {
+        font-size: 28px;
+      }
+      .hero-stats span {
+        font-size: 9.5px;
+      }
+      .hero-stats {
+        gap: 16px;
+        padding-top: 14px;
+      }
+      .scroll-cue {
+        display: none;
+      }
+      .service-card h3 {
+        font-size: 17px;
+      }
+      .service-card p {
+        font-size: 13px;
+      }
+      .about-list {
+        grid-template-columns: 1fr;
+      }
+      .stat-block b {
+        font-size: 30px;
+      }
+      .t-card p {
+        font-size: 13.5px;
+        min-height: auto;
+      }
+      .form-card {
+        padding: 28px 18px;
+      }
+      .form-card h3 {
+        font-size: 20px;
+      }
+      .cta-banner {
+        padding: 60px 0;
+      }
+      .cta-banner h2 {
+        font-size: 26px;
+      }
+      .footer-col a,
+      .footer-col span {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero-actions .btn {
+        font-size: 13px;
+        padding: 12px 18px;
+      }
+      .hero-stats b {
+        font-size: 24px;
+      }
+      .hero-stats span {
+        font-size: 8.5px;
+      }
+      .trust-item {
+        font-size: 10px;
+      }
+      .trust-item i {
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header id="siteHeader">
-  <nav class="wrap">
-    <a href="#home" class="brand">
-      <img src="data:image/jpeg;base64,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" alt="Uday Infra logo" />
-      <span class="brand-text">Est. Hyderabad</span>
-    </a>
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact">Contact</a>
+  <header id="siteHeader">
+    <nav class="wrap">
+      <a href="#home" class="brand">
+        <img src="data:image/jpeg;base64,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" alt="Uday Infra logo" />
+        <span class="brand-text">Est. Hyderabad</span>
+      </a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-ghost" style="font-size:13px; padding:10px 18px;">Get a Quote</a>
+      </div>
+      <button class="burger" id="burgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="home">
+    <svg class="hero-skyline" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#050d1a" opacity="0.85" d="M0,220 L0,140 L40,140 L40,110 L80,110 L80,150 L130,150 L130,90 L170,90 L170,150 L220,150 L220,60 L260,60 L260,150 L310,150 L310,120 L360,120 L360,150 L400,150 L400,40 L450,40 L450,150 L500,150 L500,100 L540,100 L540,150 L600,150 L600,70 L650,70 L650,150 L700,150 L700,20 L750,20 L750,150 L800,150 L800,95 L850,95 L850,150 L900,150 L900,55 L950,55 L950,150 L1000,150 L1000,130 L1040,130 L1040,150 L1090,150 L1090,80 L1140,80 L1140,150 L1190,150 L1190,110 L1230,110 L1230,150 L1280,150 L1280,45 L1330,45 L1330,150 L1380,150 L1380,120 L1440,120 L1440,220 Z"/>
+    </svg>
+
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal in">
+        <div class="eyebrow">Premium Turnkey Interior &amp; Infrastructure Solutions</div>
+        <h1>Designing Spaces. <em>Delivering Excellence.</em></h1>
+        <p>From NABH-compliant hospitals and commercial developments to modern office spaces and luxury homes, Uday Infra delivers end-to-end turnkey interior, infrastructure, and project management solutions that redefine quality, functionality, and design excellence.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-arrow-right"></i> Get Free Consultation</a>
+          <a href="#services" class="btn btn-ghost">View Our Projects</a>
+        </div>
+      </div>
+      <div class="hero-stats reveal in">
+        <div class="hero-stat"><b data-count="70">0</b><span>Projects completed</span></div>
+        <div class="hero-stat"><b data-count="6">0</b><span>Years of excellence</span></div>
+        <div class="hero-stat"><b style="font-size:28px;">✔</b><span>End-to-end turnkey solutions</span></div>
+      </div>
     </div>
-    <div class="nav-cta">
-      <a href="tel:+918185853338" class="btn btn-ghost" style="display:none"></a>
-      <a href="#contact" class="btn btn-ghost">Get a Quote</a>
+
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <div class="trust">
+    <div class="wrap">
+      <div class="trust-item"><i class="fa-solid fa-hospital"></i> Hospitals</div>
+      <div class="trust-item"><i class="fa-solid fa-briefcase"></i> Office Turnkey Interiors</div>
+      <div class="trust-item"><i class="fa-solid fa-stethoscope"></i> Clinic Interiors</div>
+      <div class="trust-item"><i class="fa-solid fa-house"></i> Home Interiors</div>
+      <div class="trust-item"><i class="fa-solid fa-store"></i> Commercial Interiors</div>
+      <div class="trust-item"><i class="fa-solid fa-layer-group"></i> ACP Elevation</div>
+      <div class="trust-item"><i class="fa-solid fa-cube"></i> 3D Design &amp; Visualization</div>
+      <div class="trust-item"><i class="fa-solid fa-hammer"></i> Renovation &amp; Remodeling</div>
+      <div class="trust-item"><i class="fa-solid fa-clipboard-list"></i> PMC</div>
     </div>
-    <button class="burger" id="burgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-</header>
+  </div>
 
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#testimonials">Testimonials</a>
-  <a href="#contact">Contact</a>
-</div>
+  <!-- ================= SERVICES ================= -->
+  <section id="services">
+    <div class="wrap" style="padding:0;">
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <div class="service-icon"><i class="fa-solid fa-hospital"></i></div>
+          <h3>Hospital Turnkey Interiors</h3>
+          <p>Complete healthcare infrastructure designed and executed as per NABH guidelines, ensuring safety, efficiency, hygiene, and operational excellence.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3>Office Turnkey Interiors</h3>
+          <p>Modern workspaces designed to improve productivity, collaboration, and employee experience through intelligent planning and premium finishes.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <div class="service-icon"><i class="fa-solid fa-stethoscope"></i></div>
+          <h3>Clinic Interiors</h3>
+          <p>Professional clinic environments designed for patient comfort, optimized workflow, and enhanced healthcare delivery.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <div class="service-icon"><i class="fa-solid fa-house"></i></div>
+          <h3>Residential Interiors</h3>
+          <p>Elegant and personalized home interiors designed to reflect your lifestyle while maximizing comfort, functionality, and aesthetics.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">05</span>
+          <div class="service-icon"><i class="fa-solid fa-store"></i></div>
+          <h3>Commercial Interiors</h3>
+          <p>Premium interiors for retail stores, showrooms, restaurants, educational institutions, hospitality, and commercial developments.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">06</span>
+          <div class="service-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3>ACP Elevation</h3>
+          <p>Modern and durable exterior elevation solutions that create a distinctive architectural identity.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">07</span>
+          <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
+          <h3>3D Design &amp; Visualization</h3>
+          <p>Experience your project before execution through realistic 3D renders, layouts, and walkthroughs for confident decision-making.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">08</span>
+          <div class="service-icon"><i class="fa-solid fa-hammer"></i></div>
+          <h3>Renovation &amp; Remodeling</h3>
+          <p>Transform existing spaces into modern, efficient, and visually stunning environments while preserving structural integrity.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">09</span>
+          <div class="service-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+          <h3>Project Management Consultancy</h3>
+          <p>From planning and budgeting to execution and handover — PMC services covering vendor management, QA/QC, site supervision, and timely delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="home">
-  <svg class="hero-skyline" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#050d1a" opacity="0.85" d="M0,220 L0,140 L40,140 L40,110 L80,110 L80,150 L130,150 L130,90 L170,90 L170,150 L220,150 L220,60 L260,60 L260,150 L310,150 L310,120 L360,120 L360,150 L400,150 L400,40 L450,40 L450,150 L500,150 L500,100 L540,100 L540,150 L600,150 L600,70 L650,70 L650,150 L700,150 L700,20 L750,20 L750,150 L800,150 L800,95 L850,95 L850,150 L900,150 L900,55 L950,55 L950,150 L1000,150 L1000,130 L1040,130 L1040,150 L1090,150 L1090,80 L1140,80 L1140,150 L1190,150 L1190,110 L1230,110 L1230,150 L1280,150 L1280,45 L1330,45 L1330,150 L1380,150 L1380,120 L1440,120 L1440,220 Z"/>
-  </svg>
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-visual reveal">
+        <img src="data:image/jpeg;base64,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" alt="Uday Infra emblem" />
+        <div class="frame-label">Uday — meaning "dawn"</div>
+      </div>
+      <div class="about-copy reveal">
+        <div class="eyebrow">About Uday Infra</div>
+        <h2>Building Inspiring Spaces Since 2020.</h2>
+        <p>Established in 2020, Uday Infra has grown into one of Hyderabad's trusted names in turnkey interiors and infrastructure solutions. With over 70 successfully completed projects, our experienced architects, engineers, designers and project managers work together to deliver exceptional results — whether it's a NABH-compliant hospital, a corporate office, a luxury home, or a commercial establishment.</p>
 
-  <div class="wrap hero-grid">
-    <div class="hero-copy reveal in">
-      <div class="eyebrow">Premium Turnkey Interior &amp; Infrastructure Solutions</div>
-      <h1>Designing Spaces. <em>Delivering Excellence.</em></h1>
-      <p>From NABH-compliant hospitals and commercial developments to modern office spaces and luxury homes, Uday Infra delivers end-to-end turnkey interior, infrastructure, and project management solutions that redefine quality, functionality, and design excellence.</p>
+        <!-- Why Choose Us -->
+        <div class="why-choose-us">
+          <h3>Why Choose Us</h3>
+          <ul class="about-list">
+            <li><i class="fa-solid fa-check"></i> End-to-end turnkey solutions</li>
+            <li><i class="fa-solid fa-check"></i> Customized design approach</li>
+            <li><i class="fa-solid fa-check"></i> Specialized healthcare expertise</li>
+            <li><i class="fa-solid fa-check"></i> Premium quality materials</li>
+            <li><i class="fa-solid fa-check"></i> Experienced professionals</li>
+            <li><i class="fa-solid fa-check"></i> Professional project management</li>
+            <li><i class="fa-solid fa-check"></i> Transparent pricing</li>
+            <li><i class="fa-solid fa-check"></i> On-time delivery</li>
+            <li><i class="fa-solid fa-check"></i> Customer-centric approach</li>
+          </ul>
+        </div>
+
+        <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-arrow-right"></i> Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS BAND ================= -->
+  <div class="stats-band">
+    <div class="wrap reveal">
+      <div class="stat-block"><b data-count="70">0</b><span>Projects Completed</span></div>
+      <div class="stat-block"><b data-count="15">0</b><span>Expert Team</span></div>
+      <div class="stat-block"><b data-count="6">0</b><span>Years Experience</span></div>
+      <div class="stat-block"><b data-count="9">0</b><span>Service Categories</span></div>
+    </div>
+  </div>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="testimonials" id="testimonials">
+    <div class="wrap">
+      <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+        <div class="eyebrow" style="justify-content:center;">What clients say</div>
+        <h2>Real feedback from real projects.</h2>
+      </div>
+      <div class="t-grid reveal">
+        <div class="t-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p>Uday Infra delivered our hospital project with exceptional professionalism and attention to detail. Their expertise in healthcare infrastructure and understanding of NABH requirements made the process smooth and efficient.</p>
+          <div class="t-person">
+            <div class="t-avatar">AK</div>
+            <div><b>Anil Kumar</b><span>Designated Partner, Urban Hospital, Nizampet</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p>We are extremely satisfied with the office interiors delivered by Uday Infra. Their creativity, professionalism, and commitment to quality exceeded our expectations, completed right on time.</p>
+          <div class="t-person">
+            <div class="t-avatar">CH</div>
+            <div><b>Chaitanya</b><span>Owner, The Big Day by Chai, Kondapur</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p>Uday Infra did an exceptional job designing and executing our healthcare facility's interiors — modern, functional, and welcoming for our patients, completed on schedule without compromising standards.</p>
+          <div class="t-person">
+            <div class="t-avatar">NR</div>
+            <div><b>Dr. Nischala Reddy</b><span>Founder &amp; Director, Ekam Fertility &amp; Women, Kokapet</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p>Choosing Uday Infra for our home interiors was the best decision we made. They transformed our apartment into a sophisticated, elegant, and highly functional living space.</p>
+          <div class="t-person">
+            <div class="t-avatar">SJ</div>
+            <div><b>Siraj</b><span>Homeowner, Aparna Zircon, Hyderabad</span></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <span class="quote-mark">&ldquo;</span>
+          <p>Uday Infra delivered our project with excellent quality, professionalism, and on-time execution. Their attention to detail and commitment to customer satisfaction exceeded our expectations.</p>
+          <div class="t-person">
+            <div class="t-avatar">RK</div>
+            <div><b>RK Enterprises</b><span>Dullapally</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BANNER ================= -->
+  <div class="cta-banner">
+    <div class="wrap reveal">
+      <h2>Let's Build Your Dream Space</h2>
+      <p>Whether you're planning a healthcare facility, luxury residence, corporate office, retail outlet, or commercial development, Uday Infra is your trusted partner for turnkey execution and professional project management.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-arrow-right"></i> Get Free Consultation</a>
-        <a href="#services" class="btn btn-ghost">View Our Projects</a>
-      </div>
-    </div>
-    <div class="hero-stats reveal in">
-      <div class="hero-stat"><b data-count="70">0</b><span>Projects completed</span></div>
-      <div class="hero-stat"><b data-count="6">0</b><span>Years of excellence</span></div>
-      <div class="hero-stat"><b style="font-size:32px;">✔</b><span>End-to-end turnkey solutions</span></div>
-    </div>
-  </div>
-
-  <div class="scroll-cue"><span class="line"></span> Scroll</div>
-</section>
-
-<!-- ================= TRUST STRIP ================= -->
-<div class="trust">
-  <div class="wrap">
-    <div class="trust-item"><i class="fa-solid fa-hospital"></i> Hospitals</div>
-    <div class="trust-item"><i class="fa-solid fa-briefcase"></i> Offices</div>
-    <div class="trust-item"><i class="fa-solid fa-stethoscope"></i> Clinics</div>
-    <div class="trust-item"><i class="fa-solid fa-house"></i> Residential</div>
-    <div class="trust-item"><i class="fa-solid fa-store"></i> Commercial</div>
-  </div>
-</div>
-
-<!-- ================= SERVICES ================= -->
-<section id="services">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">What we offer</div>
-      <h2>Nine disciplines, one accountable team.</h2>
-      <p>From NABH-compliant hospitals to luxury homes, every service below is delivered in‑house — no handoffs, no guesswork.</p>
-    </div>
-  </div>
-  <div class="wrap" style="padding:0;">
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <span class="service-num">01</span>
-        <div class="service-icon"><i class="fa-solid fa-hospital"></i></div>
-        <h3>Hospital Turnkey Interiors</h3>
-        <p>Complete healthcare infrastructure designed and executed as per NABH guidelines, ensuring safety, efficiency, hygiene, and operational excellence.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">02</span>
-        <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
-        <h3>Office Turnkey Interiors</h3>
-        <p>Modern workspaces designed to improve productivity, collaboration, and employee experience through intelligent planning and premium finishes.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">03</span>
-        <div class="service-icon"><i class="fa-solid fa-stethoscope"></i></div>
-        <h3>Clinic Interiors</h3>
-        <p>Professional clinic environments designed for patient comfort, optimized workflow, and enhanced healthcare delivery.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">04</span>
-        <div class="service-icon"><i class="fa-solid fa-house"></i></div>
-        <h3>Residential Interiors</h3>
-        <p>Elegant and personalized home interiors designed to reflect your lifestyle while maximizing comfort, functionality, and aesthetics.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">05</span>
-        <div class="service-icon"><i class="fa-solid fa-store"></i></div>
-        <h3>Commercial Interiors</h3>
-        <p>Premium interiors for retail stores, showrooms, restaurants, educational institutions, hospitality, and commercial developments.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">06</span>
-        <div class="service-icon"><i class="fa-solid fa-layer-group"></i></div>
-        <h3>ACP Elevation</h3>
-        <p>Modern and durable exterior elevation solutions that create a distinctive architectural identity.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">07</span>
-        <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
-        <h3>3D Design &amp; Visualization</h3>
-        <p>Experience your project before execution through realistic 3D renders, layouts, and walkthroughs for confident decision-making.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">08</span>
-        <div class="service-icon"><i class="fa-solid fa-hammer"></i></div>
-        <h3>Renovation &amp; Remodeling</h3>
-        <p>Transform existing spaces into modern, efficient, and visually stunning environments while preserving structural integrity.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-num">09</span>
-        <div class="service-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-        <h3>Project Management Consultancy</h3>
-        <p>From planning and budgeting to execution and handover — PMC services covering vendor management, QA/QC, site supervision, and timely delivery.</p>
+        <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-phone"></i> Contact Us Now</a>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ================= ABOUT ================= -->
-<section class="about" id="about">
-  <div class="wrap">
-    <div class="about-visual reveal">
-      <img src="data:image/jpeg;base64,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" alt="Uday Infra emblem" />
-      <div class="frame-label">Uday — meaning "dawn"</div>
-    </div>
-    <div class="about-copy reveal">
-      <div class="eyebrow">About Uday Infra</div>
-      <h2>Building Inspiring Spaces Since 2020.</h2>
-      <p>Established in 2020, Uday Infra has grown into one of Hyderabad's trusted names in turnkey interiors and infrastructure solutions. With over 70 successfully completed projects, our experienced architects, engineers, designers and project managers work together to deliver exceptional results — whether it's a NABH-compliant hospital, a corporate office, a luxury home, or a commercial establishment.</p>
-      <ul class="about-list">
-        <li><i class="fa-solid fa-check"></i> End-to-end turnkey solutions</li>
-        <li><i class="fa-solid fa-check"></i> Customized design approach</li>
-        <li><i class="fa-solid fa-check"></i> Specialized healthcare expertise</li>
-        <li><i class="fa-solid fa-check"></i> Premium quality materials</li>
-        <li><i class="fa-solid fa-check"></i> Experienced professionals</li>
-        <li><i class="fa-solid fa-check"></i> Professional project management</li>
-        <li><i class="fa-solid fa-check"></i> Transparent pricing</li>
-        <li><i class="fa-solid fa-check"></i> On-time delivery</li>
-        <li><i class="fa-solid fa-check"></i> Customer-centric approach</li>
-      </ul>
-      <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-arrow-right"></i> Start a Conversation</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= STATS BAND ================= -->
-<div class="stats-band">
-  <div class="wrap reveal">
-    <div class="stat-block"><b data-count="70">0</b><span>Projects Completed</span></div>
-    <div class="stat-block"><b data-count="15">0</b><span>Expert Team</span></div>
-    <div class="stat-block"><b data-count="6">0</b><span>Years Experience</span></div>
-    <div class="stat-block"><b data-count="9">0</b><span>Service Categories</span></div>
-  </div>
-</div>
-
-<!-- ================= TESTIMONIALS ================= -->
-<section class="testimonials" id="testimonials">
-  <div class="wrap">
-    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <div class="eyebrow" style="justify-content:center;">What clients say</div>
-      <h2>Real feedback from real projects.</h2>
-    </div>
-    <div class="t-grid reveal">
-      <div class="t-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p>Uday Infra delivered our hospital project with exceptional professionalism and attention to detail. Their expertise in healthcare infrastructure and understanding of NABH requirements made the process smooth and efficient.</p>
-        <div class="t-person">
-          <div class="t-avatar">AK</div>
-          <div><b>Anil Kumar</b><span>Designated Partner, Urban Hospital, Nizampet</span></div>
+  <!-- ================= CONTACT ================= -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Get in touch</div>
+        <h2>Let's talk about your project.</h2>
+        <p style="margin-top:14px; color:var(--slate); font-size:15.5px; max-width:46ch;">Reach out for a free consultation — we typically respond within one business day.</p>
+        <div class="contact-info-list">
+          <div class="c-row">
+            <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div><b>Visit Us</b><span>Plot No. 9, Road No. 1, Bank Colony,<br>Suchitra Circle, Quthbullapur, Hyderabad – 500015</span></div>
+          </div>
+          <div class="c-row">
+            <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+            <div><b>Call Us</b><a href="tel:+918185853338">+91 81858 53338</a> / <a href="tel:+918074355594">+91 80743 55594</a></div>
+          </div>
+          <div class="c-row">
+            <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div><b>Email Us</b><a href="mailto:udayinfra360@gmail.com">udayinfra360@gmail.com</a></div>
+          </div>
         </div>
       </div>
-      <div class="t-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p>We are extremely satisfied with the office interiors delivered by Uday Infra. Their creativity, professionalism, and commitment to quality exceeded our expectations, completed right on time.</p>
-        <div class="t-person">
-          <div class="t-avatar">CH</div>
-          <div><b>Chaitanya</b><span>Owner, The Big Day by Chai, Kondapur</span></div>
+
+      <form class="form-card reveal" id="quoteForm">
+        <h3>Request a free quote</h3>
+        <p>Tell us a little about your project and we'll get back to you.</p>
+        <div class="field">
+          <label for="fname">Full name</label>
+          <input id="fname" type="text" placeholder="Your name" minlength="2" required />
+        </div>
+        <div class="field">
+          <label for="fphone">Phone number</label>
+          <input id="fphone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
+        </div>
+        <div class="field">
+          <label for="ftype">Project type</label>
+          <select id="ftype">
+            <option>Hospital / Healthcare</option>
+            <option>Office</option>
+            <option>Clinic</option>
+            <option>Residential</option>
+            <option>Commercial</option>
+            <option>Renovation</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fmsg">Tell us about it</label>
+          <textarea id="fmsg" placeholder="Plot size, location, timeline..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold"><i class="fa-solid fa-paper-plane"></i> Send Request</button>
+        <p class="form-note" id="formNote">We'll never share your information.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="data:image/jpeg;base64,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" alt="Uday Infra" style="filter:brightness(0) invert(1); height:34px; width:auto;" />
+          <p>Leading turnkey interior and infrastructure company in Hyderabad, delivering hospitals, offices, homes and commercial spaces with precision and excellence.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><span>Plot No. 9, Road No. 1, Bank Colony, Suchitra Circle, Quthbullapur, Hyderabad – 500015</span></li>
+            <li><a href="tel:+918185853338">+91 81858 53338</a></li>
+            <li><a href="mailto:udayinfra360@gmail.com">udayinfra360@gmail.com</a></li>
+          </ul>
         </div>
       </div>
-      <div class="t-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p>Uday Infra did an exceptional job designing and executing our healthcare facility's interiors — modern, functional, and welcoming for our patients, completed on schedule without compromising standards.</p>
-        <div class="t-person">
-          <div class="t-avatar">NR</div>
-          <div><b>Dr. Nischala Reddy</b><span>Founder &amp; Director, Ekam Fertility &amp; Women, Kokapet</span></div>
-        </div>
-      </div>
-      <div class="t-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p>Choosing Uday Infra for our home interiors was the best decision we made. They transformed our apartment into a sophisticated, elegant, and highly functional living space.</p>
-        <div class="t-person">
-          <div class="t-avatar">SJ</div>
-          <div><b>Siraj</b><span>Homeowner, Aparna Zircon, Hyderabad</span></div>
-        </div>
-      </div>
-      <div class="t-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p>Uday Infra delivered our project with excellent quality, professionalism, and on-time execution. Their attention to detail and commitment to customer satisfaction exceeded our expectations.</p>
-        <div class="t-person">
-          <div class="t-avatar">RK</div>
-          <div><b>RK Enterprises</b><span>Dullapally</span></div>
-        </div>
+      <div class="footer-bottom">
+        <span>© 2026 Uday Infra. All rights reserved.</span>
+        <span>Turnkey Interiors · Infrastructure · PMC</span>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ================= CTA BANNER ================= -->
-<div class="cta-banner">
-  <div class="wrap reveal">
-    <h2>Let's Build Your Dream Space</h2>
-    <p>Whether you're planning a healthcare facility, luxury residence, corporate office, retail outlet, or commercial development, Uday Infra is your trusted partner for turnkey execution and professional project management.</p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-phone"></i> Contact Us Now</a>
-    </div>
-  </div>
-</div>
-
-<!-- ================= CONTACT ================= -->
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">Get in touch</div>
-      <h2>Let's talk about your project.</h2>
-      <p style="margin-top:16px; color:var(--slate); font-size:16.5px; max-width:46ch;">Reach out for a free consultation — we typically respond within one business day.</p>
-      <div class="contact-info-list">
-        <div class="c-row">
-          <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
-          <div><b>Visit Us</b><span>Plot No. 9, Road No. 1, Bank Colony,<br>Suchitra Circle, Quthbullapur, Hyderabad – 500015</span></div>
-        </div>
-        <div class="c-row">
-          <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
-          <div><b>Call Us</b><a href="tel:+918185853338">+91 81858 53338</a> / <a href="tel:+918074355594">+91 80743 55594</a></div>
-        </div>
-        <div class="c-row">
-          <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
-          <div><b>Email Us</b><a href="mailto:udayinfra360@gmail.com">udayinfra360@gmail.com</a></div>
-        </div>
-      </div>
-    </div>
-
-    <form class="form-card reveal" id="quoteForm">
-      <h3>Request a free quote</h3>
-      <p>Tell us a little about your project and we'll get back to you.</p>
-      <div class="field">
-        <label for="fname">Full name</label>
-        <input id="fname" type="text" placeholder="Your name" minlength="2" required />
-      </div>
-      <div class="field">
-        <label for="fphone">Phone number</label>
-        <input id="fphone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
-      </div>
-      <div class="field">
-        <label for="ftype">Project type</label>
-        <select id="ftype">
-          <option>Hospital / Healthcare</option>
-          <option>Office</option>
-          <option>Clinic</option>
-          <option>Residential</option>
-          <option>Commercial</option>
-          <option>Renovation</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="fmsg">Tell us about it</label>
-        <textarea id="fmsg" placeholder="Plot size, location, timeline..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-gold"><i class="fa-solid fa-paper-plane"></i> Send Request</button>
-      <p class="form-note" id="formNote">We'll never share your information.</p>
-    </form>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="data:image/jpeg;base64,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" alt="Uday Infra" style="filter:brightness(0) invert(1); height:38px; width:auto;" />
-        <p>Leading turnkey interior and infrastructure company in Hyderabad, delivering hospitals, offices, homes and commercial spaces with precision and excellence.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><span>Hospital Turnkey Interiors</span></li>
-          <li><span>Office Turnkey Interiors</span></li>
-          <li><span>Residential Interiors</span></li>
-          <li><span>Project Management (PMC)</span></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><span>Plot No. 9, Road No. 1, Bank Colony, Suchitra Circle, Quthbullapur, Hyderabad – 500015</span></li>
-          <li><a href="tel:+918185853338">+91 81858 53338</a></li>
-          <li><a href="mailto:udayinfra360@gmail.com">udayinfra360@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Uday Infra. All rights reserved.</span>
-      <span>Turnkey Interiors · Infrastructure · PMC</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // sticky header
-  const header = document.getElementById('siteHeader');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  // mobile menu
-  const burger = document.getElementById('burgerBtn');
-  const menu = document.getElementById('mobileMenu');
-  const closeBtn = document.getElementById('mobileClose');
-  burger.addEventListener('click', () => menu.classList.add('open'));
-  closeBtn.addEventListener('click', () => menu.classList.remove('open'));
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
-
-  // reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
-
-  // animated counters
-  const counters = document.querySelectorAll('[data-count]');
-  const countIO = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.getAttribute('data-count'), 10);
-      let current = 0;
-      const duration = 1400;
-      const start = performance.now();
-      function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        current = Math.floor(progress * target);
-        el.textContent = current + (progress >= 1 ? '+' : '');
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      countIO.unobserve(el);
+  <script>
+    // sticky header
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
     });
-  }, { threshold: 0.4 });
-  counters.forEach(c => countIO.observe(c));
 
+    // mobile menu
+    const burger = document.getElementById('burgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileClose');
+    burger.addEventListener('click', () => menu.classList.add('open'));
+    closeBtn.addEventListener('click', () => menu.classList.remove('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
-</script>
+    // reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in');
+          io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
 
-<!-- ================= FIREBASE: QUOTE FORM → FIRESTORE ================= -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    // animated counters
+    const counters = document.querySelectorAll('[data-count]');
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        let current = 0;
+        const duration = 1400;
+        const start = performance.now();
 
-  // TODO: paste your Firebase project config here (same config used in admin.html)
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyBUrMuthDlsmKLW5TEWZuv7idagCvrV2Mw",
-  //   authDomain: "codexaura-it-solutions.firebaseapp.com",
-  //   projectId: "codexaura-it-solutions",
-  //   storageBucket: "codexaura-it-solutions.firebasestorage.app",
-  //   messagingSenderId: "852712858901",
-  //   appId: "1:852712858901:web:dde51d7f37e505cfd8751c"
-  // };
-
-  const firebaseConfig = {
-  apiKey: "AIzaSyCY9JLrcqVYc8iaH0DbgJCY_xs6aoHJNPE",
-  authDomain: "udayinfra-5b790.firebaseapp.com",
-  projectId: "udayinfra-5b790",
-  storageBucket: "udayinfra-5b790.firebasestorage.app",
-  messagingSenderId: "150527368715",
-  appId: "1:150527368715:web:2d7b79c4089ce89875710e",
-  measurementId: "G-79QL8S4C1F"
-};
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const quoteForm = document.getElementById('quoteForm');
-  const formNote = document.getElementById('formNote');
-  const phoneInput = document.getElementById('fphone');
-  const defaultNote = "We'll never share your information.";
-
-  // allow only digits while typing, capped at 10
-  phoneInput.addEventListener('input', function(){
-    this.value = this.value.replace(/\D/g, '').slice(0, 10);
-  });
-
-  function showNote(msg, isError){
-    formNote.textContent = msg;
-    formNote.style.color = isError ? '#ff8080' : '';
-  }
-
-  quoteForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    const btn = this.querySelector('button[type="submit"]');
-    const original = btn.innerHTML;
-
-    const name = document.getElementById('fname').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const projectType = document.getElementById('ftype').value;
-    const message = document.getElementById('fmsg').value.trim();
-
-    if (!name || name.length < 2) {
-      showNote('Please enter your full name.', true);
-      document.getElementById('fname').focus();
-      return;
-    }
-    if (!/^[0-9]{10}$/.test(phone)) {
-      showNote('Please enter a valid 10-digit phone number.', true);
-      phoneInput.focus();
-      return;
-    }
-
-    showNote(defaultNote, false);
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-
-    try {
-      await addDoc(collection(db, 'leads'), {
-        name, phone, projectType, message,
-        status: 'new',
-        source: 'website-quote-form',
-        createdAt: serverTimestamp()
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          current = Math.floor(progress * target);
+          el.textContent = current + (progress >= 1 ? '+' : '');
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countIO.unobserve(el);
       });
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> Request Received';
-      showNote("Thanks! We'll get back to you within one business day.", false);
-      quoteForm.reset();
-      setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2800);
-    } catch (err) {
-      console.error('Lead submit failed:', err);
-      btn.innerHTML = original;
-      btn.disabled = false;
-      showNote('Something went wrong sending that — please call or WhatsApp us instead.', true);
+    }, { threshold: 0.4 });
+    counters.forEach(c => countIO.observe(c));
+  </script>
+
+  <!-- ================= FIREBASE: QUOTE FORM → FIRESTORE ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCY9JLrcqVYc8iaH0DbgJCY_xs6aoHJNPE",
+      authDomain: "udayinfra-5b790.firebaseapp.com",
+      projectId: "udayinfra-5b790",
+      storageBucket: "udayinfra-5b790.firebasestorage.app",
+      messagingSenderId: "150527368715",
+      appId: "1:150527368715:web:2d7b79c4089ce89875710e",
+      measurementId: "G-79QL8S4C1F"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const quoteForm = document.getElementById('quoteForm');
+    const formNote = document.getElementById('formNote');
+    const phoneInput = document.getElementById('fphone');
+    const defaultNote = "We'll never share your information.";
+
+    phoneInput.addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    });
+
+    function showNote(msg, isError) {
+      formNote.textContent = msg;
+      formNote.style.color = isError ? '#ff8080' : '';
     }
-  });
-</script>
+
+    quoteForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+
+      const name = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('fphone').value.trim();
+      const projectType = document.getElementById('ftype').value;
+      const message = document.getElementById('fmsg').value.trim();
+
+      if (!name || name.length < 2) {
+        showNote('Please enter your full name.', true);
+        document.getElementById('fname').focus();
+        return;
+      }
+      if (!/^[0-9]{10}$/.test(phone)) {
+        showNote('Please enter a valid 10-digit phone number.', true);
+        phoneInput.focus();
+        return;
+      }
+
+      showNote(defaultNote, false);
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+      try {
+        await addDoc(collection(db, 'leads'), {
+          name,
+          phone,
+          projectType,
+          message,
+          status: 'new',
+          source: 'website-quote-form',
+          createdAt: serverTimestamp()
+        });
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Request Received';
+        showNote("Thanks! We'll get back to you within one business day.", false);
+        quoteForm.reset();
+        setTimeout(() => { btn.innerHTML = original;
+          btn.disabled = false; }, 2800);
+      } catch (err) {
+        console.error('Lead submit failed:', err);
+        btn.innerHTML = original;
+        btn.disabled = false;
+        showNote('Something went wrong sending that — please call or WhatsApp us instead.', true);
+      }
+    });
+  </script>
 </body>
 </html>
