@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Uday Infra — Turnkey Interior &amp; Infrastructure Solutions, Hyderabad</title>
-  <meta name="description" content="Uday Infra is a Hyderabad-based turnkey interior and infrastructure company delivering NABH-compliant hospitals, offices, clinics, residential and commercial spaces end-to-end." />
+  <meta name="description"
+    content="Uday Infra is a Hyderabad-based turnkey interior and infrastructure company delivering NABH-compliant hospitals, offices, clinics, residential and commercial spaces end-to-end." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
@@ -37,13 +41,16 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html {
       scroll-behavior: smooth;
     }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
+
       * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -63,13 +70,16 @@
       color: inherit;
       text-decoration: none;
     }
+
     ul {
       list-style: none;
     }
+
     img {
       max-width: 100%;
       display: block;
     }
+
     button {
       font-family: inherit;
       cursor: pointer;
@@ -105,6 +115,7 @@
       gap: 10px;
       margin-bottom: 18px;
     }
+
     .eyebrow::before {
       content: "";
       width: 26px;
@@ -125,31 +136,38 @@
       transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
       white-space: nowrap;
     }
+
     .btn-gold {
       background: linear-gradient(135deg, var(--dawn-400), var(--dawn-600));
       color: var(--navy-950);
       box-shadow: 0 14px 30px -10px rgba(227, 154, 52, 0.55);
     }
+
     .btn-gold:hover {
       transform: translateY(-2px);
       box-shadow: 0 18px 36px -8px rgba(227, 154, 52, 0.65);
     }
+
     .btn-ghost {
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #fff;
     }
+
     .btn-ghost:hover {
       background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
+
     .btn-outline-navy {
       border: 1.5px solid var(--navy-900);
       color: var(--navy-900);
     }
+
     .btn-outline-navy:hover {
       background: var(--navy-900);
       color: #fff;
     }
+
     .btn:focus-visible {
       outline: 2.5px solid var(--dawn-500);
       outline-offset: 3px;
@@ -165,26 +183,31 @@
       padding: 18px 0;
       transition: padding .4s var(--ease), background .4s var(--ease), box-shadow .4s var(--ease);
     }
+
     header.scrolled {
       padding: 10px 0;
       background: rgba(6, 15, 31, 0.86);
       backdrop-filter: blur(14px);
       box-shadow: 0 10px 30px rgba(6, 15, 31, 0.25);
     }
+
     nav.wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
     .brand img {
       height: 42px;
       width: auto;
     }
+
     .brand-text {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
@@ -192,11 +215,13 @@
       color: rgba(255, 255, 255, 0.55);
       text-transform: uppercase;
     }
+
     .nav-links {
       display: flex;
       align-items: center;
       gap: 28px;
     }
+
     .nav-links a {
       font-size: 14px;
       font-weight: 600;
@@ -204,6 +229,7 @@
       position: relative;
       padding: 6px 0;
     }
+
     .nav-links a::after {
       content: "";
       position: absolute;
@@ -214,20 +240,24 @@
       background: var(--dawn-400);
       transition: width .3s var(--ease);
     }
+
     .nav-links a:hover::after {
       width: 100%;
     }
+
     .nav-cta {
       display: flex;
       align-items: center;
       gap: 18px;
     }
+
     .burger {
       display: none;
       flex-direction: column;
       gap: 5px;
       width: 26px;
     }
+
     .burger span {
       height: 2px;
       background: #fff;
@@ -247,14 +277,17 @@
       transform: translateY(-100%);
       transition: transform .5s var(--ease);
     }
+
     .mobile-menu.open {
       transform: translateY(0);
     }
+
     .mobile-menu a {
       font-family: 'Fraunces', serif;
       font-size: 30px;
       color: #fff;
     }
+
     .mobile-close {
       position: absolute;
       top: 26px;
@@ -274,6 +307,7 @@
       padding-top: 100px;
       padding-bottom: 0;
     }
+
     .hero::before {
       content: "";
       position: absolute;
@@ -286,16 +320,19 @@
       filter: blur(2px);
       animation: rise 3.5s var(--ease) both;
     }
+
     @keyframes rise {
       from {
         transform: translateY(80px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
       }
     }
+
     .hero-skyline {
       position: absolute;
       left: 0;
@@ -305,6 +342,7 @@
       height: auto;
       opacity: 0.9;
     }
+
     .hero-grid {
       position: relative;
       z-index: 5;
@@ -315,18 +353,22 @@
       width: 100%;
       padding-bottom: 120px;
     }
+
     .hero-copy .eyebrow {
       color: var(--dawn-300);
     }
+
     .hero-copy .eyebrow::before {
       background: var(--dawn-300);
     }
+
     .hero-copy h1 {
       font-size: clamp(38px, 5.4vw, 66px);
       color: #fff;
       line-height: 1.05;
       max-width: 14ch;
     }
+
     .hero-copy h1 em {
       font-style: normal;
       background: linear-gradient(100deg, var(--dawn-300), var(--dawn-500));
@@ -334,6 +376,7 @@
       background-clip: text;
       color: transparent;
     }
+
     .hero-copy p {
       margin-top: 20px;
       font-size: 17px;
@@ -341,19 +384,30 @@
       max-width: 44ch;
       line-height: 1.7;
     }
+
     .hero-actions {
       display: flex;
       gap: 14px;
       margin-top: 32px;
       flex-wrap: wrap;
     }
-    .hero-stats {
+
+    /* .hero-stats {
       display: flex;
       flex-direction: column;
       gap: 18px;
       border-left: 1px solid rgba(255, 255, 255, 0.18);
       padding-left: 28px;
+    } */
+    .hero-stats {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      border-left: 1px solid rgba(255, 255, 255, 0.18);
+      padding-left: 28px;
+      align-items: center;
     }
+
     .hero-stat b {
       font-family: 'Fraunces', serif;
       font-weight: 600;
@@ -362,6 +416,7 @@
       display: block;
       line-height: 1;
     }
+
     .hero-stat span {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -369,6 +424,7 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.55);
     }
+
     .scroll-cue {
       position: absolute;
       left: 32px;
@@ -383,6 +439,7 @@
       color: rgba(255, 255, 255, 0.55);
       text-transform: uppercase;
     }
+
     .scroll-cue .line {
       width: 34px;
       height: 1px;
@@ -390,6 +447,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .scroll-cue .line::after {
       content: "";
       position: absolute;
@@ -400,13 +458,16 @@
       background: var(--dawn-400);
       animation: scrollline 2.2s ease-in-out infinite;
     }
+
     @keyframes scrollline {
       0% {
         left: -100%;
       }
+
       50% {
         left: 0;
       }
+
       100% {
         left: 100%;
       }
@@ -418,6 +479,7 @@
       padding: 20px 0;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .trust .wrap {
       display: flex;
       align-items: center;
@@ -425,6 +487,7 @@
       flex-wrap: wrap;
       gap: 12px 20px;
     }
+
     .trust-item {
       display: flex;
       align-items: center;
@@ -433,6 +496,7 @@
       font-size: 13px;
       font-weight: 500;
     }
+
     .trust-item i {
       color: var(--dawn-400);
       width: 18px;
@@ -443,19 +507,23 @@
     section {
       padding: 90px 0;
     }
+
     .section-head {
       max-width: 640px;
       margin-bottom: 48px;
     }
+
     .section-head.center {
       margin-left: auto;
       margin-right: auto;
       text-align: center;
     }
+
     .section-head h2 {
       font-size: clamp(28px, 3.6vw, 42px);
       line-height: 1.15;
     }
+
     .section-head p {
       margin-top: 14px;
       font-size: 16px;
@@ -469,6 +537,7 @@
       transform: translateY(28px);
       transition: opacity .9s var(--ease), transform .9s var(--ease);
     }
+
     .reveal.in {
       opacity: 1;
       transform: none;
@@ -482,21 +551,25 @@
       background: var(--line);
       border: 1px solid var(--line);
     }
+
     .service-card {
       background: var(--cream);
       padding: 36px 28px;
       transition: background .4s var(--ease);
       position: relative;
     }
+
     .service-card:hover {
       background: var(--paper);
     }
+
     .service-num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--dawn-600);
       letter-spacing: .1em;
     }
+
     .service-icon {
       width: 48px;
       height: 48px;
@@ -510,15 +583,18 @@
       margin: 18px 0 18px;
       transition: transform .4s var(--ease), background .4s var(--ease);
     }
+
     .service-card:hover .service-icon {
       transform: rotate(-8deg) scale(1.06);
       background: var(--dawn-500);
       color: var(--navy-950);
     }
+
     .service-card h3 {
       font-size: 19px;
       margin-bottom: 10px;
     }
+
     .service-card p {
       font-size: 14px;
       color: var(--slate);
@@ -532,6 +608,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .about::after {
       content: "";
       position: absolute;
@@ -541,6 +618,7 @@
         radial-gradient(circle at 85% 20%, rgba(227, 154, 52, 0.18), transparent 45%);
       pointer-events: none;
     }
+
     .about .wrap {
       position: relative;
       z-index: 2;
@@ -549,6 +627,7 @@
       gap: 60px;
       align-items: center;
     }
+
     .about-visual {
       position: relative;
       aspect-ratio: 4/5;
@@ -558,9 +637,11 @@
       justify-content: center;
       background: linear-gradient(160deg, var(--navy-800), var(--navy-950));
     }
+
     .about-visual img {
       width: 64%;
     }
+
     .about-visual .frame-label {
       position: absolute;
       bottom: 22px;
@@ -571,18 +652,22 @@
       color: rgba(255, 255, 255, 0.45);
       text-transform: uppercase;
     }
+
     .about-copy .eyebrow {
       color: var(--dawn-300);
     }
+
     .about-copy .eyebrow::before {
       background: var(--dawn-300);
     }
+
     .about-copy h2 {
       color: #fff;
       font-size: clamp(28px, 3.2vw, 38px);
       line-height: 1.2;
       max-width: 16ch;
     }
+
     .about-copy>p {
       margin-top: 18px;
       color: rgba(255, 255, 255, 0.68);
@@ -590,12 +675,14 @@
       line-height: 1.75;
       max-width: 52ch;
     }
+
     .about-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px 24px;
       margin-top: 28px;
     }
+
     .about-list li {
       display: flex;
       align-items: center;
@@ -604,17 +691,21 @@
       color: rgba(255, 255, 255, 0.85);
       font-weight: 600;
     }
+
     .about-list i {
       color: var(--dawn-400);
     }
+
     .about-copy .btn {
       margin-top: 32px;
     }
+
     .why-choose-us {
       margin-top: 32px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 28px;
     }
+
     .why-choose-us h3 {
       color: var(--dawn-300);
       font-family: 'JetBrains Mono', monospace;
@@ -631,24 +722,29 @@
       border-bottom: 1px solid var(--line);
       padding: 56px 0;
     }
+
     .stats-band .wrap {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
+
     .stat-block {
       text-align: center;
       padding: 0 16px;
       border-right: 1px solid var(--line);
     }
+
     .stat-block:last-child {
       border-right: none;
     }
+
     .stat-block b {
       font-family: 'Fraunces', serif;
       font-size: 38px;
       color: var(--navy-900);
       display: block;
     }
+
     .stat-block span {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10.5px;
@@ -661,11 +757,13 @@
     .testimonials {
       background: var(--cream);
     }
+
     .t-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
+
     .t-card {
       background: #fff;
       border: 1px solid var(--line);
@@ -674,10 +772,12 @@
       border-radius: 2px;
       transition: transform .4s var(--ease), box-shadow .4s var(--ease);
     }
+
     .t-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-soft);
     }
+
     .t-card .quote-mark {
       font-family: 'Fraunces', serif;
       font-size: 48px;
@@ -686,12 +786,14 @@
       display: block;
       margin-bottom: 4px;
     }
+
     .t-card p {
       font-size: 14.5px;
       color: var(--slate);
       line-height: 1.7;
       min-height: 100px;
     }
+
     .t-person {
       display: flex;
       align-items: center;
@@ -700,6 +802,7 @@
       padding-top: 18px;
       border-top: 1px solid var(--line);
     }
+
     .t-avatar {
       width: 40px;
       height: 40px;
@@ -713,11 +816,13 @@
       font-size: 12px;
       font-weight: 600;
     }
+
     .t-person b {
       display: block;
       font-size: 14px;
       color: var(--navy-900);
     }
+
     .t-person span {
       font-size: 12px;
       color: var(--slate-light);
@@ -730,22 +835,26 @@
       padding: 80px 0;
       overflow: hidden;
     }
+
     .cta-banner .wrap {
       position: relative;
       z-index: 2;
       text-align: center;
     }
+
     .cta-banner h2 {
       color: #fff;
       font-size: clamp(28px, 3.8vw, 44px);
       max-width: 18ch;
       margin: 0 auto;
     }
+
     .cta-banner p {
       color: rgba(255, 255, 255, 0.72);
       margin-top: 14px;
       font-size: 16px;
     }
+
     .cta-banner .hero-actions {
       justify-content: center;
       margin-top: 28px;
@@ -757,17 +866,20 @@
       grid-template-columns: 1fr 1fr;
       gap: 60px;
     }
+
     .contact-info-list {
       margin-top: 30px;
       display: flex;
       flex-direction: column;
       gap: 22px;
     }
+
     .c-row {
       display: flex;
       gap: 16px;
       align-items: flex-start;
     }
+
     .c-icon {
       width: 42px;
       height: 42px;
@@ -780,18 +892,21 @@
       justify-content: center;
       font-size: 15px;
     }
+
     .c-row b {
       display: block;
       font-size: 14px;
       color: var(--navy-900);
       margin-bottom: 4px;
     }
+
     .c-row span,
     .c-row a {
       font-size: 14px;
       color: var(--slate);
       line-height: 1.5;
     }
+
     .c-row a:hover {
       color: var(--dawn-600);
     }
@@ -804,6 +919,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .form-card::after {
       content: "";
       position: absolute;
@@ -813,12 +929,14 @@
       height: 140%;
       background: radial-gradient(circle, rgba(227, 154, 52, 0.18), transparent 70%);
     }
+
     .form-card h3 {
       color: #fff;
       font-size: 22px;
       position: relative;
       z-index: 2;
     }
+
     .form-card p {
       color: rgba(255, 255, 255, 0.6);
       font-size: 13.5px;
@@ -826,11 +944,13 @@
       position: relative;
       z-index: 2;
     }
+
     .field {
       margin-top: 18px;
       position: relative;
       z-index: 2;
     }
+
     .field label {
       display: block;
       font-size: 11px;
@@ -840,6 +960,7 @@
       color: rgba(255, 255, 255, 0.5);
       margin-bottom: 6px;
     }
+
     .field input,
     .field textarea,
     .field select {
@@ -853,6 +974,7 @@
       border-radius: 2px;
       transition: border .3s var(--ease), background .3s var(--ease);
     }
+
     .field input:focus,
     .field textarea:focus,
     .field select:focus {
@@ -860,10 +982,12 @@
       border-color: var(--dawn-400);
       background: rgba(255, 255, 255, 0.09);
     }
+
     .field textarea {
       resize: vertical;
       min-height: 80px;
     }
+
     .form-card .btn {
       width: 100%;
       justify-content: center;
@@ -871,6 +995,7 @@
       position: relative;
       z-index: 2;
     }
+
     .form-note {
       font-size: 11.5px;
       color: rgba(255, 255, 255, 0.4);
@@ -886,6 +1011,7 @@
       color: rgba(255, 255, 255, 0.7);
       padding-top: 64px;
     }
+
     .footer-grid {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1.2fr;
@@ -893,21 +1019,25 @@
       padding-bottom: 50px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .footer-brand img {
       height: 36px;
       margin-bottom: 14px;
     }
+
     .footer-brand p {
       font-size: 13.5px;
       line-height: 1.7;
       color: rgba(255, 255, 255, 0.5);
       max-width: 32ch;
     }
+
     .footer-social {
       display: flex;
       gap: 10px;
       margin-top: 18px;
     }
+
     .footer-social a {
       width: 36px;
       height: 36px;
@@ -918,11 +1048,13 @@
       justify-content: center;
       transition: background .3s var(--ease), border-color .3s var(--ease);
     }
+
     .footer-social a:hover {
       background: var(--dawn-500);
       border-color: var(--dawn-500);
       color: var(--navy-950);
     }
+
     .footer-col h4 {
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
@@ -931,20 +1063,24 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
+
     .footer-col ul {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
     .footer-col a,
     .footer-col span {
       font-size: 13.5px;
       color: rgba(255, 255, 255, 0.55);
       transition: color .3s var(--ease);
     }
+
     .footer-col a:hover {
       color: var(--dawn-400);
     }
+
     .footer-bottom {
       padding: 22px 0;
       display: flex;
@@ -958,17 +1094,30 @@
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 980px) {
+
       .nav-links,
       .nav-cta .btn-outline-navy {
         display: none;
       }
+
       .burger {
         display: flex;
       }
+
       .hero-grid {
         grid-template-columns: 1fr;
         padding-bottom: 70px;
       }
+
+      /* .hero-stats {
+        flex-direction: row;
+        border-left: none;
+        padding-left: 0;
+        gap: 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        padding-top: 20px;
+        margin-top: 10px;
+      } */
       .hero-stats {
         flex-direction: row;
         border-left: none;
@@ -977,31 +1126,41 @@
         border-top: 1px solid rgba(255, 255, 255, 0.18);
         padding-top: 20px;
         margin-top: 10px;
+        justify-content: space-around;
+        flex-wrap: wrap;
       }
+
       .services-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
       .about .wrap {
         grid-template-columns: 1fr;
         gap: 40px;
       }
+
       .about-visual {
         max-width: 320px;
       }
+
       .stats-band .wrap {
         grid-template-columns: repeat(2, 1fr);
         row-gap: 28px;
       }
+
       .stat-block:nth-child(2) {
         border-right: none;
       }
+
       .t-grid {
         grid-template-columns: 1fr;
       }
+
       .contact .wrap {
         grid-template-columns: 1fr;
         gap: 40px;
       }
+
       .footer-grid {
         grid-template-columns: 1fr 1fr;
         row-gap: 32px;
@@ -1012,84 +1171,109 @@
       .wrap {
         padding: 0 18px;
       }
+
       section {
         padding: 60px 0;
       }
+
       .services-grid {
         grid-template-columns: 1fr;
       }
+
       .footer-grid {
         grid-template-columns: 1fr;
       }
+
       .hero-actions .btn {
         flex: 1;
         justify-content: center;
       }
+
       .trust .wrap {
         justify-content: center;
         text-align: center;
         gap: 8px 12px;
       }
+
       .trust-item {
         font-size: 11px;
       }
+
       /* mobile top fixes */
       header {
         padding: 12px 0;
       }
+
       .brand img {
         height: 34px;
       }
+
       .brand-text {
         font-size: 9px;
       }
+
       .hero-copy h1 {
         font-size: 32px;
       }
+
       .hero-copy p {
         font-size: 15px;
       }
+
       .hero-stats b {
         font-size: 28px;
       }
+
       .hero-stats span {
         font-size: 9.5px;
       }
+
       .hero-stats {
         gap: 16px;
         padding-top: 14px;
       }
+
       .scroll-cue {
         display: none;
       }
+
       .service-card h3 {
         font-size: 17px;
       }
+
       .service-card p {
         font-size: 13px;
       }
+
       .about-list {
         grid-template-columns: 1fr;
       }
+
       .stat-block b {
         font-size: 30px;
       }
+
       .t-card p {
         font-size: 13.5px;
         min-height: auto;
       }
+
       .form-card {
         padding: 28px 18px;
       }
+
       .form-card h3 {
         font-size: 20px;
       }
+
       .cta-banner {
         padding: 60px 0;
       }
+
       .cta-banner h2 {
         font-size: 26px;
       }
+
       .footer-col a,
       .footer-col span {
         font-size: 13px;
@@ -1101,21 +1285,26 @@
         font-size: 13px;
         padding: 12px 18px;
       }
+
       .hero-stats b {
         font-size: 24px;
       }
+
       .hero-stats span {
         font-size: 8.5px;
       }
+
       .trust-item {
         font-size: 10px;
       }
+
       .trust-item i {
         font-size: 12px;
       }
     }
   </style>
 </head>
+
 <body>
 
   <header id="siteHeader">
@@ -1153,14 +1342,17 @@
   <!-- ================= HERO ================= -->
   <section class="hero" id="home">
     <svg class="hero-skyline" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#050d1a" opacity="0.85" d="M0,220 L0,140 L40,140 L40,110 L80,110 L80,150 L130,150 L130,90 L170,90 L170,150 L220,150 L220,60 L260,60 L260,150 L310,150 L310,120 L360,120 L360,150 L400,150 L400,40 L450,40 L450,150 L500,150 L500,100 L540,100 L540,150 L600,150 L600,70 L650,70 L650,150 L700,150 L700,20 L750,20 L750,150 L800,150 L800,95 L850,95 L850,150 L900,150 L900,55 L950,55 L950,150 L1000,150 L1000,130 L1040,130 L1040,150 L1090,150 L1090,80 L1140,80 L1140,150 L1190,150 L1190,110 L1230,110 L1230,150 L1280,150 L1280,45 L1330,45 L1330,150 L1380,150 L1380,120 L1440,120 L1440,220 Z"/>
+      <path fill="#050d1a" opacity="0.85"
+        d="M0,220 L0,140 L40,140 L40,110 L80,110 L80,150 L130,150 L130,90 L170,90 L170,150 L220,150 L220,60 L260,60 L260,150 L310,150 L310,120 L360,120 L360,150 L400,150 L400,40 L450,40 L450,150 L500,150 L500,100 L540,100 L540,150 L600,150 L600,70 L650,70 L650,150 L700,150 L700,20 L750,20 L750,150 L800,150 L800,95 L850,95 L850,150 L900,150 L900,55 L950,55 L950,150 L1000,150 L1000,130 L1040,130 L1040,150 L1090,150 L1090,80 L1140,80 L1140,150 L1190,150 L1190,110 L1230,110 L1230,150 L1280,150 L1280,45 L1330,45 L1330,150 L1380,150 L1380,120 L1440,120 L1440,220 Z" />
     </svg>
 
     <div class="wrap hero-grid">
       <div class="hero-copy reveal in">
         <div class="eyebrow">Premium Turnkey Interior &amp; Infrastructure Solutions</div>
         <h1>Designing Spaces. <em>Delivering Excellence.</em></h1>
-        <p>From NABH-compliant hospitals and commercial developments to modern office spaces and luxury homes, Uday Infra delivers end-to-end turnkey interior, infrastructure, and project management solutions that redefine quality, functionality, and design excellence.</p>
+        <p>From NABH-compliant hospitals and commercial developments to modern office spaces and luxury homes, Uday
+          Infra delivers end-to-end turnkey interior, infrastructure, and project management solutions that redefine
+          quality, functionality, and design excellence.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-arrow-right"></i> Get Free Consultation</a>
           <a href="#services" class="btn btn-ghost">View Our Projects</a>
@@ -1198,31 +1390,36 @@
           <span class="service-num">01</span>
           <div class="service-icon"><i class="fa-solid fa-hospital"></i></div>
           <h3>Hospital Turnkey Interiors</h3>
-          <p>Complete healthcare infrastructure designed and executed as per NABH guidelines, ensuring safety, efficiency, hygiene, and operational excellence.</p>
+          <p>Complete healthcare infrastructure designed and executed as per NABH guidelines, ensuring safety,
+            efficiency, hygiene, and operational excellence.</p>
         </div>
         <div class="service-card">
           <span class="service-num">02</span>
           <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
           <h3>Office Turnkey Interiors</h3>
-          <p>Modern workspaces designed to improve productivity, collaboration, and employee experience through intelligent planning and premium finishes.</p>
+          <p>Modern workspaces designed to improve productivity, collaboration, and employee experience through
+            intelligent planning and premium finishes.</p>
         </div>
         <div class="service-card">
           <span class="service-num">03</span>
           <div class="service-icon"><i class="fa-solid fa-stethoscope"></i></div>
           <h3>Clinic Interiors</h3>
-          <p>Professional clinic environments designed for patient comfort, optimized workflow, and enhanced healthcare delivery.</p>
+          <p>Professional clinic environments designed for patient comfort, optimized workflow, and enhanced healthcare
+            delivery.</p>
         </div>
         <div class="service-card">
           <span class="service-num">04</span>
           <div class="service-icon"><i class="fa-solid fa-house"></i></div>
           <h3>Residential Interiors</h3>
-          <p>Elegant and personalized home interiors designed to reflect your lifestyle while maximizing comfort, functionality, and aesthetics.</p>
+          <p>Elegant and personalized home interiors designed to reflect your lifestyle while maximizing comfort,
+            functionality, and aesthetics.</p>
         </div>
         <div class="service-card">
           <span class="service-num">05</span>
           <div class="service-icon"><i class="fa-solid fa-store"></i></div>
           <h3>Commercial Interiors</h3>
-          <p>Premium interiors for retail stores, showrooms, restaurants, educational institutions, hospitality, and commercial developments.</p>
+          <p>Premium interiors for retail stores, showrooms, restaurants, educational institutions, hospitality, and
+            commercial developments.</p>
         </div>
         <div class="service-card">
           <span class="service-num">06</span>
@@ -1234,19 +1431,22 @@
           <span class="service-num">07</span>
           <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
           <h3>3D Design &amp; Visualization</h3>
-          <p>Experience your project before execution through realistic 3D renders, layouts, and walkthroughs for confident decision-making.</p>
+          <p>Experience your project before execution through realistic 3D renders, layouts, and walkthroughs for
+            confident decision-making.</p>
         </div>
         <div class="service-card">
           <span class="service-num">08</span>
           <div class="service-icon"><i class="fa-solid fa-hammer"></i></div>
           <h3>Renovation &amp; Remodeling</h3>
-          <p>Transform existing spaces into modern, efficient, and visually stunning environments while preserving structural integrity.</p>
+          <p>Transform existing spaces into modern, efficient, and visually stunning environments while preserving
+            structural integrity.</p>
         </div>
         <div class="service-card">
           <span class="service-num">09</span>
           <div class="service-icon"><i class="fa-solid fa-clipboard-list"></i></div>
           <h3>Project Management Consultancy</h3>
-          <p>From planning and budgeting to execution and handover — PMC services covering vendor management, QA/QC, site supervision, and timely delivery.</p>
+          <p>From planning and budgeting to execution and handover — PMC services covering vendor management, QA/QC,
+            site supervision, and timely delivery.</p>
         </div>
       </div>
     </div>
@@ -1263,7 +1463,10 @@
       <div class="about-copy reveal">
         <div class="eyebrow">About Uday Infra</div>
         <h2>Building Inspiring Spaces Since 2020.</h2>
-        <p>Established in 2020, Uday Infra has grown into one of Hyderabad's trusted names in turnkey interiors and infrastructure solutions. With over 70 successfully completed projects, our experienced architects, engineers, designers and project managers work together to deliver exceptional results — whether it's a NABH-compliant hospital, a corporate office, a luxury home, or a commercial establishment.</p>
+        <p>Established in 2020, Uday Infra has grown into one of Hyderabad's trusted names in turnkey interiors and
+          infrastructure solutions. With over 70 successfully completed projects, our experienced architects, engineers,
+          designers and project managers work together to deliver exceptional results — whether it's a NABH-compliant
+          hospital, a corporate office, a luxury home, or a commercial establishment.</p>
 
         <!-- Why Choose Us -->
         <div class="why-choose-us">
@@ -1306,7 +1509,9 @@
       <div class="t-grid reveal">
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
-          <p>Uday Infra delivered our hospital project with exceptional professionalism and attention to detail. Their expertise in healthcare infrastructure and understanding of NABH requirements made the process smooth and efficient.</p>
+          <p>Uday Infra delivered our hospital project with exceptional professionalism and attention to detail. Their
+            expertise in healthcare infrastructure and understanding of NABH requirements made the process smooth and
+            efficient.</p>
           <div class="t-person">
             <div class="t-avatar">AK</div>
             <div><b>Anil Kumar</b><span>Designated Partner, Urban Hospital, Nizampet</span></div>
@@ -1314,7 +1519,8 @@
         </div>
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
-          <p>We are extremely satisfied with the office interiors delivered by Uday Infra. Their creativity, professionalism, and commitment to quality exceeded our expectations, completed right on time.</p>
+          <p>We are extremely satisfied with the office interiors delivered by Uday Infra. Their creativity,
+            professionalism, and commitment to quality exceeded our expectations, completed right on time.</p>
           <div class="t-person">
             <div class="t-avatar">CH</div>
             <div><b>Chaitanya</b><span>Owner, The Big Day by Chai, Kondapur</span></div>
@@ -1322,7 +1528,8 @@
         </div>
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
-          <p>Uday Infra did an exceptional job designing and executing our healthcare facility's interiors — modern, functional, and welcoming for our patients, completed on schedule without compromising standards.</p>
+          <p>Uday Infra did an exceptional job designing and executing our healthcare facility's interiors — modern,
+            functional, and welcoming for our patients, completed on schedule without compromising standards.</p>
           <div class="t-person">
             <div class="t-avatar">NR</div>
             <div><b>Dr. Nischala Reddy</b><span>Founder &amp; Director, Ekam Fertility &amp; Women, Kokapet</span></div>
@@ -1330,7 +1537,8 @@
         </div>
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
-          <p>Choosing Uday Infra for our home interiors was the best decision we made. They transformed our apartment into a sophisticated, elegant, and highly functional living space.</p>
+          <p>Choosing Uday Infra for our home interiors was the best decision we made. They transformed our apartment
+            into a sophisticated, elegant, and highly functional living space.</p>
           <div class="t-person">
             <div class="t-avatar">SJ</div>
             <div><b>Siraj</b><span>Homeowner, Aparna Zircon, Hyderabad</span></div>
@@ -1338,7 +1546,8 @@
         </div>
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
-          <p>Uday Infra delivered our project with excellent quality, professionalism, and on-time execution. Their attention to detail and commitment to customer satisfaction exceeded our expectations.</p>
+          <p>Uday Infra delivered our project with excellent quality, professionalism, and on-time execution. Their
+            attention to detail and commitment to customer satisfaction exceeded our expectations.</p>
           <div class="t-person">
             <div class="t-avatar">RK</div>
             <div><b>RK Enterprises</b><span>Dullapally</span></div>
@@ -1352,7 +1561,8 @@
   <div class="cta-banner">
     <div class="wrap reveal">
       <h2>Let's Build Your Dream Space</h2>
-      <p>Whether you're planning a healthcare facility, luxury residence, corporate office, retail outlet, or commercial development, Uday Infra is your trusted partner for turnkey execution and professional project management.</p>
+      <p>Whether you're planning a healthcare facility, luxury residence, corporate office, retail outlet, or commercial
+        development, Uday Infra is your trusted partner for turnkey execution and professional project management.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-phone"></i> Contact Us Now</a>
       </div>
@@ -1365,15 +1575,18 @@
       <div class="reveal">
         <div class="eyebrow">Get in touch</div>
         <h2>Let's talk about your project.</h2>
-        <p style="margin-top:14px; color:var(--slate); font-size:15.5px; max-width:46ch;">Reach out for a free consultation — we typically respond within one business day.</p>
+        <p style="margin-top:14px; color:var(--slate); font-size:15.5px; max-width:46ch;">Reach out for a free
+          consultation — we typically respond within one business day.</p>
         <div class="contact-info-list">
           <div class="c-row">
             <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <div><b>Visit Us</b><span>Plot No. 9, Road No. 1, Bank Colony,<br>Suchitra Circle, Quthbullapur, Hyderabad – 500015</span></div>
+            <div><b>Visit Us</b><span>Plot No. 9, Road No. 1, Bank Colony,<br>Suchitra Circle, Quthbullapur, Hyderabad –
+                500015</span></div>
           </div>
           <div class="c-row">
             <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
-            <div><b>Call Us</b><a href="tel:+918185853338">+91 81858 53338</a> / <a href="tel:+918074355594">+91 80743 55594</a></div>
+            <div><b>Call Us</b><a href="tel:+918185853338">+91 81858 53338</a> / <a href="tel:+918074355594">+91 80743
+                55594</a></div>
           </div>
           <div class="c-row">
             <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
@@ -1391,7 +1604,8 @@
         </div>
         <div class="field">
           <label for="fphone">Phone number</label>
-          <input id="fphone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required />
+          <input id="fphone" type="tel" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}"
+            maxlength="10" required />
         </div>
         <div class="field">
           <label for="ftype">Project type</label>
@@ -1419,9 +1633,11 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="images/logo.jpg" alt="Uday Infra" style="filter:brightness(-100) invert(1); height:34px; width:auto;" />
+          <img src="images/logo.jpg" alt="Uday Infra"
+            style="filter:brightness(-100) invert(1); height:34px; width:auto;" />
           <!-- <img src="data:image/jpeg;base64,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" alt="Uday Infra" style="filter:brightness(0) invert(1); height:34px; width:auto;" /> -->
-          <p>Leading turnkey interior and infrastructure company in Hyderabad, delivering hospitals, offices, homes and commercial spaces with precision and excellence.</p>
+          <p>Leading turnkey interior and infrastructure company in Hyderabad, delivering hospitals, offices, homes and
+            commercial spaces with precision and excellence.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -1471,8 +1687,12 @@
     // reveal on scroll
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in');
-          io.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.15 });
     revealEls.forEach(el => io.observe(el));
 
@@ -1523,7 +1743,7 @@
     const phoneInput = document.getElementById('fphone');
     const defaultNote = "We'll never share your information.";
 
-    phoneInput.addEventListener('input', function() {
+    phoneInput.addEventListener('input', function () {
       this.value = this.value.replace(/\D/g, '').slice(0, 10);
     });
 
@@ -1532,7 +1752,7 @@
       formNote.style.color = isError ? '#ff8080' : '';
     }
 
-    quoteForm.addEventListener('submit', async function(e) {
+    quoteForm.addEventListener('submit', async function (e) {
       e.preventDefault();
       const btn = this.querySelector('button[type="submit"]');
       const original = btn.innerHTML;
@@ -1570,8 +1790,10 @@
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Request Received';
         showNote("Thanks! We'll get back to you within one business day.", false);
         quoteForm.reset();
-        setTimeout(() => { btn.innerHTML = original;
-          btn.disabled = false; }, 2800);
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.disabled = false;
+        }, 2800);
       } catch (err) {
         console.error('Lead submit failed:', err);
         btn.innerHTML = original;
@@ -1581,4 +1803,5 @@
     });
   </script>
 </body>
+
 </html>
