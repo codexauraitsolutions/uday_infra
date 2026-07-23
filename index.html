@@ -605,6 +605,83 @@
       line-height: 1.65;
     }
 
+    /* ---------- OUR WORK / GALLERY ---------- */
+    .work-filters{
+      display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px;
+    }
+    .work-filter{
+      padding:10px 22px; border-radius:50px; border:1.5px solid var(--line);
+      background:var(--cream); color:var(--slate); font-size:13.5px; font-weight:700;
+      cursor:pointer; transition:all .3s var(--ease); font-family:'Manrope',sans-serif;
+    }
+    .work-filter:hover{border-color:var(--dawn-500); color:var(--navy-900);}
+    .work-filter.active{
+      background:var(--navy-900); border-color:var(--navy-900); color:#fff;
+    }
+    .work-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    }
+    .work-item{
+      position:relative; overflow:hidden; border-radius:6px; cursor:pointer;
+      aspect-ratio:4/3; background:var(--paper);
+    }
+    .work-item img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .6s var(--ease);
+    }
+    .work-item:hover img{transform:scale(1.08);}
+    .work-item .work-overlay{
+      position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+      padding:16px; background:linear-gradient(180deg, transparent 40%, rgba(6,15,31,0.88) 100%);
+      opacity:0; transition:opacity .35s var(--ease);
+    }
+    .work-item:hover .work-overlay{opacity:1;}
+    .work-overlay .cat{
+      font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--dawn-300); margin-bottom:4px;
+    }
+    .work-overlay .cap{color:#fff; font-size:14px; font-weight:700; line-height:1.3;}
+    .work-item.hidden{display:none;}
+    .work-more{
+      grid-column:1/-1; text-align:center; margin-top:8px;
+    }
+
+    /* lightbox */
+    .lightbox{
+      position:fixed; inset:0; z-index:2000; background:rgba(6,15,31,0.96);
+      display:none; align-items:center; justify-content:center; padding:40px;
+    }
+    .lightbox.open{display:flex;}
+    .lightbox-inner{max-width:1100px; width:100%; text-align:center;}
+    .lightbox-inner img{
+      max-width:100%; max-height:72vh; border-radius:4px; box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .lightbox-caption{color:#fff; margin-top:18px; font-family:'Fraunces',serif; font-size:19px;}
+    .lightbox-cat{
+      font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--dawn-300); margin-top:6px;
+    }
+    .lightbox-close, .lightbox-prev, .lightbox-next{
+      position:absolute; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
+      color:#fff; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:background .3s var(--ease); font-size:16px;
+    }
+    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover{background:rgba(255,255,255,0.18);}
+    .lightbox-close{top:26px; right:26px;}
+    .lightbox-prev{left:26px; top:50%; transform:translateY(-50%);}
+    .lightbox-next{right:26px; top:50%; transform:translateY(-50%);}
+
+    @media (max-width:980px){
+      .work-grid{grid-template-columns:repeat(3,1fr);}
+    }
+    @media (max-width:600px){
+      .work-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+      .lightbox{padding:20px;}
+      .lightbox-prev, .lightbox-next{width:38px; height:38px; font-size:13px;}
+      .lightbox-prev{left:8px;} .lightbox-next{right:8px;}
+      .lightbox-close{top:10px; right:10px; width:38px; height:38px;}
+    }
+
     /* ---------- ABOUT ---------- */
     .about {
       background: var(--navy-950);
@@ -1322,6 +1399,7 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#work">Our Work</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </div>
@@ -1339,6 +1417,7 @@
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#services">Services</a>
+    <a href="#work">Our Work</a>
     <a href="#testimonials">Testimonials</a>
     <a href="#contact">Contact</a>
   </div>
@@ -1455,6 +1534,324 @@
       </div>
     </div>
   </section>
+
+  <!-- ================= OUR WORK ================= -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Our Work</div>
+        <h2>A look inside what we've built.</h2>
+        <p>Renders and finished spaces from residential, corporate and healthcare projects — filter by type to see more.</p>
+      </div>
+      <div class="work-filters reveal">
+        <button class="work-filter active" data-filter="all">All Work</button>
+        <button class="work-filter" data-filter="residential">Residential</button>
+        <button class="work-filter" data-filter="office">Office Interiors</button>
+        <button class="work-filter" data-filter="healthcare">Healthcare</button>
+      </div>
+      <div class="work-grid reveal" id="workGrid">
+        <div class="work-item" data-category="office" data-index="0">
+          <img src="images/Photos/web-thumb/1st-floor-views-5-photo.jpg" data-full="images/Photos/web-full/1st-floor-views-5-photo.jpg" alt="1st Floor Views 5" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">1st Floor Views 5</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="1">
+          <img src="images/Photos/web-thumb/option-2-renders-6-photo.jpg" data-full="images/Photos/web-full/option-2-renders-6-photo.jpg" alt="Option 2 Renders 6" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Option 2 Renders 6</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="residential" data-index="2">
+          <img src="images/Photos/web-thumb/mbr-views-15-photo.jpg" data-full="images/Photos/web-full/mbr-views-15-photo.jpg" alt="Master Bedroom Views 15" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Residential</span>
+            <span class="cap">Master Bedroom Views 15</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="3">
+          <img src="images/Photos/web-thumb/rev-renders-4-photo.jpg" data-full="images/Photos/web-full/rev-renders-4-photo.jpg" alt="Revised Renders 4" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Revised Renders 4</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="residential" data-index="4">
+          <img src="images/Photos/web-thumb/villa-gf-views-4-photo-12-photo.jpg" data-full="images/Photos/web-full/villa-gf-views-4-photo-12-photo.jpg" alt="Villa Ground Floor Views 4" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Residential</span>
+            <span class="cap">Villa Ground Floor Views 4</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="residential" data-index="5">
+          <img src="images/Photos/web-thumb/villa-views-1-photo-1-photo.jpg" data-full="images/Photos/web-full/villa-views-1-photo-1-photo.jpg" alt="Villa Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Residential</span>
+            <span class="cap">Villa Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="6">
+          <img src="images/Images/web-thumb/1st-floor-views-7-photo.jpg" data-full="images/Images/web-full/1st-floor-views-7-photo.jpg" alt="1st Floor Views 7" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">1st Floor Views 7</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="7">
+          <img src="images/Images/web-thumb/2.jpg" data-full="images/Images/web-full/2.jpg" alt="Interior View 2" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Interior View 2</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="8">
+          <img src="images/Images/web-thumb/4.jpg" data-full="images/Images/web-full/4.jpg" alt="Interior View 4" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Interior View 4</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="9">
+          <img src="images/Images/web-thumb/cafeteria-2.jpg" data-full="images/Images/web-full/cafeteria-2.jpg" alt="Cafeteria 2" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Cafeteria 2</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="10">
+          <img src="images/Images/web-thumb/cafeteria.jpg" data-full="images/Images/web-full/cafeteria.jpg" alt="Cafeteria" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Cafeteria</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="11">
+          <img src="images/Images/web-thumb/editing-room.jpg" data-full="images/Images/web-full/editing-room.jpg" alt="Editing Room" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Editing Room</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="12">
+          <img src="images/Images/web-thumb/elevation-1.jpg" data-full="images/Images/web-full/elevation-1.jpg" alt="Elevation 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Elevation 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="13">
+          <img src="images/Images/web-thumb/elevation.jpg" data-full="images/Images/web-full/elevation.jpg" alt="Elevation" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Elevation</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="14">
+          <img src="images/Images/web-thumb/entrance.jpg" data-full="images/Images/web-full/entrance.jpg" alt="Entrance" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Entrance</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="15">
+          <img src="images/Images/web-thumb/g-f-render-views-1-photo.jpg" data-full="images/Images/web-full/g-f-render-views-1-photo.jpg" alt="Ground Floor Render Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Ground Floor Render Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="16">
+          <img src="images/Images/web-thumb/g-f-render-views-4-photo.jpg" data-full="images/Images/web-full/g-f-render-views-4-photo.jpg" alt="Ground Floor Render Views 4" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Ground Floor Render Views 4</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="17">
+          <img src="images/Images/web-thumb/md-cons-1.jpg" data-full="images/Images/web-full/md-cons-1.jpg" alt="MD Cabin 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">MD Cabin 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="healthcare" data-index="18">
+          <img src="images/Images/web-thumb/o-t-views.jpg" data-full="images/Images/web-full/o-t-views.jpg" alt="Operation Theatre Views" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Healthcare</span>
+            <span class="cap">Operation Theatre Views</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="19">
+          <img src="images/Images/web-thumb/ofice-space-views-1-photo.jpg" data-full="images/Images/web-full/ofice-space-views-1-photo.jpg" alt="Office Space Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Office Space Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="20">
+          <img src="images/Images/web-thumb/ofice-space-views-14-photo.jpg" data-full="images/Images/web-full/ofice-space-views-14-photo.jpg" alt="Office Space Views 14" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Office Space Views 14</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="21">
+          <img src="images/Images/web-thumb/ofice-space-views-5-photo.jpg" data-full="images/Images/web-full/ofice-space-views-5-photo.jpg" alt="Office Space Views 5" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Office Space Views 5</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="22">
+          <img src="images/Images/web-thumb/ofice-space-views-6-photo.jpg" data-full="images/Images/web-full/ofice-space-views-6-photo.jpg" alt="Office Space Views 6" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Office Space Views 6</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="23">
+          <img src="images/Images/web-thumb/os-2.jpg" data-full="images/Images/web-full/os-2.jpg" alt="Office Space 2" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Office Space 2</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="healthcare" data-index="24">
+          <img src="images/Images/web-thumb/phar-views.jpg" data-full="images/Images/web-full/phar-views.jpg" alt="Pharmacy Views" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Healthcare</span>
+            <span class="cap">Pharmacy Views</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="25">
+          <img src="images/Images/web-thumb/rece-views.jpg" data-full="images/Images/web-full/rece-views.jpg" alt="Reception Views" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="26">
+          <img src="images/Images/web-thumb/recep-renders-4-photo.jpg" data-full="images/Images/web-full/recep-renders-4-photo.jpg" alt="Reception Renders 4" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Renders 4</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="27">
+          <img src="images/Images/web-thumb/reception-desk.jpg" data-full="images/Images/web-full/reception-desk.jpg" alt="Reception Desk" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Desk</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="28">
+          <img src="images/Images/web-thumb/reception-views1-10-photo.jpg" data-full="images/Images/web-full/reception-views1-10-photo.jpg" alt="Reception Views 10" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views 10</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="29">
+          <img src="images/Images/web-thumb/reception-views-1-photo-1.jpg" data-full="images/Images/web-full/reception-views-1-photo-1.jpg" alt="Reception Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="30">
+          <img src="images/Images/web-thumb/reception-views-5-photo.jpg" data-full="images/Images/web-full/reception-views-5-photo.jpg" alt="Reception Views 5" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views 5</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="31">
+          <img src="images/Images/web-thumb/reception.jpg" data-full="images/Images/web-full/reception.jpg" alt="Reception" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="32">
+          <img src="images/Images/web-thumb/rev-views-1-photo.jpg" data-full="images/Images/web-full/rev-views-1-photo.jpg" alt="Revised Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Revised Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="33">
+          <img src="images/Images/web-thumb/rev-views-3-photo.jpg" data-full="images/Images/web-full/rev-views-3-photo.jpg" alt="Revised Views 3" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Revised Views 3</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="34">
+          <img src="images/Images/web-thumb/revised-elevation-views-1-photo.jpg" data-full="images/Images/web-full/revised-elevation-views-1-photo.jpg" alt="Revised Elevation Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Revised Elevation Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="35">
+          <img src="images/Images/web-thumb/work-station.jpg" data-full="images/Images/web-full/work-station.jpg" alt="Work Station" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Work Station</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="36">
+          <img src="images/Images/web-thumb/ws-3.jpg" data-full="images/Images/web-full/ws-3.jpg" alt="Workstation 3" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Workstation 3</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="healthcare" data-index="37">
+          <img src="images/Images/web-thumb/i-p-room-views-1-photo-2.jpg" data-full="images/Images/web-full/i-p-room-views-1-photo-2.jpg" alt="In-Patient Room Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Healthcare</span>
+            <span class="cap">In-Patient Room Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="38">
+          <img src="images/Images/web-thumb/reception-views-1-photo.jpg" data-full="images/Images/web-full/reception-views-1-photo.jpg" alt="Reception Views 1" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views 1</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="39">
+          <img src="images/Images/web-thumb/reception-views-7-photo.jpg" data-full="images/Images/web-full/reception-views-7-photo.jpg" alt="Reception Views 7" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Reception Views 7</span>
+          </div>
+        </div>
+        <div class="work-item" data-category="office" data-index="40">
+          <img src="images/Images/web-thumb/rev-elev-final-views-2-photo.jpg" data-full="images/Images/web-full/rev-elev-final-views-2-photo.jpg" alt="Revised Elevation Final Views 2" loading="lazy" />
+          <div class="work-overlay">
+            <span class="cat">Office</span>
+            <span class="cap">Revised Elevation Final Views 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&#10005;</button>
+    <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
+    <button class="lightbox-next" id="lightboxNext">&#10095;</button>
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <div class="lightbox-cat" id="lightboxCat"></div>
+    </div>
+  </div>
 
   <!-- ================= ABOUT ================= -->
   <section class="about" id="about">
@@ -1722,6 +2119,70 @@
       });
     }, { threshold: 0.4 });
     counters.forEach(c => countIO.observe(c));
+
+    // ---------- Our Work: filters + lightbox ----------
+    const workItems = Array.from(document.querySelectorAll('.work-item'));
+    const workFilters = document.querySelectorAll('.work-filter');
+    workFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        workFilters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        workItems.forEach(item => {
+          const show = filter === 'all' || item.getAttribute('data-category') === filter;
+          item.classList.toggle('hidden', !show);
+        });
+      });
+    });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxCat = document.getElementById('lightboxCat');
+
+    function visibleItems(){ return workItems.filter(i => !i.classList.contains('hidden')); }
+    let currentLightboxIndex = 0;
+
+    function openLightbox(item){
+      const items = visibleItems();
+      currentLightboxIndex = items.indexOf(item);
+      showLightboxItem();
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function showLightboxItem(){
+      const items = visibleItems();
+      const item = items[currentLightboxIndex];
+      if (!item) return;
+      const img = item.querySelector('img');
+      lightboxImg.src = img.getAttribute('data-full');
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = img.alt;
+      lightboxCat.textContent = item.querySelector('.cat').textContent;
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    workItems.forEach(item => item.addEventListener('click', () => openLightbox(item)));
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.getElementById('lightboxPrev').addEventListener('click', () => {
+      const items = visibleItems();
+      currentLightboxIndex = (currentLightboxIndex - 1 + items.length) % items.length;
+      showLightboxItem();
+    });
+    document.getElementById('lightboxNext').addEventListener('click', () => {
+      const items = visibleItems();
+      currentLightboxIndex = (currentLightboxIndex + 1) % items.length;
+      showLightboxItem();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+      if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+    });
   </script>
 
   <!-- ================= FIREBASE: QUOTE FORM → FIRESTORE ================= -->
