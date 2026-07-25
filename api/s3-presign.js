@@ -10,8 +10,8 @@
 //   UPLOAD_SECRET            - any password you make up, shared with admin.html
 //                             (see ADMIN_UPLOAD_SECRET in admin.html)
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -29,7 +29,7 @@ function sanitizeFilename(name) {
     .replace(/^-|-$/g, "");
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Upload-Secret");
@@ -71,4 +71,5 @@ export default async function handler(req, res) {
     console.error("s3-presign error:", err);
     return res.status(500).json({ error: "Could not generate upload URL" });
   }
-}
+};
+

@@ -5,10 +5,10 @@
     { "src": "*.xml", "use": "@vercel/static" },
     { "src": "*.txt", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
-    { "src": "api/*.js", "use": "@vercel/node" }
+    { "src": "api/s3-presign.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/api/s3-presign", "dest": "/api/s3-presign.js" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
