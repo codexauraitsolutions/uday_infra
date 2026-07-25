@@ -1471,6 +1471,8 @@
             class="badge" id="testimonialsBadge">0</span></a>
         <a href="#" class="nav-item" data-page="work"><i class="fas fa-images"></i> Our Work <span class="badge"
             id="workBadge">0</span></a>
+        <a href="#" class="nav-item" data-page="clients"><i class="fas fa-handshake"></i> Our Clients <span class="badge"
+            id="clientsBadge">0</span></a>
         <a href="#" class="nav-item" data-page="team"><i class="fas fa-users"></i> Team Members <span
             class="badge">15</span></a>
 
@@ -1890,6 +1892,65 @@
           </div>
         </section>
 
+        <!-- ===== OUR CLIENTS (live Firestore + S3) ===== -->
+        <section class="page" data-page="clients">
+          <div class="page-header">
+            <h1>Our Clients</h1>
+            <p>Client logos shown as a running strip on the website, just above "Our Work". Each logo has a title and tagline.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-upload" style="color:var(--dawn-600);"></i> Add a Client</h3>
+            </div>
+            <div id="clientUploadBanner"></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Title *</label>
+                <input type="text" id="clientTitle" placeholder="e.g. Urban Hospital" />
+              </div>
+              <div class="form-group">
+                <label>Tagline</label>
+                <input type="text" id="clientTagline" placeholder="e.g. Healthcare, Nizampet" />
+              </div>
+              <div class="form-group">
+                <label>Logo *</label>
+                <input type="file" id="clientFileInput" accept="image/*" />
+              </div>
+            </div>
+            <button class="btn-sm primary" id="clientUploadBtn"><i class="fas fa-upload"></i> Upload &amp;
+              Publish</button>
+            <div id="clientUploadProgress" style="margin-top:16px; display:none;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--slate);"
+                id="clientUploadProgressText">Uploading…</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-handshake" style="color:var(--dawn-600);"></i> Published Clients</h3>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Logo</th>
+                    <th>Title</th>
+                    <th>Tagline</th>
+                    <th>Added</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="clientsBody">
+                  <tr>
+                    <td colspan="5" style="text-align:center; color:var(--slate-light);">Loading…</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <!-- ===== TEAM (mock) ===== -->
         <section class="page" data-page="team">
           <div class="page-header">
@@ -2096,6 +2157,7 @@
       { key: 'blogs', label: 'Blogs' },
       { key: 'testimonials', label: 'Testimonials' },
       { key: 'work', label: 'Our Work Gallery' },
+      { key: 'clients', label: 'Our Clients' },
       { key: 'projects', label: 'Projects' },
       { key: 'team', label: 'Team Members' },
       { key: 'settings', label: 'Settings' },
@@ -2116,6 +2178,7 @@
     let unsubUsers = null;
     let unsubTestimonials = null;
     let unsubWork = null;
+    let unsubClients = null;
     let unsubOwnProfile = null;
 
     const loginScreen = document.getElementById('loginScreen');
@@ -2141,6 +2204,7 @@
         if (unsubUsers) unsubUsers();
         if (unsubTestimonials) unsubTestimonials();
         if (unsubWork) unsubWork();
+        if (unsubClients) unsubClients();
         if (unsubOwnProfile) unsubOwnProfile();
         return;
       }
@@ -2178,6 +2242,7 @@
           startLeadsListener();
           startTestimonialsListener();
           startWorkListener();
+          startClientsListener();
           if (currentRole === 'superadmin') startUsersListener();
         }
       }, (err) => {
@@ -2491,11 +2556,11 @@
       });
     }
 
-    async function uploadOneFileToS3(file) {
+    async function uploadOneFileToS3(file, folder) {
       const presignRes = await fetch(PRESIGN_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Upload-Secret': ADMIN_UPLOAD_SECRET },
-        body: JSON.stringify({ filename: file.name, contentType: file.type })
+        body: JSON.stringify({ filename: file.name, contentType: file.type, folder: folder || 'our_work' })
       });
       if (!presignRes.ok) throw new Error('Could not get upload permission (' + presignRes.status + ')');
       const { uploadUrl, publicUrl } = await presignRes.json();
@@ -2559,6 +2624,93 @@
         ? `<div class="banner success"><i class="fa-solid fa-circle-check"></i> Uploaded ${doneCount} photo(s) successfully — they're live on the site now.</div>`
         : `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Uploaded ${doneCount}, failed ${failCount}. Check the console for details.</div>`;
     });
+
+    // ---------- Our Clients (live, S3-backed) ----------
+    const clientUploadBtn = document.getElementById('clientUploadBtn');
+    const clientFileInput = document.getElementById('clientFileInput');
+    const clientUploadBanner = document.getElementById('clientUploadBanner');
+    const clientUploadProgress = document.getElementById('clientUploadProgress');
+    const clientUploadProgressText = document.getElementById('clientUploadProgressText');
+
+    clientUploadBtn.addEventListener('click', async function () {
+      const file = clientFileInput.files && clientFileInput.files[0];
+      const title = document.getElementById('clientTitle').value.trim();
+      const tagline = document.getElementById('clientTagline').value.trim();
+      clientUploadBanner.innerHTML = '';
+
+      if (!title) {
+        clientUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Enter a title first.</div>`;
+        return;
+      }
+      if (!file) {
+        clientUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Choose a logo file first.</div>`;
+        return;
+      }
+      if (ADMIN_UPLOAD_SECRET === 'PASTE_YOUR_UPLOAD_SECRET') {
+        clientUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Upload isn't configured yet — set ADMIN_UPLOAD_SECRET in this file and UPLOAD_SECRET in Vercel first.</div>`;
+        return;
+      }
+
+      clientUploadBtn.disabled = true;
+      clientUploadProgress.style.display = 'block';
+      clientUploadProgressText.textContent = `Uploading ${file.name}…`;
+
+      try {
+        const publicUrl = await uploadOneFileToS3(file, 'client_logos');
+        await addDoc(collection(db, 'client_logos'), {
+          url: publicUrl,
+          title,
+          tagline,
+          createdAt: serverTimestamp()
+        });
+        clientUploadBanner.innerHTML = `<div class="banner success"><i class="fa-solid fa-circle-check"></i> ${title} added — live on the site now.</div>`;
+        clientFileInput.value = '';
+        document.getElementById('clientTitle').value = '';
+        document.getElementById('clientTagline').value = '';
+      } catch (err) {
+        console.error('client logo upload failed', err);
+        clientUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Upload failed. Check the console for details.</div>`;
+      } finally {
+        clientUploadProgress.style.display = 'none';
+        clientUploadBtn.disabled = false;
+      }
+    });
+
+    function startClientsListener() {
+      const q = query(collection(db, 'client_logos'), orderBy('createdAt', 'desc'));
+      unsubClients = onSnapshot(q, (snap) => {
+        const items = [];
+        snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+
+        document.getElementById('clientsBadge').textContent = items.length;
+
+        const body = document.getElementById('clientsBody');
+        if (items.length === 0) {
+          body.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fa-solid fa-handshake"></i><p>No clients yet — add one above.</p></td></tr>`;
+          return;
+        }
+
+        body.innerHTML = items.map(c => `
+          <tr>
+            <td><img class="work-thumb" src="${c.url}" alt="${escapeHtml(c.title||'')}" loading="lazy" /></td>
+            <td>${escapeHtml(c.title||'—')}</td>
+            <td>${escapeHtml(c.tagline||'—')}</td>
+            <td>${fmtDate(c.createdAt)}</td>
+            <td style="text-align:right;"><button class="btn-sm danger" data-delete-c="${c.id}" title="Remove"><i class="fas fa-trash"></i></button></td>
+          </tr>`).join('');
+
+        body.querySelectorAll('[data-delete-c]').forEach(btn => {
+          btn.addEventListener('click', async function(){
+            if (!confirm('Remove this client from the website? (The logo file stays in S3, only the listing is removed.)')) return;
+            try { await deleteDoc(doc(db, 'client_logos', this.getAttribute('data-delete-c'))); }
+            catch(err){ console.error('delete failed', err); }
+          });
+        });
+      }, (err) => {
+        console.error('clients listener error', err);
+        document.getElementById('clientsBody').innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load clients — check your access permissions.</p></td></tr>`;
+      });
+    }
 
 
 

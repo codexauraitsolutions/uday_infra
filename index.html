@@ -207,13 +207,14 @@
       box-shadow: 0 18px 36px -8px rgba(227, 154, 52, 0.65);
     }
 
+    /* Update ghost button for yellow header */
     .btn-ghost {
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #fff;
+      border: 1px solid var(--navy-950);
+      color: var(--navy-950);
     }
 
     .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(6, 15, 31, 0.08);
       transform: translateY(-2px);
     }
 
@@ -241,13 +242,13 @@
       z-index: 200;
       padding: 18px 0;
       transition: padding .4s var(--ease), background .4s var(--ease), box-shadow .4s var(--ease);
+      background: linear-gradient(135deg, var(--dawn-400), var(--dawn-500));
     }
 
     header.scrolled {
       padding: 10px 0;
-      background: rgba(6, 15, 31, 0.86);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 10px 30px rgba(6, 15, 31, 0.25);
+      background: linear-gradient(135deg, var(--dawn-400), var(--dawn-500));
+      box-shadow: 0 10px 30px rgba(227, 154, 52, 0.35);
     }
 
     nav.wrap {
@@ -271,7 +272,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       letter-spacing: .14em;
-      color: rgba(255, 255, 255, 0.55);
+      color: var(--navy-950);
       text-transform: uppercase;
     }
 
@@ -281,10 +282,12 @@
       gap: 28px;
     }
 
+
+    /* Update navigation links for yellow header */
     .nav-links a {
       font-size: 14px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.82);
+      color: var(--navy-950);
       position: relative;
       padding: 6px 0;
     }
@@ -296,7 +299,7 @@
       bottom: 0;
       height: 2px;
       width: 0;
-      background: var(--dawn-400);
+      background: var(--navy-900);
       transition: width .3s var(--ease);
     }
 
@@ -319,7 +322,7 @@
 
     .burger span {
       height: 2px;
-      background: #fff;
+      background: var(--navy-950);
       border-radius: 2px;
     }
 
@@ -658,6 +661,101 @@
       font-size: 14px;
       color: var(--slate);
       line-height: 1.65;
+    }
+
+    /* ---------- OUR CLIENTS STRIP ---------- */
+    .clients-strip {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 36px 0;
+      overflow: hidden;
+    }
+
+    .clients-strip-head {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .clients-strip-head .eyebrow {
+      justify-content: center;
+    }
+
+    .clients-track-wrap {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .clients-track {
+      display: flex;
+      align-items: stretch;
+      width: max-content;
+      animation: clients-scroll 38s linear infinite;
+    }
+
+    .clients-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes clients-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .client-card {
+      flex: 0 0 auto;
+      width: 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 28px;
+      border-right: 1px solid var(--line);
+    }
+
+    .client-card img {
+      height: 46px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.75;
+      transition: filter .3s var(--ease), opacity .3s var(--ease);
+      margin-bottom: 10px;
+    }
+
+    .client-card:hover img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    .client-card b {
+      font-size: 13px;
+      color: var(--navy-900);
+      font-weight: 700;
+    }
+
+    .client-card span {
+      font-size: 11.5px;
+      color: var(--slate-light);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .client-card {
+        width: 150px;
+        padding: 0 18px;
+      }
+
+      .client-card img {
+        height: 36px;
+      }
     }
 
     /* ---------- OUR WORK / GALLERY ---------- */
@@ -1595,7 +1693,7 @@
   <header id="siteHeader">
     <nav class="wrap">
       <a href="#home" class="brand">
-        <img src="images/logo.jpg" alt="Uday Infra logo" />
+        <img src="images/logo.svg" alt="Uday Infra logo" />
         <!-- <img src="data:image/jpeg;base64,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" alt="Uday Infra logo" /> -->
         <span class="brand-text">Est. Hyderabad</span>
       </a>
@@ -1738,6 +1836,16 @@
       </div>
     </div>
   </section>
+
+  <!-- ================= OUR CLIENTS ================= -->
+  <div class="clients-strip" id="clientsStripSection" style="display:none;">
+    <div class="wrap clients-strip-head reveal">
+      <div class="eyebrow">Our Clients</div>
+    </div>
+    <div class="clients-track-wrap">
+      <div class="clients-track" id="clientsTrack"></div>
+    </div>
+  </div>
 
   <!-- ================= OUR WORK ================= -->
   <section id="work">
@@ -2525,7 +2633,34 @@
       }
     })();
 
-    const quoteForm = document.getElementById('quoteForm');
+    (async function loadClientLogos() {
+      const section = document.getElementById('clientsStripSection');
+      const track = document.getElementById('clientsTrack');
+      if (!section || !track) return;
+      try {
+        const q = query(collection(db, 'client_logos'), orderBy('createdAt', 'desc'));
+        const snap = await getDocs(q);
+        if (snap.empty) return; // no clients added yet — keep the strip hidden
+
+        const items = [];
+        snap.forEach(d => items.push(d.data()));
+
+        const cardHtml = items.map(c => `
+          <div class="client-card">
+            <img src="${c.url}" alt="${escapeHtml(c.title || '')}" loading="lazy" />
+            <b>${escapeHtml(c.title || '')}</b>
+            ${c.tagline ? `<span>${escapeHtml(c.tagline)}</span>` : ''}
+          </div>`).join('');
+
+        // duplicate the list so the CSS animation (translateX -50%) loops seamlessly
+        track.innerHTML = cardHtml + cardHtml;
+        section.style.display = 'block';
+      } catch (err) {
+        console.error('Could not load client logos:', err);
+      }
+    })();
+
+
     const formNote = document.getElementById('formNote');
     const phoneInput = document.getElementById('fphone');
     const defaultNote = "We'll never share your information.";

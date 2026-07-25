@@ -29,6 +29,10 @@ function sanitizeFilename(name) {
     .replace(/^-|-$/g, "");
 }
 
+// Only these folders are allowed — prevents the upload endpoint from being used
+// to write anywhere else in the bucket, even by someone who has the shared secret.
+const ALLOWED_FOLDERS = ["our_work", "client_logos"];
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -46,16 +50,17 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { filename, contentType } = req.body || {};
+    const { filename, contentType, folder } = req.body || {};
     if (!filename || !contentType) {
       return res.status(400).json({ error: "filename and contentType are required" });
     }
     if (!contentType.startsWith("image/")) {
       return res.status(400).json({ error: "Only image uploads are allowed" });
     }
+    const targetFolder = ALLOWED_FOLDERS.includes(folder) ? folder : "our_work";
 
     const clean = sanitizeFilename(filename);
-    const key = `our_work/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${clean}`;
+    const key = `${targetFolder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${clean}`;
 
     const command = new PutObjectCommand({
       Bucket: process.env.S3_BUCKET,
