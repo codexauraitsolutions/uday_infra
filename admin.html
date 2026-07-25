@@ -308,6 +308,13 @@
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none; border-color:var(--dawn-500); background:#fff;}
   .form-group textarea{min-height:90px; resize:vertical;}
+  .form-group input[type="file"]{padding:9px 12px; cursor:pointer;}
+
+  .work-thumb{width:64px; height:48px; object-fit:cover; border-radius:6px; display:block;}
+  .upload-progress-row{display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--slate); padding:4px 0;}
+  .upload-progress-row i{color:var(--dawn-600);}
+  .upload-progress-row.done i{color:var(--success);}
+  .upload-progress-row.failed i{color:var(--danger);}
 
   .quick-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:8px;}
   .quick-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); text-align:center; padding:22px; cursor:pointer; transition:var(--transition);}
@@ -479,6 +486,7 @@
     <a href="#" class="nav-item" data-page="blogs"><i class="fas fa-file-alt"></i> Blogs <span class="badge">24</span></a>
     <a href="#" class="nav-item" data-page="projects"><i class="fas fa-project-diagram"></i> Projects <span class="badge">32</span></a>
     <a href="#" class="nav-item" data-page="testimonials"><i class="fas fa-comment"></i> Testimonials <span class="badge" id="testimonialsBadge">0</span></a>
+    <a href="#" class="nav-item" data-page="work"><i class="fas fa-images"></i> Our Work <span class="badge" id="workBadge">0</span></a>
     <a href="#" class="nav-item" data-page="team"><i class="fas fa-users"></i> Team Members <span class="badge">15</span></a>
 
     <div class="nav-label" style="margin-top:16px;">Management</div>
@@ -670,6 +678,46 @@
       </div>
     </section>
 
+    <!-- ===== OUR WORK (live Firestore + S3) ===== -->
+    <section class="page" data-page="work">
+      <div class="page-header"><h1>Our Work Gallery</h1><p>Photos shown in the "Our Work" section of the website. Images are stored in S3; only approved-quality uploads should go here — anything added shows on the live site immediately.</p></div>
+
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-upload" style="color:var(--dawn-600);"></i> Upload New Photos</h3></div>
+        <div id="workUploadBanner"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="workCategory">
+              <option value="residential">Residential</option>
+              <option value="office">Office Interiors</option>
+              <option value="healthcare">Healthcare</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label>Photos (you can select multiple)</label>
+            <input type="file" id="workFileInput" accept="image/*" multiple />
+          </div>
+        </div>
+        <button class="btn-sm primary" id="workUploadBtn"><i class="fas fa-upload"></i> Upload &amp; Publish</button>
+        <div id="workUploadProgress" style="margin-top:16px; display:none;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--slate);" id="workUploadProgressText">Uploading…</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3><i class="fas fa-images" style="color:var(--dawn-600);"></i> Published Photos</h3></div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Preview</th><th>Category</th><th>Caption</th><th>Uploaded</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody id="workBody">
+              <tr><td colspan="5" style="text-align:center; color:var(--slate-light);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== TEAM (mock) ===== -->
     <section class="page" data-page="team">
       <div class="page-header"><h1>Team Members <span class="proto-tag"><i class="fa-solid fa-flask"></i> Prototype UI — not yet connected to a database</span></h1><p>The people behind Uday Infra projects.</p></div>
@@ -794,6 +842,12 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  // Must match the UPLOAD_SECRET environment variable set in Vercel (api/s3-presign.js).
+  // This just keeps the upload endpoint from being wide open to the public internet —
+  // change this string AND the Vercel env var together if you ever need to rotate it.
+  const ADMIN_UPLOAD_SECRET = "UdayInfra";
+  const PRESIGN_ENDPOINT = "/api/s3-presign";
+
 
   // Modules a Super Admin can grant/revoke per Admin, anytime.
   // "dashboard" is always visible to any signed-in user; "users" is always Super-Admin-only
@@ -802,6 +856,7 @@
     { key: 'leads',        label: 'Quote Leads' },
     { key: 'blogs',        label: 'Blogs' },
     { key: 'testimonials', label: 'Testimonials' },
+    { key: 'work',         label: 'Our Work Gallery' },
     { key: 'projects',     label: 'Projects' },
     { key: 'team',         label: 'Team Members' },
     { key: 'settings',     label: 'Settings' },
@@ -821,6 +876,7 @@
   let unsubLeads = null;
   let unsubUsers = null;
   let unsubTestimonials = null;
+  let unsubWork = null;
   let unsubOwnProfile = null;
 
   const loginScreen = document.getElementById('loginScreen');
@@ -845,6 +901,7 @@
       if (unsubLeads) unsubLeads();
       if (unsubUsers) unsubUsers();
       if (unsubTestimonials) unsubTestimonials();
+      if (unsubWork) unsubWork();
       if (unsubOwnProfile) unsubOwnProfile();
       return;
     }
@@ -881,6 +938,7 @@
 
         startLeadsListener();
         startTestimonialsListener();
+        startWorkListener();
         if (currentRole === 'superadmin') startUsersListener();
       }
     }, (err) => {
@@ -1156,6 +1214,148 @@
       document.getElementById('testimonialsBody').innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load testimonials — check your access permissions.</p></td></tr>`;
     });
   }
+
+  // ---------- Our Work gallery (live, S3-backed) ----------
+  function startWorkListener(){
+    const q = query(collection(db, 'work_items'), orderBy('createdAt', 'desc'));
+    unsubWork = onSnapshot(q, (snap) => {
+      const items = [];
+      snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+
+      document.getElementById('workBadge').textContent = items.length;
+
+      const body = document.getElementById('workBody');
+      if (items.length === 0) {
+        body.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fa-solid fa-images"></i><p>No photos yet — upload some above.</p></td></tr>`;
+        return;
+      }
+
+      body.innerHTML = items.map(w => `
+        <tr>
+          <td><img class="work-thumb" src="${w.url}" alt="${escapeHtml(w.caption||'')}" loading="lazy" /></td>
+          <td>${escapeHtml(w.category||'—')}</td>
+          <td>${escapeHtml(w.caption||'—')}</td>
+          <td>${fmtDate(w.createdAt)}</td>
+          <td style="text-align:right;"><button class="btn-sm danger" data-delete-w="${w.id}" title="Remove from site"><i class="fas fa-trash"></i></button></td>
+        </tr>`).join('');
+
+      body.querySelectorAll('[data-delete-w]').forEach(btn => {
+        btn.addEventListener('click', async function(){
+          if (!confirm('Remove this photo from the website? (The file stays in S3, only the listing is removed.)')) return;
+          try { await deleteDoc(doc(db, 'work_items', this.getAttribute('data-delete-w'))); }
+          catch(err){ console.error('delete failed', err); }
+        });
+      });
+    }, (err) => {
+      console.error('work listener error', err);
+      document.getElementById('workBody').innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load photos — check your access permissions.</p></td></tr>`;
+    });
+  }
+
+  async function uploadOneFileToS3(file){
+    const presignRes = await fetch(PRESIGN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Upload-Secret': ADMIN_UPLOAD_SECRET },
+      body: JSON.stringify({ filename: file.name, contentType: file.type })
+    });
+    if (!presignRes.ok) throw new Error('Could not get upload permission (' + presignRes.status + ')');
+    const { uploadUrl, publicUrl } = await presignRes.json();
+
+    const putRes = await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file });
+    if (!putRes.ok) throw new Error('S3 upload failed (' + putRes.status + ')');
+
+    return publicUrl;
+  }
+
+  function captionFromFilename(name){
+    return name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  const workUploadBtn = document.getElementById('workUploadBtn');
+  const workFileInput = document.getElementById('workFileInput');
+  const workUploadBanner = document.getElementById('workUploadBanner');
+  const workUploadProgress = document.getElementById('workUploadProgress');
+  const workUploadProgressText = document.getElementById('workUploadProgressText');
+
+  workUploadBtn.addEventListener('click', async function(){
+    const files = Array.from(workFileInput.files || []);
+    const category = document.getElementById('workCategory').value;
+    workUploadBanner.innerHTML = '';
+
+    if (files.length === 0) {
+      workUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Choose at least one photo first.</div>`;
+      return;
+    }
+    if (ADMIN_UPLOAD_SECRET === 'PASTE_YOUR_UPLOAD_SECRET') {
+      workUploadBanner.innerHTML = `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Upload isn't configured yet — set ADMIN_UPLOAD_SECRET in this file and UPLOAD_SECRET in Vercel first.</div>`;
+      return;
+    }
+
+    workUploadBtn.disabled = true;
+    workUploadProgress.style.display = 'block';
+    let doneCount = 0, failCount = 0;
+
+    for (const file of files) {
+      workUploadProgressText.textContent = `Uploading ${doneCount + failCount + 1} of ${files.length}: ${file.name}`;
+      try {
+        const publicUrl = await uploadOneFileToS3(file);
+        await addDoc(collection(db, 'work_items'), {
+          url: publicUrl,
+          category,
+          caption: captionFromFilename(file.name),
+          createdAt: serverTimestamp()
+        });
+        doneCount++;
+      } catch (err) {
+        console.error('upload failed for', file.name, err);
+        failCount++;
+      }
+    }
+
+    workUploadProgress.style.display = 'none';
+    workUploadBtn.disabled = false;
+    workFileInput.value = '';
+    workUploadBanner.innerHTML = failCount === 0
+      ? `<div class="banner success"><i class="fa-solid fa-circle-check"></i> Uploaded ${doneCount} photo(s) successfully — they're live on the site now.</div>`
+      : `<div class="banner error"><i class="fa-solid fa-triangle-exclamation"></i> Uploaded ${doneCount}, failed ${failCount}. Check the console for details.</div>`;
+  });
+
+
+
+  // One-time helper: migrates your existing 41 gallery photos (currently sitting
+  // as static files in images/Photos and images/Images) into S3 + Firestore.
+  // Run this ONCE from the browser console (F12) while logged in as Super Admin
+  // on this admin.html page:   await window.__migrateWorkGallery()
+  window.__migrateWorkGallery = async function() {
+    const items = [{"path": "images/Photos/web-full/1st-floor-views-5-photo.jpg", "category": "office", "caption": "1st Floor Views 5"}, {"path": "images/Photos/web-full/option-2-renders-6-photo.jpg", "category": "office", "caption": "Option 2 Renders 6"}, {"path": "images/Photos/web-full/mbr-views-15-photo.jpg", "category": "residential", "caption": "Master Bedroom Views 15"}, {"path": "images/Photos/web-full/rev-renders-4-photo.jpg", "category": "office", "caption": "Revised Renders 4"}, {"path": "images/Photos/web-full/villa-gf-views-4-photo-12-photo.jpg", "category": "residential", "caption": "Villa Ground Floor Views 4"}, {"path": "images/Photos/web-full/villa-views-1-photo-1-photo.jpg", "category": "residential", "caption": "Villa Views 1"}, {"path": "images/Images/web-full/1st-floor-views-7-photo.jpg", "category": "office", "caption": "1st Floor Views 7"}, {"path": "images/Images/web-full/2.jpg", "category": "office", "caption": "Interior View 2"}, {"path": "images/Images/web-full/4.jpg", "category": "office", "caption": "Interior View 4"}, {"path": "images/Images/web-full/cafeteria-2.jpg", "category": "office", "caption": "Cafeteria 2"}, {"path": "images/Images/web-full/cafeteria.jpg", "category": "office", "caption": "Cafeteria"}, {"path": "images/Images/web-full/editing-room.jpg", "category": "office", "caption": "Editing Room"}, {"path": "images/Images/web-full/elevation-1.jpg", "category": "office", "caption": "Elevation 1"}, {"path": "images/Images/web-full/elevation.jpg", "category": "office", "caption": "Elevation"}, {"path": "images/Images/web-full/entrance.jpg", "category": "office", "caption": "Entrance"}, {"path": "images/Images/web-full/g-f-render-views-1-photo.jpg", "category": "office", "caption": "Ground Floor Render Views 1"}, {"path": "images/Images/web-full/g-f-render-views-4-photo.jpg", "category": "office", "caption": "Ground Floor Render Views 4"}, {"path": "images/Images/web-full/md-cons-1.jpg", "category": "office", "caption": "MD Cabin 1"}, {"path": "images/Images/web-full/o-t-views.jpg", "category": "healthcare", "caption": "Operation Theatre Views"}, {"path": "images/Images/web-full/ofice-space-views-1-photo.jpg", "category": "office", "caption": "Office Space Views 1"}, {"path": "images/Images/web-full/ofice-space-views-14-photo.jpg", "category": "office", "caption": "Office Space Views 14"}, {"path": "images/Images/web-full/ofice-space-views-5-photo.jpg", "category": "office", "caption": "Office Space Views 5"}, {"path": "images/Images/web-full/ofice-space-views-6-photo.jpg", "category": "office", "caption": "Office Space Views 6"}, {"path": "images/Images/web-full/os-2.jpg", "category": "office", "caption": "Office Space 2"}, {"path": "images/Images/web-full/phar-views.jpg", "category": "healthcare", "caption": "Pharmacy Views"}, {"path": "images/Images/web-full/rece-views.jpg", "category": "office", "caption": "Reception Views"}, {"path": "images/Images/web-full/recep-renders-4-photo.jpg", "category": "office", "caption": "Reception Renders 4"}, {"path": "images/Images/web-full/reception-desk.jpg", "category": "office", "caption": "Reception Desk"}, {"path": "images/Images/web-full/reception-views1-10-photo.jpg", "category": "office", "caption": "Reception Views 10"}, {"path": "images/Images/web-full/reception-views-1-photo-1.jpg", "category": "office", "caption": "Reception Views 1"}, {"path": "images/Images/web-full/reception-views-5-photo.jpg", "category": "office", "caption": "Reception Views 5"}, {"path": "images/Images/web-full/reception.jpg", "category": "office", "caption": "Reception"}, {"path": "images/Images/web-full/rev-views-1-photo.jpg", "category": "office", "caption": "Revised Views 1"}, {"path": "images/Images/web-full/rev-views-3-photo.jpg", "category": "office", "caption": "Revised Views 3"}, {"path": "images/Images/web-full/revised-elevation-views-1-photo.jpg", "category": "office", "caption": "Revised Elevation Views 1"}, {"path": "images/Images/web-full/work-station.jpg", "category": "office", "caption": "Work Station"}, {"path": "images/Images/web-full/ws-3.jpg", "category": "office", "caption": "Workstation 3"}, {"path": "images/Images/web-full/i-p-room-views-1-photo-2.jpg", "category": "healthcare", "caption": "In-Patient Room Views 1"}, {"path": "images/Images/web-full/reception-views-1-photo.jpg", "category": "office", "caption": "Reception Views 1"}, {"path": "images/Images/web-full/reception-views-7-photo.jpg", "category": "office", "caption": "Reception Views 7"}, {"path": "images/Images/web-full/rev-elev-final-views-2-photo.jpg", "category": "office", "caption": "Revised Elevation Final Views 2"}]
+;
+    console.log('Migrating', items.length, 'existing photos to S3...');
+    let done = 0, failed = 0;
+    for (const it of items) {
+      try {
+        const res = await fetch(it.path);
+        if (!res.ok) throw new Error('Could not read local file: ' + it.path);
+        const blob = await res.blob();
+        const filename = it.path.split('/').pop();
+        const file = new File([blob], filename, { type: blob.type || 'image/jpeg' });
+        const publicUrl = await uploadOneFileToS3(file);
+        await addDoc(collection(db, 'work_items'), {
+          url: publicUrl,
+          category: it.category,
+          caption: it.caption,
+          createdAt: serverTimestamp()
+        });
+        done++;
+        console.log('Migrated', filename);
+      } catch (err) {
+        failed++;
+        console.error('Failed to migrate', it.path, err);
+      }
+    }
+    console.log(`Done. Migrated: ${done}, Failed: ${failed}`);
+    return { done, failed };
+  };
 
   // ---------- Users & roles (super admin only) ----------
   function permissionChipsHtml(uid, currentPerms){

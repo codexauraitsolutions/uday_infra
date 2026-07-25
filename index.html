@@ -44,7 +44,7 @@
       "streetAddress": "Plot No. 9, Road No. 1, Bank Colony, Suchitra Circle, Quthbullapur",
       "addressLocality": "Hyderabad",
       "addressRegion": "Telangana",
-      "postalCode": "500015",
+      "postalCode": "500054",
       "addressCountry": "IN"
     },
     "areaServed": "Hyderabad",
@@ -1604,7 +1604,7 @@
         <button class="work-filter" data-filter="office">Office Interiors</button>
         <button class="work-filter" data-filter="healthcare">Healthcare</button>
       </div>
-      <div class="work-grid reveal" id="workGrid">
+      <div class="work-grid reveal" id="workGrid" data-fallback="true">
         <div class="work-item" data-category="office" data-index="0">
           <img src="images/Photos/web-thumb/1st-floor-views-5-photo.jpg" data-full="images/Photos/web-full/1st-floor-views-5-photo.jpg" alt="1st Floor Views 5" loading="lazy" />
           <div class="work-overlay">
@@ -1962,7 +1962,7 @@
         <div class="eyebrow" style="justify-content:center;">What clients say</div>
         <h2>Real feedback from real projects.</h2>
       </div>
-      <div class="t-grid reveal">
+      <div class="t-grid reveal" id="testimonialsGrid" data-fallback="true">
         <div class="t-card">
           <span class="quote-mark">&ldquo;</span>
           <p>Uday Infra delivered our hospital project with exceptional professionalism and attention to detail. Their
@@ -2175,15 +2175,15 @@
     }, { threshold: 0.4 });
     counters.forEach(c => countIO.observe(c));
 
-    // ---------- Our Work: filters + lightbox ----------
-    const workItems = Array.from(document.querySelectorAll('.work-item'));
+    // ---------- Our Work: filters + lightbox (works with static OR dynamically-loaded items) ----------
+    const workGridEl = document.getElementById('workGrid');
     const workFilters = document.querySelectorAll('.work-filter');
     workFilters.forEach(btn => {
       btn.addEventListener('click', () => {
         workFilters.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.getAttribute('data-filter');
-        workItems.forEach(item => {
+        Array.from(workGridEl.querySelectorAll('.work-item')).forEach(item => {
           const show = filter === 'all' || item.getAttribute('data-category') === filter;
           item.classList.toggle('hidden', !show);
         });
@@ -2195,7 +2195,7 @@
     const lightboxCaption = document.getElementById('lightboxCaption');
     const lightboxCat = document.getElementById('lightboxCat');
 
-    function visibleItems(){ return workItems.filter(i => !i.classList.contains('hidden')); }
+    function visibleItems(){ return Array.from(workGridEl.querySelectorAll('.work-item')).filter(i => !i.classList.contains('hidden')); }
     let currentLightboxIndex = 0;
 
     function openLightbox(item){
@@ -2210,7 +2210,7 @@
       const item = items[currentLightboxIndex];
       if (!item) return;
       const img = item.querySelector('img');
-      lightboxImg.src = img.getAttribute('data-full');
+      lightboxImg.src = img.getAttribute('data-full') || img.src;
       lightboxImg.alt = img.alt;
       lightboxCaption.textContent = img.alt;
       lightboxCat.textContent = item.querySelector('.cat').textContent;
@@ -2219,7 +2219,10 @@
       lightbox.classList.remove('open');
       document.body.style.overflow = '';
     }
-    workItems.forEach(item => item.addEventListener('click', () => openLightbox(item)));
+    workGridEl.addEventListener('click', (e) => {
+      const item = e.target.closest('.work-item');
+      if (item) openLightbox(item);
+    });
     document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.getElementById('lightboxPrev').addEventListener('click', () => {
@@ -2243,7 +2246,7 @@
   <!-- ================= FIREBASE: QUOTE FORM → FIRESTORE ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCY9JLrcqVYc8iaH0DbgJCY_xs6aoHJNPE",
@@ -2257,6 +2260,66 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    // ---------- Live content from Firestore (falls back to the static cards already in the HTML if empty/offline) ----------
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+    function initials(name) {
+      return String(name || '').trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
+    }
+
+    (async function loadTestimonials(){
+      const grid = document.getElementById('testimonialsGrid');
+      try {
+        const q = query(collection(db, 'testimonials'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'));
+        const snap = await getDocs(q);
+        if (snap.empty) return; // keep the static fallback cards
+
+        const items = [];
+        snap.forEach(d => items.push(d.data()));
+
+        grid.setAttribute('data-fallback', 'false');
+        grid.innerHTML = items.map(t => `
+          <div class="t-card">
+            <span class="quote-mark">&ldquo;</span>
+            <p>${escapeHtml(t.review || '')}</p>
+            <div class="t-person">
+              <div class="t-avatar">${escapeHtml(initials(t.name))}</div>
+              <div><b>${escapeHtml(t.name || '')}</b><span>${escapeHtml(t.company || '')}</span></div>
+            </div>
+          </div>`).join('');
+      } catch (err) {
+        console.error('Could not load live testimonials, showing defaults:', err);
+      }
+    })();
+
+    (async function loadWorkGallery(){
+      const grid = document.getElementById('workGrid');
+      if (!grid) return;
+      try {
+        const q = query(collection(db, 'work_items'), orderBy('createdAt', 'desc'));
+        const snap = await getDocs(q);
+        if (snap.empty) return; // keep the static fallback photos already in the HTML
+
+        const items = [];
+        snap.forEach(d => items.push(d.data()));
+
+        const catLabel = { residential: 'Residential', office: 'Office Interiors', healthcare: 'Healthcare' };
+
+        grid.setAttribute('data-fallback', 'false');
+        grid.innerHTML = items.map((w, i) => `
+          <div class="work-item" data-category="${escapeHtml(w.category || '')}" data-index="${i}">
+            <img src="${w.url}" data-full="${w.url}" alt="${escapeHtml(w.caption || '')}" loading="lazy" />
+            <div class="work-overlay">
+              <span class="cat">${escapeHtml(catLabel[w.category] || w.category || '')}</span>
+              <span class="cap">${escapeHtml(w.caption || '')}</span>
+            </div>
+          </div>`).join('');
+      } catch (err) {
+        console.error('Could not load live gallery, showing defaults:', err);
+      }
+    })();
 
     const quoteForm = document.getElementById('quoteForm');
     const formNote = document.getElementById('formNote');
